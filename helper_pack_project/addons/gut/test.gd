@@ -36,6 +36,7 @@
 # run by the Gut class in gut.gd
 # ##############################################################################
 extends Node
+class_name GutTest
 
 # ------------------------------------------------------------------------------
 # Helper class to hold info for objects to double.  This extracts info and has

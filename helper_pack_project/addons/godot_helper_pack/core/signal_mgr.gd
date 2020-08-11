@@ -6,24 +6,24 @@ Signal Manager automatically connects subscribers to the signals of publishers.
 
 class Subscriber:
 	var subscriber: Object
-	var signalName: String
-	var method: String
+	var signal_name: String
+	var method_name: String
 	var binds
-	func _init(subscriber_: Object, signalName_: String, method_: String, binds_:Array) -> void:
+	func _init(subscriber_: Object, signal_name_: String, method_name_: String, binds_:Array) -> void:
 		subscriber = subscriber_
-		signalName = signalName_
-		method = method_
+		signal_name = signal_name_
+		method_name = method_name_
 		binds = binds_
 	func connect_publisher(publisher: Object) -> void:
-		if !publisher.is_connected(signalName, subscriber, method):
-			publisher.connect(signalName, subscriber, method, binds)
+		if !publisher.is_connected(signal_name, subscriber, method_name):
+			publisher.connect(signal_name, subscriber, method_name, binds)
 
 class Publisher:
 	var publisher: Object
-	var signalName: String
-	func _init(publisher_: Object, signalName_: String) -> void:
+	var signal_name: String
+	func _init(publisher_: Object, signal_name_: String) -> void:
 		publisher = publisher_
-		signalName = signalName_
+		signal_name = signal_name_
 	func connect_subscribers(subscribers: Subscriber) -> void:
 		for subscriber in subscribers:
 			subscriber.connect_publisher(publisher)
@@ -31,16 +31,16 @@ class Publisher:
 		subscriber.connect_publisher(publisher)
 
 
-var subscriber_method_prefix := "_on_"
+var subscriber_method_name_prefix := "_on_"
 
 var _subscribers = {}
 var _publishers = {}
 
 
-func register_subscriber(subscriber: Object, signalName: String, method: String="", binds:Array =Array()) -> void:
-	if method == "":
-		method = subscriber_method_prefix + signalName
-	var sub = Subscriber.new(subscriber, signalName, method, binds)
+func register_subscriber(subscriber: Object, signal_name: String, method_name: String="", binds:Array =Array()) -> void:
+	if method_name == "":
+		method_name = subscriber_method_name_prefix + signal_name
+	var sub = Subscriber.new(subscriber, signal_name, method_name, binds)
 	var instance_id = subscriber.get_instance_id()
 	if !_subscribers.has(instance_id):
 		_subscribers[instance_id] = []
@@ -48,12 +48,12 @@ func register_subscriber(subscriber: Object, signalName: String, method: String=
 	_subscribers[instance_id].append(sub)
 	for pubs in _publishers.values():
 		for pub in pubs:
-			if pub.signalName == sub.signalName:
+			if pub.signal_name == sub.signal_name:
 				pub.connect_subscriber(sub)
 
 
-func register_publisher(publisher: Object, signalName: String) -> void:
-	var pub = Publisher.new(publisher, signalName)
+func register_publisher(publisher: Object, signal_name: String) -> void:
+	var pub = Publisher.new(publisher, signal_name)
 	var instance_id = publisher.get_instance_id()
 	if !_publishers.has(instance_id):
 		_publishers[instance_id] = []
@@ -61,7 +61,7 @@ func register_publisher(publisher: Object, signalName: String) -> void:
 	_publishers[instance_id].append(pub)
 	for subs in _subscribers.values():
 		for sub in subs:
-			if sub.signalName == pub.signalName:
+			if sub.signal_name == pub.signal_name:
 				pub.connect_subscriber(sub)
 
 

@@ -8,9 +8,26 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Node",
+"class": "GutTest",
+"language": "GDScript",
+"path": "res://addons/gut/test.gd"
+}, {
+"base": "Node",
+"class": "State",
+"language": "GDScript",
+"path": "res://addons/godot_helper_pack/core/state_machine/state.gd"
+}, {
+"base": "Node",
+"class": "StateMachine",
+"language": "GDScript",
+"path": "res://addons/godot_helper_pack/core/state_machine/state_machine.gd"
+} ]
 _global_script_class_icons={
-
+"GutTest": "",
+"State": "",
+"StateMachine": ""
 }
 
 [application]
