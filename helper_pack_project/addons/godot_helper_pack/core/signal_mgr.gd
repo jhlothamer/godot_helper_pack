@@ -9,11 +9,11 @@ class Subscriber:
 	var signal_name: String
 	var method_name: String
 	var binds
-	func _init(subscriber_: Object, signal_name_: String, method_name_: String, binds_:Array) -> void:
-		subscriber = subscriber_
-		signal_name = signal_name_
-		method_name = method_name_
-		binds = binds_
+	func _init(_subscriber: Object, _signal_name: String, _method_name: String, _binds:Array) -> void:
+		subscriber = _subscriber
+		signal_name = _signal_name
+		method_name = _method_name
+		binds = _binds
 	func connect_publisher(publisher: Object) -> void:
 		if !publisher.is_connected(signal_name, subscriber, method_name):
 			publisher.connect(signal_name, subscriber, method_name, binds)
@@ -21,9 +21,9 @@ class Subscriber:
 class Publisher:
 	var publisher: Object
 	var signal_name: String
-	func _init(publisher_: Object, signal_name_: String) -> void:
-		publisher = publisher_
-		signal_name = signal_name_
+	func _init(_publisher: Object, _signal_name: String) -> void:
+		publisher = _publisher
+		signal_name = _signal_name
 	func connect_subscribers(subscribers: Subscriber) -> void:
 		for subscriber in subscribers:
 			subscriber.connect_publisher(publisher)
@@ -37,7 +37,8 @@ var _subscribers = {}
 var _publishers = {}
 
 
-func register_subscriber(subscriber: Object, signal_name: String, method_name: String="", binds:Array =Array()) -> void:
+func register_subscriber(subscriber: Object, signal_name: String,
+	method_name: String="", binds:Array =Array()) -> void:
 	if method_name == "":
 		method_name = subscriber_method_name_prefix + signal_name
 	var sub = Subscriber.new(subscriber, signal_name, method_name, binds)
@@ -75,9 +76,9 @@ func unregister_publisher(publisher: Object) -> void:
 	_publishers.erase(instance_id)
 
 
-func unregister(publisherOrSubscriber: Object) -> void:
-	unregister_publisher(publisherOrSubscriber)
-	unregister_subscriber(publisherOrSubscriber)
+func unregister(publisher_or_subscriber: Object) -> void:
+	unregister_publisher(publisher_or_subscriber)
+	unregister_subscriber(publisher_or_subscriber)
 
 
 func clear() -> void:
@@ -85,10 +86,10 @@ func clear() -> void:
 	_publishers.clear()
 
 
-func _watch_tree_exited(publisherSubscriber: Object) -> void:
-	if !publisherSubscriber.is_connected("tree_exited", self, "_on_tree_exited"):
-		publisherSubscriber.connect("tree_exited", self, "_on_tree_exited", [publisherSubscriber])
+func _watch_tree_exited(publisher_or_subscriber: Object) -> void:
+	if !publisher_or_subscriber.is_connected("tree_exited", self, "_on_tree_exited"):
+		publisher_or_subscriber.connect("tree_exited", self, "_on_tree_exited", [publisher_or_subscriber])
 
 
-func _on_tree_exited(publisherSubscriber: Object) -> void:
-	unregister(publisherSubscriber)
+func _on_tree_exited(publisher_or_subscriber: Object) -> void:
+	unregister(publisher_or_subscriber)

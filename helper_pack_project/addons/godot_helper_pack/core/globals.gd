@@ -1,12 +1,11 @@
-
 extends Node
 
 """
 Globals dictionary.  To use add to the auto-load list for the project.
 """
 
+var _properties: Dictionary = {}
 
-var _properties = {}
 
 # adds or changes a property value
 func set(property_name: String, value) -> void:
@@ -28,3 +27,4 @@ func erase(property_name: String) -> void:
 # removes all property values.
 func clear() -> void:
 	_properties.clear()
+
