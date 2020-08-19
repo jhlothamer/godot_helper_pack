@@ -6,8 +6,8 @@ var enter_called := false
 var exit_called := false
 var physics_process_called := false
 
-func init(state_machine_, host_):
-	.init(state_machine_, host_)
+func init(_state_machine, _host):
+	.init(_state_machine, _host)
 	init_called = true
 
 

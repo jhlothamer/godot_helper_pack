@@ -10,14 +10,18 @@ export var host_node: NodePath
 
 var _current_state = null
 var _host: Node
-var _required_state_node_methods: Array = ["init", "enter", "exit" , "physics_process", "unhandled_input", "change_state"]
+var _required_state_node_methods: Array = [
+	"init", "enter", "exit" , "physics_process", "unhandled_input", "change_state"]
 var _prohibited_state_node_methods: Array = ["_physics_process"]
 
 
 func _ready():
 	yield(get_parent(), "ready")
 
-	_host = get_node(host_node) if host_node != null && !host_node.is_empty() && has_node(host_node) else get_parent()
+	if host_node != null && !host_node.is_empty() && has_node(host_node):
+		_host = get_node(host_node)
+	else:
+		_host = get_parent()
 
 	var found_problems: bool = false
 	for child in get_children():
@@ -48,7 +52,8 @@ func _check_state_node(state_node: Node) -> bool:
 	#check that it does not have these methods - they will just cause problems
 	for prohibited_method in _prohibited_state_node_methods:
 		if state_node.has_method(prohibited_method):
-			push_error("state node " + state_node.name + " has method " + prohibited_method + " and it should not")
+			push_error("state node %s has method %s and it should not" % [state_node.name,
+				prohibited_method])
 			problem_found = true
 
 	return problem_found

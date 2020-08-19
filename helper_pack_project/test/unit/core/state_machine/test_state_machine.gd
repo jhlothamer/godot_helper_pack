@@ -9,7 +9,7 @@ func before_each():
 	if state_machine != null:
 		remove_child(state_machine)
 		state_machine.queue_free()
-		
+	
 	state_machine = StateMachine.new()
 	var a: State = state_class.new()
 	a.name = "A"

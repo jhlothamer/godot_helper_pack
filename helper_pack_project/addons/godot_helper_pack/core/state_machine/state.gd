@@ -7,9 +7,9 @@ var state_machine: StateMachine
 var host
 
 
-func init(state_machine_, host_):
-	state_machine = state_machine_
-	host = host_
+func init(_state_machine, _host):
+	state_machine = _state_machine
+	host = _host
 
 
 func enter() -> void:
