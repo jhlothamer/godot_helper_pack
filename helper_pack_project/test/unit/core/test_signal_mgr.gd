@@ -2,12 +2,17 @@ extends "res://addons/gut/test.gd"
 
 
 class TestPublisher:
+	#warning-ignore:unused_signal
 	signal foo()
+	#warning-ignore:unused_signal
+	signal tree_exited()
+
 
 class TestSubscriber:
+	#warning-ignore:unused_signal
+	signal tree_exited()
 	func bar():
 		pass
-
 
 
 func test_mgr_connects_publisher_to_subscriber():

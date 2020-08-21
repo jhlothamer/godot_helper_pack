@@ -19,7 +19,7 @@ func exit() -> void:
 	exit_called = true
 
 
-func physics_process(delta) -> void:
+func physics_process(_delta) -> void:
 	physics_process_called = true
 	if change_to_state != "":
 		change_state(change_to_state)
