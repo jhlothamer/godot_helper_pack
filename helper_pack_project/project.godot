@@ -9,10 +9,25 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Position2D",
+"class": "Circle2D",
+"language": "GDScript",
+"path": "res://addons/godot_helper_pack/core/2d/shape/circle_2d.gd"
+}, {
 "base": "Node",
 "class": "GutTest",
 "language": "GDScript",
 "path": "res://addons/gut/test.gd"
+}, {
+"base": "ReferenceRect",
+"class": "RandomDistributionArea",
+"language": "GDScript",
+"path": "res://addons/godot_helper_pack/core/2d/util/random_distribution_area.gd"
+}, {
+"base": "Reference",
+"class": "RandomDistributionAreaLayer",
+"language": "GDScript",
+"path": "res://addons/godot_helper_pack/core/2d/util/random_distribution_area_layer.gd"
 }, {
 "base": "Node",
 "class": "State",
@@ -23,11 +38,20 @@ _global_script_classes=[ {
 "class": "StateMachine",
 "language": "GDScript",
 "path": "res://addons/godot_helper_pack/core/state_machine/state_machine.gd"
+}, {
+"base": "Object",
+"class": "StopWatch",
+"language": "GDScript",
+"path": "res://addons/godot_helper_pack/core/util/stop_watch.gd"
 } ]
 _global_script_class_icons={
+"Circle2D": "",
 "GutTest": "",
+"RandomDistributionArea": "",
+"RandomDistributionAreaLayer": "",
 "State": "",
-"StateMachine": ""
+"StateMachine": "",
+"StopWatch": ""
 }
 
 [application]
