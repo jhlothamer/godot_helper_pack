@@ -1,10 +1,10 @@
 # Godot Helper Pack
 This add on is a collection of scripts and classes that offer functionality that is not present in the Godot Engine.
 
-##Singletons
+## Singletons
 The helper pack comes with a plugin which registers the following singltons into the project.
 
-###Globals
+### Globals
 Use Globals to set make data available to every component in your game.
 
 The methods are:
@@ -14,7 +14,7 @@ The methods are:
  3. erase(property_name) - removes a property's value
  4. clear()
 
-###SignalMgr
+### SignalMgr
 The SignalMgr singleton automatically connects objects signals when an object is registered as a publisher of a signal or a subscriber.
 
 The methods are:
@@ -46,10 +46,10 @@ func on_my_signal():
 
 Now the publisher just emits the signal as usual with emit_signal.
 
-##Core
+## Core
 Core components are those that aren't specifically for UI, 2D or 3D.
 
-###StateMachine and State
+### StateMachine and State
 The StateMachine class is a state machine implemented using child nodes for states.  The child nodes should all extend the State class, and one of the child's is_starting_state property must be set to true.
 
 The state nodes can override the following methods:

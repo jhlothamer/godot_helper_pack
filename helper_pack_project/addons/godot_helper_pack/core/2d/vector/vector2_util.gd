@@ -44,6 +44,7 @@ static func v2_to_v3(v2: Vector2, z: float = 0.0) -> Vector3:
 static func v3_to_v2(v3: Vector3) -> Vector2:
 	return Vector2(v3.x, v3.y)
 
+
 static func clamp(v: Vector2, top_left: Vector2, bottom_right: Vector2) -> Vector2:
 	var clamped_v := Vector2.ZERO
 	clamped_v.x = clamp(v.x, top_left.x, bottom_right.x)
