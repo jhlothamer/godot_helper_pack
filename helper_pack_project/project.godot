@@ -9,6 +9,26 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node",
+"class": "CameraLimiter",
+"language": "GDScript",
+"path": "res://addons/godot_helper_pack/core/2d/camera/behavior/camera_limiter.gd"
+}, {
+"base": "Node",
+"class": "CameraMove2D",
+"language": "GDScript",
+"path": "res://addons/godot_helper_pack/core/2d/camera/behavior/camera_move.gd"
+}, {
+"base": "Node",
+"class": "CameraShake",
+"language": "GDScript",
+"path": "res://addons/godot_helper_pack/core/2d/camera/behavior/camera_shake.gd"
+}, {
+"base": "Node",
+"class": "CameraZoom2D",
+"language": "GDScript",
+"path": "res://addons/godot_helper_pack/core/2d/camera/behavior/camera_zoom.gd"
+}, {
 "base": "Position2D",
 "class": "Circle2D",
 "language": "GDScript",
@@ -24,7 +44,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godot_helper_pack/core/2d/util/random_distribution_area.gd"
 }, {
-"base": "Reference",
+"base": "Node",
 "class": "RandomDistributionAreaLayer",
 "language": "GDScript",
 "path": "res://addons/godot_helper_pack/core/2d/util/random_distribution_area_layer.gd"
@@ -43,15 +63,25 @@ _global_script_classes=[ {
 "class": "StopWatch",
 "language": "GDScript",
 "path": "res://addons/godot_helper_pack/core/util/stop_watch.gd"
+}, {
+"base": "Object",
+"class": "Vector2Util",
+"language": "GDScript",
+"path": "res://addons/godot_helper_pack/core/2d/vector/vector2_util.gd"
 } ]
 _global_script_class_icons={
+"CameraLimiter": "",
+"CameraMove2D": "",
+"CameraShake": "",
+"CameraZoom2D": "",
 "Circle2D": "",
 "GutTest": "",
 "RandomDistributionArea": "",
 "RandomDistributionAreaLayer": "",
 "State": "",
 "StateMachine": "",
-"StopWatch": ""
+"StopWatch": "",
+"Vector2Util": ""
 }
 
 [application]
