@@ -1,5 +1,5 @@
 extends Node
-class_name State
+class_name State, "state.svg"
 
 export var is_starting_state : bool
 

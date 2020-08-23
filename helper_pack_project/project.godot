@@ -113,8 +113,8 @@ _global_script_class_icons={
 "PropertyUtil": "",
 "RandomDistributionArea": "",
 "RandomDistributionAreaLayer": "",
-"State": "",
-"StateMachine": "",
+"State": "res://addons/godot_helper_pack/core/state_machine/state.svg",
+"StateMachine": "res://addons/godot_helper_pack/core/state_machine/state_machine.svg",
 "StopWatch": "",
 "StringUtil": "",
 "Vector2Util": ""

@@ -1,5 +1,5 @@
 extends Node
-class_name StateMachine
+class_name StateMachine, "state_machine.svg"
 
 
 
