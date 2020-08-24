@@ -1,5 +1,5 @@
 tool
-class_name RandomDistributionAreaLayer
+class_name RandomDistributionAreaLayer, "random_distribution_area_layer.svg"
 extends Node
 
 # the min distance between spawned objects

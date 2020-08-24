@@ -1,0 +1,34 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/random_distribution_area_layer.svg-9a94fd55d428b661a08cb5fc5ee7b819.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://addons/godot_helper_pack/core/2d/util/random_distribution_area_layer.svg"
+dest_files=[ "res://.import/random_distribution_area_layer.svg-9a94fd55d428b661a08cb5fc5ee7b819.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=true
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+stream=false
+size_limit=0
+detect_3d=true
+svg/scale=1.0

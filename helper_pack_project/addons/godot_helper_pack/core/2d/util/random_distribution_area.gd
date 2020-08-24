@@ -1,5 +1,5 @@
 tool
-class_name RandomDistributionArea
+class_name RandomDistributionArea, "random_distribution_area.svg"
 extends ReferenceRect
 
 # this class was created by following along with this excellent video
