@@ -61,10 +61,10 @@ class PoissonDiscSampling:
 
 
 class Vector2YSorter:
-    static func sort(a: Vector2, b: Vector2) -> bool:
-        if a.y < b.y:
-            return true
-        return false
+	static func sort(a: Vector2, b: Vector2) -> bool:
+		if a.y < b.y:
+			return true
+		return false
 
 class Circle:
 	var center := Vector2.ZERO
