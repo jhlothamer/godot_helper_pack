@@ -74,6 +74,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godot_helper_pack/core/2d/util/random_distribution_area_layer.gd"
 }, {
+"base": "Node2D",
+"class": "ShapeDraw2D",
+"language": "GDScript",
+"path": "res://addons/godot_helper_pack/core/2d/shape/shape_draw_2d.gd"
+}, {
 "base": "Node",
 "class": "State",
 "language": "GDScript",
@@ -113,6 +118,7 @@ _global_script_class_icons={
 "PropertyUtil": "",
 "RandomDistributionArea": "res://addons/godot_helper_pack/core/2d/util/random_distribution_area.svg",
 "RandomDistributionAreaLayer": "res://addons/godot_helper_pack/core/2d/util/random_distribution_area_layer.svg",
+"ShapeDraw2D": "",
 "State": "res://addons/godot_helper_pack/core/state_machine/state.svg",
 "StateMachine": "res://addons/godot_helper_pack/core/state_machine/state_machine.svg",
 "StopWatch": "",
