@@ -150,6 +150,14 @@ func get_item(item_scene_or_object, parent: Node):
 	item.visible = true
 	return item
 
+
+static func own(node, new_owner):
+	if not node == new_owner and (not node.owner or node.filename):
+		node.owner = new_owner
+	if node.get_child_count():
+		for kid in node.get_children():
+			own(kid, new_owner)
+
 func get_rand_item(items: Array, parent: Node):
 	var index = randi() % items.size()
 	return get_item(items[index], parent)
@@ -247,7 +255,7 @@ func populate_area_multi_layer() -> void:
 		for c in layer.object_circles:
 			var item = get_rand_item(layer.clone_items, layer.clone_parent)
 			#layer.clone_parent.add_child(item)
-			item.set_owner(get_tree().get_edited_scene_root())
+			own(item, get_tree().get_edited_scene_root())
 			item.global_position = rect_position + c.center
 		if layer.discarded_point_clone_parent != null:
 			for c in layer.discarded_object_circles:
