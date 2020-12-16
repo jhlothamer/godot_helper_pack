@@ -11,4 +11,5 @@ This plugin does not remove the singletons it adds.
 func _enter_tree():
 	add_autoload_singleton("Globals", "res://addons/godot_helper_pack/core/globals.gd")
 	add_autoload_singleton("SignalMgr", "res://addons/godot_helper_pack/core/signal_mgr.gd")
+	add_autoload_singleton("ServiceMgr", "res://addons/godot_helper_pack/core/service_mgr.gd")
 

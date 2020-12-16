@@ -1,6 +1,8 @@
 extends Node
 class_name CameraLimiter
 
+export var limit_reference_rect: NodePath
+
 onready var camera: Camera2D = get_parent() if typeof(get_parent()) == typeof(Camera2D) else null
 
 
@@ -18,10 +20,17 @@ static func limit_camera(limiter: Object, limit_rect: Rect2):
 
 
 func _ready():
-	SignalMgr.register_subscriber(self, "CameraLimit", "on_camera_limit")
+	SignalMgr.register_subscriber(self, "CameraLimit", "_on_camera_limit")
+	if limit_reference_rect != null:
+		var limit_reference_rect_node = get_node_or_null(limit_reference_rect)
+		if limit_reference_rect_node != null and limit_reference_rect_node is ReferenceRect:
+			var limit_rect := Rect2(limit_reference_rect_node.rect_global_position, limit_reference_rect_node.rect_size)
+			_on_camera_limit(limit_rect)
+		else:
+			printerr("CameraLimiter: limit reference rect path bad or not to ReferenceRect node. value=%s" % str(limit_reference_rect))
 
 
-func on_camera_limit(limit_rect: Rect2) -> void:
+func _on_camera_limit(limit_rect: Rect2) -> void:
 	if camera == null:
 		return
 	camera.limit_left = limit_rect.position.x

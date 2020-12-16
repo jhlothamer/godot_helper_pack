@@ -44,6 +44,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godot_helper_pack/core/util/dictionary_util.gd"
 }, {
+"base": "Object",
+"class": "EnumUtil",
+"language": "GDScript",
+"path": "res://addons/godot_helper_pack/core/util/enum_util.gd"
+}, {
+"base": "Object",
+"class": "FileUtil",
+"language": "GDScript",
+"path": "res://addons/godot_helper_pack/core/util/file_util.gd"
+}, {
 "base": "Node",
 "class": "GutTest",
 "language": "GDScript",
@@ -74,10 +84,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godot_helper_pack/core/2d/util/random_distribution_area_layer.gd"
 }, {
+"base": "Node",
+"class": "SceneSoundTrack",
+"language": "GDScript",
+"path": "res://addons/godot_helper_pack/core/audio/scene_sound_track.gd"
+}, {
 "base": "Node2D",
 "class": "ShapeDraw2D",
 "language": "GDScript",
 "path": "res://addons/godot_helper_pack/core/2d/shape/shape_draw_2d.gd"
+}, {
+"base": "Node",
+"class": "SoundTrackMgr",
+"language": "GDScript",
+"path": "res://addons/godot_helper_pack/core/audio/sound_track_mgr.gd"
 }, {
 "base": "Node",
 "class": "State",
@@ -88,6 +108,11 @@ _global_script_classes=[ {
 "class": "StateMachine",
 "language": "GDScript",
 "path": "res://addons/godot_helper_pack/core/state_machine/state_machine.gd"
+}, {
+"base": "Object",
+"class": "StatsUtil",
+"language": "GDScript",
+"path": "res://addons/godot_helper_pack/core/util/stats_util.gd"
 }, {
 "base": "Object",
 "class": "StopWatch",
@@ -112,15 +137,20 @@ _global_script_class_icons={
 "CameraZoom2D": "",
 "Circle2D": "",
 "DictionaryUtil": "",
+"EnumUtil": "",
+"FileUtil": "",
 "GutTest": "",
 "MultiYield": "",
 "NodeUtil": "",
 "PropertyUtil": "",
 "RandomDistributionArea": "res://addons/godot_helper_pack/core/2d/util/random_distribution_area.svg",
 "RandomDistributionAreaLayer": "res://addons/godot_helper_pack/core/2d/util/random_distribution_area_layer.svg",
+"SceneSoundTrack": "",
 "ShapeDraw2D": "",
+"SoundTrackMgr": "",
 "State": "res://addons/godot_helper_pack/core/state_machine/state.svg",
 "StateMachine": "res://addons/godot_helper_pack/core/state_machine/state_machine.svg",
+"StatsUtil": "",
 "StopWatch": "",
 "StringUtil": "",
 "Vector2Util": ""
@@ -136,6 +166,7 @@ config/icon="res://icon.png"
 
 Globals="*res://addons/godot_helper_pack/core/globals.gd"
 SignalMgr="*res://addons/godot_helper_pack/core/signal_mgr.gd"
+ServiceMgr="*res://addons/godot_helper_pack/core/service_mgr.gd"
 
 [editor_plugins]
 
