@@ -1,29 +1,41 @@
 class_name FileUtil
 extends Object
-"""
-Collection of file utility functions.
-"""
 
-static func load_text(file_path: String) -> String:
+
+static func load_text(file_path: String, default_value: String = "") -> String:
 	var data_file: File = File.new()
 	var error = data_file.open(file_path, File.READ)
 	if error != OK:
-		printerr("error opening data file.\r\nError code: %d" % error)
 		data_file.close()
-		return ""
+		return default_value
 	var contents = data_file.get_as_text()
 	data_file.close()
 	return contents
 
-static func load_json_data(file_path: String) -> Dictionary:
+static func save_text(file_path: String, contents: String, create_file: bool = true) -> int:
+	var data_file: File = File.new()
+	var error = data_file.open(file_path, File.WRITE)
+	if error != OK:
+		data_file.close()
+		return error
+	data_file.store_string(contents)
+	data_file.close()
+	return OK
+
+static func load_json_data(file_path: String, default_value = {}) -> Dictionary:
 	var json_text = load_text(file_path)
 	if json_text == "":
-		return {}
+		return default_value
 	var parse_results:JSONParseResult =  JSON.parse(json_text)
 	if parse_results.error != OK:
-		printerr("error parsing data")
-		printerr("error: %s" % parse_results.error_string)
-		printerr("on line: %d" % parse_results.error_line)
-		return {}
+		print("error parsing data: %s" % parse_results.error_string)
+		print(parse_results.error_string)
+		print(parse_results.error_line)
+		return default_value
 	return parse_results.result
 
+static func save_json_data(file_path: String, data: Dictionary) -> void:
+	var json_string = JSON.print(data)
+	save_text(file_path, json_string)
+	
+	
