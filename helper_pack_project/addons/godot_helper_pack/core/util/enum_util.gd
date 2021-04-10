@@ -13,10 +13,11 @@ static func get_id(enum_class: Dictionary, enum_string: String) -> int:
 
 static func get_string(enum_class: Dictionary, enum_int_value: int) -> String:
 	var keys = enum_class.keys()
-	if enum_int_value < 0 or enum_int_value >= keys.size():
-		printerr("given enum int value out of range for enum class")
-		return ""
-	return keys[enum_int_value]
+	for key in keys:
+		if enum_class[key] == enum_int_value:
+			return key
+	printerr("given enum int value out of range for enum class")
+	return ""
 
 
 static func get_array(enum_class: Dictionary) -> Array:
