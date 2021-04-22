@@ -19,18 +19,21 @@ var _current_camera_limit := 0
 onready var limit_region_desc_value := $CanvasLayer/MarginContainer/VBoxContainer/LimitRegionHBox/LimitRegionDescValue
 
 func _ready():
-	CameraShake.enable_camera_shake(self)
-	CameraLimiter.enable_camera_limit(self)
 	_update_limit_region_desc_lbl()
 
 func _update_limit_region_desc_lbl():
 	limit_region_desc_value.text = _camera_limits_descrition[_current_camera_limit]
 
 func _on_ShakeCameraBtn_pressed():
-	CameraShake.shake_camera(self, 1, 1.0, 15.0)
+	var camera_shake:CameraShake = ServiceMgr.get_service(CameraShake)
+	if !camera_shake:
+		return
+	camera_shake.shake_camera(1, 1.0, 15.0)
 
 
 func _on_LimitCameraBtn_pressed():
 	_current_camera_limit = (_current_camera_limit + 1) % _camera_limits.size()
-	CameraLimiter.limit_camera(self, _camera_limits[_current_camera_limit])
+	var camera_limiter:CameraLimiter = ServiceMgr.get_service(CameraLimiter)
+	if camera_limiter:
+		camera_limiter.limit_camera(_camera_limits[_current_camera_limit])
 	_update_limit_region_desc_lbl()

@@ -14,7 +14,7 @@ export var left_mouse_button_drag := false
 export var middle_mouse_button_drag := false
 
 
-onready var camera: Camera2D = get_parent() if typeof(get_parent()) == typeof(Camera2D) else null
+onready var _camera: Camera2D = get_parent() if typeof(get_parent()) == typeof(Camera2D) else null
 
 
 var _is_dragging := false
@@ -23,7 +23,7 @@ var _drag_last_location := Vector2.INF
 
 
 func _ready():
-	if camera == null:
+	if _camera == null:
 		set_process(false)
 
 
@@ -51,23 +51,23 @@ func _process(_delta):
 	if move_direction == Vector2.ZERO:
 		return
 
-	move_direction *= move_speed * camera.zoom.x
+	move_direction *= move_speed * _camera.zoom.x
 
 	var limit_check_offset: Vector2 = Vector2.ZERO
 	var limit_check_top_left: Vector2 = Vector2.ZERO
 	var limit_check_bottom_right: Vector2 = Vector2.ZERO
-	if camera.anchor_mode == Camera2D.ANCHOR_MODE_DRAG_CENTER:
+	if _camera.anchor_mode == Camera2D.ANCHOR_MODE_DRAG_CENTER:
 		limit_check_offset = get_viewport().get_visible_rect().size / 2.0
 	
-	limit_check_top_left = Vector2(camera.limit_left + limit_check_offset.x, camera.limit_top
+	limit_check_top_left = Vector2(_camera.limit_left + limit_check_offset.x, _camera.limit_top
 		+ limit_check_offset.y)
-	limit_check_bottom_right = Vector2(camera.limit_right - limit_check_offset.x, camera.limit_bottom
+	limit_check_bottom_right = Vector2(_camera.limit_right - limit_check_offset.x, _camera.limit_bottom
 		- limit_check_offset.y)
 	
-	var new_camera_global_position = Vector2Util.clamp(camera.global_position + move_direction, 
+	var new_camera_global_position = Vector2Util.clamp(_camera.global_position + move_direction, 
 		limit_check_top_left, limit_check_bottom_right)
 	
-	camera.global_position = new_camera_global_position
+	_camera.global_position = new_camera_global_position
 
 
 func _is_drag_enabled():
@@ -103,4 +103,4 @@ func _handle_mouse_button_event(event: InputEventMouseButton) -> void:
 func _handle_mouse_motion_event(event: InputEventMouseMotion) -> void:
 	if !_is_dragging:
 		return
-	camera.global_position -= event.relative * camera.zoom.x
+	_camera.global_position -= event.relative * _camera.zoom.x

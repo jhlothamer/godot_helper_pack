@@ -8,21 +8,32 @@ in an implementation class (class that actually implements the service.)
 
 e.g.
 
-Interface class:
+# Interface class:
 class_name FooSvc
 Extends SomeGodotType
 
 func bar():
 	pass
 
-Implementation class:
-Extends <path to interface class>
+# Implementation class:
+Extends FooSvc
 
 func _enter_tree():
 	ServiceMgr.register_service(FooSvc, self)
 
 func bar():
 	# real implementation of function
+
+# Alternatively interface class and implementation class in same script filename
+class_name FooSvc
+Extends SomeGodotType
+
+func _enter_tree():
+	ServiceMgr.register_service(self.get_script(), self)
+
+func bar():
+	# real implementation of function
+
 
 Then use the type to get a reference to the service.  Note how the variable
 is typed too.  That will help with intellisense (though not show properties as

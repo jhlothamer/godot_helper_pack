@@ -7,11 +7,11 @@ export var min_camera_zoom: float = .25
 export var max_camera_zoom: float = 10.0
 
 
-onready var camera: Camera2D = get_parent() if typeof(get_parent()) == typeof(Camera2D) else null
+onready var _camera: Camera2D = get_parent() if typeof(get_parent()) == typeof(Camera2D) else null
 
 
 func _input(event):
-	if !event is InputEventMouseButton || camera == null:
+	if !event is InputEventMouseButton || _camera == null:
 		return
 	var delta = 0
 	if event.button_index == BUTTON_WHEEL_DOWN:
@@ -19,6 +19,6 @@ func _input(event):
 	if event.button_index == BUTTON_WHEEL_UP:
 		delta = -zoom_speed
 	
-	var zoom = camera.zoom.x
+	var zoom = _camera.zoom.x
 	zoom = clamp( zoom + delta, min_camera_zoom, max_camera_zoom)
-	camera.zoom = Vector2(zoom, zoom)
+	_camera.zoom = Vector2(zoom, zoom)
