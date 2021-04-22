@@ -26,8 +26,11 @@ func process_parent_shape():
 	if parent is CollisionShape2D:
 		if parent.shape is ConvexPolygonShape2D:
 			create_polygon_2d(parent.shape.points)
-		if parent.shape is ConcavePolygonShape2D:
+		elif parent.shape is ConcavePolygonShape2D:
 			create_polygon_2d(parent.shape.segments)
+		elif parent.shape is CapsuleShape2D:
+			var shape_polygon = Shape2DUtil.make_polygon_from_shape(parent.shape)
+			create_polygon_2d(shape_polygon)
 		else:
 			shape = parent.shape
 	elif parent is CollisionPolygon2D:

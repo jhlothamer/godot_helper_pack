@@ -1,5 +1,5 @@
 # Godot Helper Pack
-This add-on is a collection of helper scripts and classes. It contains the following:
+This Godot add-on is a collection of helper scripts and classes. It contains the following:
 
 - **Globals** - a singleton for storing global data
 - **SignalMgr**- a singleton for registering signal publishers and subscribers
@@ -13,7 +13,6 @@ This add-on is a collection of helper scripts and classes. It contains the follo
 - **ShapeDraw2d** - When added as a child to 2D shape node, draws that shape. Useful for prototyping. Handles the following node classes:
 - - CollisionShape2D
 - - - handles shapes: CircleShape2D, RectangleShape2D, CapsuleShape2D, convexPolygonShape2D, ConcavePolygonShape2D
-- - - note: Capsuleshape2D looks odd where alpha < 100%
 - - CollisionPolygon2D
 - **RandomDistributionArea/RandomDistributionLayer** - used for cloning sub-nodes as children of a target node using Poisson disk sampling. Can handle layering.
 - **SoundTrackMgr/SceneSoundTrack** - Have soundtrack music play without interruption in multiple scenes
@@ -28,14 +27,4 @@ This add-on is a collection of helper scripts and classes. It contains the follo
 - - **StatsUtil** - implements linear regression as well as mean and sum
 - - **StopWatch** - measure how long something takes in code
 - - **StringUtil** - check if string is null or empty, get file name without extension
-
-
-
-
-
-
-
-
-
-
 

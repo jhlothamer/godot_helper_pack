@@ -3,8 +3,8 @@
 [ext_resource path="res://addons/godot_helper_pack/core/2d/shape/shape_draw_2d.gd" type="Script" id=1]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 39.6414
-height = 111.168
+radius = 61.9952
+height = 126.836
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 117.453
@@ -13,9 +13,23 @@ radius = 117.453
 extents = Vector2( 192.809, 48.7213 )
 
 [node name="ShapeDraw2dDemo" type="Node2D"]
-position = Vector2( 194.028, 173.869 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ExplanationLabel" type="Label" parent="."]
+margin_left = 10.5857
+margin_top = 10.0
+margin_right = 394.586
+margin_bottom = 106.0
+text = "ShapeDraw2D is meant for prototyping quickly.  Add a ShapeDraw2D node under a CollisionShape2D or CollsionPolygon2D node and it will draw the shape.  Any changes to the collision shape are reflected immediately in the editor.  You can also set the color of the shape."
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Capsule" type="StaticBody2D" parent="."]
+position = Vector2( 171.785, 252.958 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Capsule"]
 shape = SubResource( 1 )
@@ -25,7 +39,7 @@ script = ExtResource( 1 )
 color = Color( 1, 0, 0, 1 )
 
 [node name="Circle" type="StaticBody2D" parent="."]
-position = Vector2( 379.764, -40.3353 )
+position = Vector2( 584.005, 225.402 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Circle"]
 shape = SubResource( 2 )
@@ -35,7 +49,7 @@ script = ExtResource( 1 )
 color = Color( 0, 0.298039, 1, 1 )
 
 [node name="Rectangle" type="StaticBody2D" parent="."]
-position = Vector2( 124.732, 251.984 )
+position = Vector2( 243.66, 516.269 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rectangle"]
 shape = SubResource( 3 )
@@ -45,7 +59,7 @@ script = ExtResource( 1 )
 color = Color( 0.054902, 1, 0, 1 )
 
 [node name="Polygon" type="StaticBody2D" parent="."]
-position = Vector2( 543.322, 246.619 )
+position = Vector2( 828.372, 454.271 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Polygon"]
 polygon = PoolVector2Array( -5.06085, -85.631, -92.0599, -85.4044, -139.604, 8.54938, -159.786, -4.90497, -124.468, 101.048, -80.7416, 87.5937, -11.788, 129.638, 62.2109, 92.639, 114.346, 104.412, 141.255, 50.5942, 77.347, -3.22314, 121.074, -82.2674, 72.3016, -134.403 )
@@ -53,14 +67,3 @@ polygon = PoolVector2Array( -5.06085, -85.631, -92.0599, -85.4044, -139.604, 8.5
 [node name="ShapeDraw2D" type="Node2D" parent="Polygon/CollisionPolygon2D"]
 script = ExtResource( 1 )
 color = Color( 0, 1, 1, 1 )
-
-[node name="Label" type="Label" parent="."]
-margin_left = 536.0
-margin_top = -129.0
-margin_right = 801.0
-margin_bottom = 77.0
-text = "ShapeDraw2D is meant for prototyping quickly.  You can change the color, but that's about it.  It will update live in the editor.  (Note:  If selecting an alpha less than 100% a capsule will not look very nice as it's composed of two circles and a rectangle.  The overlap will be noticable.)"
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}

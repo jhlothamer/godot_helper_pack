@@ -22,14 +22,18 @@ func _enter_tree():
 	ServiceMgr.register_service(FooSvc, self)
 
 func bar():
-	#real implementation of function
+	# real implementation of function
 
 Then use the type to get a reference to the service.  Note how the variable
 is typed too.  That will help with intellisense (though not show properties as
 of Godot 3.2.3).
 
 var foo_svc:FooSvc = ServiceMgr.get_service(FooSvc)
-
+if !foo_svc:
+	# gracefully degrade functionality or/and complain
+	return
+# call service
+foo_svc.bar()
 """
 
 var _services := {}
@@ -69,7 +73,6 @@ func unregister_service(service: Resource, implementation: Object, name: String 
 
 
 func _watch_service_implementation_tree_exit(service: Resource, implementation: Node, name: String = "") -> void:
-	pass
 	implementation.connect("tree_exited", self, "_on_implementation_tree_exited", [service, implementation, name])
 
 
