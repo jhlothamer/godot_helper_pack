@@ -165,8 +165,6 @@ __meta__ = {
 [node name="ShakeCameraBtn" type="Button" parent="CanvasLayer/MarginContainer/VBoxContainer"]
 margin_right = 194.0
 margin_bottom = 20.0
-focus_mode = 0
-enabled_focus_mode = 0
 text = "Shake Camera"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -176,8 +174,6 @@ __meta__ = {
 margin_top = 30.0
 margin_right = 194.0
 margin_bottom = 50.0
-focus_mode = 0
-enabled_focus_mode = 0
 text = "Limit Camera"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -198,5 +194,8 @@ margin_left = 109.0
 margin_right = 194.0
 margin_bottom = 14.0
 text = "yellow region"
+
+[node name="Camera2D2" type="Camera2D" parent="."]
+
 [connection signal="pressed" from="CanvasLayer/MarginContainer/VBoxContainer/ShakeCameraBtn" to="." method="_on_ShakeCameraBtn_pressed"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/VBoxContainer/LimitCameraBtn" to="." method="_on_LimitCameraBtn_pressed"]

@@ -1,6 +1,8 @@
 extends Node
 class_name CameraMove2D
 
+signal camera_pan_started()
+signal camera_pan_stopped()
 
 export var move_speed: float = 10
 export var up_action_name := "ui_up"
@@ -43,13 +45,12 @@ func _get_move_direction() -> Vector2:
 	return move_direction
 
 
-
 func _process(_delta):
 	var move_direction = _get_move_direction()
 	
 	if move_direction == Vector2.ZERO:
 		return
-	
+
 	move_direction *= move_speed * camera.zoom.x
 
 	var limit_check_offset: Vector2 = Vector2.ZERO
