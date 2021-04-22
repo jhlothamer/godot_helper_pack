@@ -5,6 +5,9 @@ extends ReferenceRect
 # this class was created by following along with this excellent video
 # https://youtu.be/7WcmyxyFO7o
 class PoissonDiscSampling:
+	var _rand := RandomNumberGenerator.new()
+	func _init():
+		_rand.randomize()
 	func generate_points(radius: float, sample_region_size: Vector2,
 		num_samples_before_rejection: int = 30) -> Array:
 
@@ -19,13 +22,13 @@ class PoissonDiscSampling:
 
 		while spawn_points.size() > 0:
 			loop_counter += 1
-			var spawn_index = randi() % spawn_points.size()
+			var spawn_index = _rand.randi() % spawn_points.size()
 			var spawn_center = spawn_points[spawn_index]
 			var candidate_accepted = false
 			for i in range(num_samples_before_rejection):
-				var angle : float = rand_range(-PI, PI)
+				var angle : float = _rand.randf_range(-PI, PI)
 				var dir = Vector2.RIGHT.rotated(angle)
-				var candidate_vector: Vector2 = spawn_center + dir * rand_range(radius, 2.0*radius)
+				var candidate_vector: Vector2 = spawn_center + dir * _rand.randf_range(radius, 2.0*radius)
 				if !sample_region_rect.has_point(candidate_vector):
 					continue
 				var grid_coord: Vector2 = Vector2(int(candidate_vector.x/cell_size),
@@ -115,6 +118,9 @@ export var clear_area_now: bool setget set_clear_area_now
 export var allow_layer_objects_to_overlap := false
 export var allow_runtime_population := false
 
+
+var _rand := RandomNumberGenerator.new()
+
 func _ready():
 	if !Engine.editor_hint and !allow_runtime_population:
 		for c in get_children():
@@ -159,7 +165,7 @@ static func own(node, new_owner):
 			own(kid, new_owner)
 
 func get_rand_item(items: Array, parent: Node):
-	var index = randi() % items.size()
+	var index = _rand.randi() % items.size()
 	return get_item(items[index], parent)
 
 
@@ -204,7 +210,7 @@ func populate_area_multi_layer() -> void:
 	if layers.size() < 1:
 		return
 	
-	randomize()
+	_rand.randomize()
 	
 	var total_stop_watch = StopWatch.new()
 	total_stop_watch.start()

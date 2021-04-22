@@ -67,8 +67,8 @@ func _physics_process(delta):
 		camera_offset.x = _camera_shake_amount * _noise.get_noise_2d(_noise.seed*2, _noise_y)
 		camera_offset.y = _camera_shake_amount * _noise.get_noise_2d(_noise.seed*3, _noise_y)
 	else:
-		rotation = max_rotation_degrees * _rand.rand_range(-1,1) if max_rotation_degrees > 0 else 0.0
-		camera_offset = Vector2(_rand.rand_range(-1,1)*_camera_shake_amount, _rand.rand_range(-1,1)*_camera_shake_amount)
+		rotation = max_rotation_degrees * _rand.randf_range(-1,1) if max_rotation_degrees > 0 else 0.0
+		camera_offset = Vector2(_rand.randf_range(-1,1)*_camera_shake_amount, _rand.randf_range(-1,1)*_camera_shake_amount)
 	_camera.offset = camera_offset
 	_camera.rotation_degrees = rotation
 
