@@ -1,5 +1,5 @@
 class_name Shape2DUtil
-extends Node
+extends Object
 
 
 static func make_polygon_from_shape(shape2d: Shape2D, var point_count:int = 100) -> Array:

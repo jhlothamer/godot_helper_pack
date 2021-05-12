@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://addons/godot_helper_pack/core/2d/shape/shape_draw_2d.gd" type="Script" id=1]
 
@@ -11,6 +11,15 @@ radius = 117.453
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 192.809, 48.7213 )
+
+[sub_resource type="LineShape2D" id=4]
+
+[sub_resource type="RayShape2D" id=5]
+length = 100.0
+
+[sub_resource type="SegmentShape2D" id=6]
+a = Vector2( -44.3195, -49.2727 )
+b = Vector2( 45.6101, 55.7517 )
 
 [node name="ShapeDraw2dDemo" type="Node2D"]
 __meta__ = {
@@ -67,3 +76,34 @@ polygon = PoolVector2Array( -5.06085, -85.631, -92.0599, -85.4044, -139.604, 8.5
 [node name="ShapeDraw2D" type="Node2D" parent="Polygon/CollisionPolygon2D"]
 script = ExtResource( 1 )
 color = Color( 0, 1, 1, 1 )
+
+[node name="Line" type="StaticBody2D" parent="."]
+position = Vector2( 849.094, 76.1093 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Line"]
+shape = SubResource( 4 )
+
+[node name="ShapeDraw2D" type="Node2D" parent="Line/CollisionShape2D"]
+script = ExtResource( 1 )
+color = Color( 1, 0.678431, 0, 1 )
+
+[node name="Ray" type="StaticBody2D" parent="."]
+position = Vector2( 963.258, 114.164 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ray"]
+shape = SubResource( 5 )
+
+[node name="ShapeDraw2D" type="Node2D" parent="Ray/CollisionShape2D"]
+position = Vector2( 0, 2.37842 )
+script = ExtResource( 1 )
+color = Color( 1, 0, 0.984314, 1 )
+
+[node name="Segment" type="StaticBody2D" parent="."]
+position = Vector2( 841.734, 179.699 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Segment"]
+shape = SubResource( 6 )
+
+[node name="ShapeDraw2D" type="Node2D" parent="Segment/CollisionShape2D"]
+script = ExtResource( 1 )
+color = Color( 0.501961, 1, 0, 1 )

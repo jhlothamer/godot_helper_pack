@@ -33,6 +33,9 @@ func process_parent_shape():
 			create_polygon_2d(shape_polygon)
 		else:
 			shape = parent.shape
+			if polygon:
+				polygon.queue_free()
+				polygon = null
 	elif parent is CollisionPolygon2D:
 		create_polygon_2d(parent.polygon)
 	else:
@@ -58,12 +61,19 @@ func _draw():
 		var r: RectangleShape2D = shape
 		var rect = Rect2(-r.extents, r.extents * 2.0)
 		draw_rect(rect, color, true)
-	elif shape is CapsuleShape2D:
-		var c: CapsuleShape2D = shape
-		draw_circle(Vector2(0, c.height * .5), c.radius, color)
-		draw_circle(Vector2(0, -c.height * .5), c.radius, color)
-		var rect = Rect2(-1*Vector2(c.radius, c.height*.5), Vector2(c.radius*2, c.height))
-		draw_rect(rect, color)
+	elif shape is SegmentShape2D:
+		var s: SegmentShape2D = shape
+		draw_line(s.a, s.b, color, 3.0)
+	elif shape is RayShape2D:
+		var r: RayShape2D = shape
+		draw_line(Vector2.ZERO, Vector2.DOWN * r.length, color, 3.0)
+	elif shape is LineShape2D:
+		var l: LineShape2D = shape
+		var angle = l.normal.angle() + .5 * PI
+		var normal_length = l.normal.length()
+		var left_pt = (Vector2.LEFT * 100.0 * normal_length + Vector2.UP * l.d).rotated(angle)
+		var right_pt = (Vector2.RIGHT * 100.0 * normal_length + Vector2.UP * l.d).rotated(angle)
+		draw_line(left_pt, right_pt, color, 3.0)
 
 func _on_draw():
 	process_parent_shape()

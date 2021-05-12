@@ -1,5 +1,18 @@
 # Godot Helper Pack
-This Godot add-on is a collection of helper scripts and classes. It contains the following:
+This Godot Engine add-on is a collection of helper scripts and classes.  Please see below for a list of classes and utilities for details.
+
+
+## How to Install
+1. Download the project zip file and unzip it.
+2. Copy the folder godot_helper_pack\helper_pack_project\addons\godot_helper_pack into the addons folder of your Godot project
+3. Go to the Plugins tab in the Project Settings of your Godot project and enable the GodotHelperPack plugin.
+
+Now all of the classes and utilities will be available for use.  Also, after enabling the plugin 3 Autoload Singletons will be registered under the Autoload tab in Project Settings.  These are Globals, SignalMgr and ServiceMgr.  Please see their description of these services below.
+
+
+## Classes and Utilities
+
+The Godot Helper Pack contains the following:
 
 - **Globals** - a singleton for storing global data
 - **SignalMgr**- a singleton for registering signal publishers and subscribers
@@ -9,10 +22,9 @@ This Godot add-on is a collection of helper scripts and classes. It contains the
 - - zooming
 - - shaking
 - - limiting
-- **Circle2d** - 2D circle shape. Useful for prototyping
-- **ShapeDraw2d** - When added as a child to 2D shape node, draws that shape. Useful for prototyping. Handles the following node classes:
-- - CollisionShape2D
-- - - handles shapes: CircleShape2D, RectangleShape2D, CapsuleShape2D, convexPolygonShape2D, ConcavePolygonShape2D
+- **Circle2D** - 2D circle shape. Useful for prototyping
+- **ShapeDraw2D** - When added as a child to 2D collision node, draws that shape. Useful for prototyping. Handles the following node classes:
+- - CollisionShape2D (including all allowed shapes)
 - - CollisionPolygon2D
 - **RandomDistributionArea/RandomDistributionLayer** - used for cloning sub-nodes as children of a target node using Poisson disk sampling. Can handle layering.
 - **SoundTrackMgr/SceneSoundTrack** - Have soundtrack music play without interruption in multiple scenes

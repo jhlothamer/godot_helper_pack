@@ -84,7 +84,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godot_helper_pack/core/audio/scene_sound_track.gd"
 }, {
-"base": "Node",
+"base": "Object",
 "class": "Shape2DUtil",
 "language": "GDScript",
 "path": "res://addons/godot_helper_pack/core/2d/shape/shape2d_util.gd"
