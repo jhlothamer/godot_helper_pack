@@ -2,6 +2,7 @@ tool
 class_name RandomDistributionAreaLayer, "random_distribution_area_layer.svg"
 extends Node
 
+
 # the min distance between spawned objects
 export (float, 1.0, 10000.0) var distribution_radius : float = 128.0
 # The area the objects take up - used for multiple layers to reject overlapping objects
@@ -26,6 +27,7 @@ func get_discarded_point_clone_parent() -> Node:
 	print("discarded_point_clone_parent = " + str(discarded_point_clone_parent))
 	return get_node(discarded_point_clone_parent)
 
+
 func _enter_tree():
 	update_configuration_warning()
 
@@ -36,6 +38,8 @@ func _get_configuration_warning() -> String:
 		return "Parent must be a RandomDistributionArea node"
 	return ""
 
-
+# Can't refer to this class from the RandomDistributionArea one due to circular
+# reference.  This function allows RandomDistributionArea to know it has a
+# reference to a RandomDistributionAreaLayer node.
 func _i_am_a_random_distribution_area_layer():
 	pass

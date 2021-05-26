@@ -69,6 +69,7 @@ class Vector2YSorter:
 			return true
 		return false
 
+
 class Circle:
 	var center := Vector2.ZERO
 	var radius := 1.0
@@ -82,6 +83,7 @@ class Circle:
 		if center.distance_squared_to(other_circle.center) < radii_sum_sq:
 			return true
 		return false
+
 
 class DistributionArea:
 	var distribution_radius := 0.0
@@ -102,6 +104,7 @@ class DistributionArea:
 		for pt in distribution_points:
 			object_circles.append(Circle.new(pt, object_radius))
 
+
 class DistributionAreaySorter:
 	static func sort_by_distribution_radius_asc(a: DistributionArea, b: DistributionArea) -> bool:
 		if a.distribution_radius < b.distribution_radius:
@@ -110,37 +113,42 @@ class DistributionAreaySorter:
 	static func sort_by_distribution_radius_desc(a: DistributionArea, b: DistributionArea) -> bool:
 		return !sort_by_distribution_radius_asc(a, b)
 
+
 # parameter for Poisson Disc Sampling
 export (int, 1, 500) var num_samples_before_rejection: int = 30
 # an update to this property causes the area to be populated at design time
-export var populate_area_now: bool setget update_populate_area
-export var clear_area_now: bool setget set_clear_area_now
+export var populate_area_now: bool setget _update_populate_area
+export var clear_area_now: bool setget _set_clear_area_now
 export var allow_layer_objects_to_overlap := false
 export var allow_runtime_population := false
 
 
 var _rand := RandomNumberGenerator.new()
 
+
 func _ready():
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	if !Engine.editor_hint and !allow_runtime_population:
 		for c in get_children():
 			remove_child(c)
 
 
-func update_populate_area(value):
+func _update_populate_area(value):
 	if value:
-		populate_area_multi_layer()
+		_populate_area_multi_layer()
 
-func set_clear_area_now(value) -> void:
+
+func _set_clear_area_now(value) -> void:
 	if !value:
 		return
-	var layers = get_layers()
+	var layers = _get_layers()
 	for layer in layers:
-		clear_previous_items(layer.clone_parent)
+		_clear_previous_items(layer.clone_parent)
 		if layer.discarded_point_clone_parent != null:
-			clear_previous_items(layer.discarded_point_clone_parent)
+			_clear_previous_items(layer.discarded_point_clone_parent)
 
-func get_items_to_distribute(n: Node) -> Array:
+
+func _get_items_to_distribute(n: Node) -> Array:
 	var items := []
 	for c in n.get_children():
 		if c.has_method("_i_am_a_random_distribution_area_layer"):
@@ -148,7 +156,8 @@ func get_items_to_distribute(n: Node) -> Array:
 		items.append(c)
 	return items
 
-func get_item(item_scene_or_object, parent: Node):
+
+func _get_item(item_scene_or_object, parent: Node):
 	if item_scene_or_object is PackedScene:
 		return item_scene_or_object.instance()
 	var item = item_scene_or_object.duplicate(Node.DUPLICATE_SCRIPTS)
@@ -157,24 +166,25 @@ func get_item(item_scene_or_object, parent: Node):
 	return item
 
 
-static func own(node, new_owner):
+static func _own(node, new_owner):
 	if not node == new_owner and (not node.owner or node.filename):
 		node.owner = new_owner
 	if node.get_child_count():
 		for kid in node.get_children():
-			own(kid, new_owner)
+			_own(kid, new_owner)
 
-func get_rand_item(items: Array, parent: Node):
+
+func _get_rand_item(items: Array, parent: Node):
 	var index = _rand.randi() % items.size()
-	return get_item(items[index], parent)
+	return _get_item(items[index], parent)
 
 
-func clear_previous_items(parent: Node):
+func _clear_previous_items(parent: Node):
 	for c in parent.get_children():
 		parent.remove_child(c)
 
 
-func get_layer_nodes() -> Array:
+func _get_layer_nodes() -> Array:
 	var layers := []
 	for c in get_children():
 		if c.has_method("_i_am_a_random_distribution_area_layer") and c.enabled:
@@ -182,11 +192,11 @@ func get_layer_nodes() -> Array:
 	return layers
 
 
-func get_layers() -> Array:
-	var layer_nodes = get_layer_nodes()
+func _get_layers() -> Array:
+	var layer_nodes = _get_layer_nodes()
 	var layers := []
 	for layer_node in layer_nodes:
-		var items = get_items_to_distribute(layer_node)
+		var items = _get_items_to_distribute(layer_node)
 		var clone_parent = layer_node.get_clone_parent()
 		var discarded_point_clone_parent = layer_node.get_discarded_point_clone_parent()
 		var layer = DistributionArea.new(layer_node.distribution_radius, layer_node.object_radius,
@@ -205,8 +215,8 @@ func get_layers() -> Array:
 	return layers
 
 
-func populate_area_multi_layer() -> void:
-	var layers = get_layers()
+func _populate_area_multi_layer() -> void:
+	var layers = _get_layers()
 	if layers.size() < 1:
 		return
 	
@@ -223,9 +233,9 @@ func populate_area_multi_layer() -> void:
 	var poisson_disc_sampling = PoissonDiscSampling.new()
 
 	for layer in layers:
-		clear_previous_items(layer.clone_parent)
+		_clear_previous_items(layer.clone_parent)
 		if layer.discarded_point_clone_parent != null:
-			clear_previous_items(layer.discarded_point_clone_parent)
+			_clear_previous_items(layer.discarded_point_clone_parent)
 		var points = poisson_disc_sampling.generate_points(layer.distribution_radius, rect_size,
 			num_samples_before_rejection)
 		points.sort_custom(Vector2YSorter.new(), "sort")
@@ -259,15 +269,13 @@ func populate_area_multi_layer() -> void:
 	for layer in layers:
 		total_number_of_items += layer.object_circles.size()
 		for c in layer.object_circles:
-			var item = get_rand_item(layer.clone_items, layer.clone_parent)
-			#layer.clone_parent.add_child(item)
-			own(item, get_tree().get_edited_scene_root())
+			var item = _get_rand_item(layer.clone_items, layer.clone_parent)
+			_own(item, get_tree().get_edited_scene_root())
 			item.global_position = rect_position + c.center
 		if layer.discarded_point_clone_parent != null:
 			for c in layer.discarded_object_circles:
-				var item = get_rand_item(layer.clone_items, layer.clone_parent)
-				#layer.discarded_point_clone_parent.add_child(item)
-				item.set_owner(get_tree().get_edited_scene_root())
+				var item = _get_rand_item(layer.clone_items, layer.discarded_point_clone_parent)
+				_own(item, get_tree().get_edited_scene_root())
 				item.global_position = rect_position + c.center
 			layer.discarded_point_clone_parent.visible = false
 

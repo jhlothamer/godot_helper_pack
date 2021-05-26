@@ -180,6 +180,10 @@ Globals="*res://addons/godot_helper_pack/core/globals.gd"
 SignalMgr="*res://addons/godot_helper_pack/core/signal_mgr.gd"
 ServiceMgr="*res://addons/godot_helper_pack/core/service_mgr.gd"
 
+[display]
+
+window/stretch/mode="2d"
+
 [editor_plugins]
 
 enabled=PoolStringArray( "godot_helper_pack", "gut" )
