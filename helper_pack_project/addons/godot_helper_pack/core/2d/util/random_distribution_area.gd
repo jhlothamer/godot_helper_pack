@@ -121,6 +121,7 @@ export var populate_area_now: bool setget _update_populate_area
 export var clear_area_now: bool setget _set_clear_area_now
 export var allow_layer_objects_to_overlap := false
 export var allow_runtime_population := false
+export var duplicate_nodes_limit := 4000
 
 
 var _rand := RandomNumberGenerator.new()
@@ -240,8 +241,13 @@ func _populate_area_multi_layer() -> void:
 			num_samples_before_rejection)
 		points.sort_custom(Vector2YSorter.new(), "sort")
 		layer.populate_object_circles(points)
+
+	stop_watch.stop()
+
+	print(name + " points distributed in msec: " + str(stop_watch.get_elapsed_msec()))
 		
 	if !allow_layer_objects_to_overlap:
+		stop_watch.start()
 		# scan previous layers for overlapping object circles - removing current layer object circles
 		for i in range(1, layers.size()):
 			var layer = layers[i]
@@ -259,31 +265,45 @@ func _populate_area_multi_layer() -> void:
 					else:
 						layer.discarded_object_circles.append(layer_object_circle)
 				layer.object_circles = kept_layer_object_circles
+		stop_watch.stop()
+		print(name + " overlapping points discarded in msec: " + str(stop_watch.get_elapsed_msec()))
 
-	stop_watch.stop()
-
-	print(name + " points distributed in msec: " + str(stop_watch.get_elapsed_msec()))
-
-	stop_watch.start()
-	var total_number_of_items := 0
+	var total_to_be_duplicated := 0
+	var total_rejected_to_be_duplicated := 0
 	for layer in layers:
-		total_number_of_items += layer.object_circles.size()
-		for c in layer.object_circles:
-			var item = _get_rand_item(layer.clone_items, layer.clone_parent)
-			_own(item, get_tree().get_edited_scene_root())
-			item.global_position = rect_position + c.center
-		if layer.discarded_point_clone_parent != null:
-			for c in layer.discarded_object_circles:
-				var item = _get_rand_item(layer.clone_items, layer.discarded_point_clone_parent)
+		total_to_be_duplicated += layer.object_circles.size()
+		if layer.discarded_point_clone_parent:
+			total_rejected_to_be_duplicated += layers.discarded_object_circles.size()
+
+	var duplicate_nodes := true
+	if duplicate_nodes_limit > 0 and total_to_be_duplicated + total_rejected_to_be_duplicated > duplicate_nodes_limit:
+		duplicate_nodes = false
+		print("Total number of nodes to duplicate will exceed limit of %d" % duplicate_nodes_limit)
+		print("\tTotal duplicate nodes: %d" % total_to_be_duplicated)
+		if total_rejected_to_be_duplicated > 0:
+			print("\tTotal duplicate nodes (discarded): %d" % total_rejected_to_be_duplicated)
+
+	if duplicate_nodes:
+		stop_watch.start()
+		var total_number_of_items := 0
+		for layer in layers:
+			total_number_of_items += layer.object_circles.size()
+			for c in layer.object_circles:
+				var item = _get_rand_item(layer.clone_items, layer.clone_parent)
 				_own(item, get_tree().get_edited_scene_root())
 				item.global_position = rect_position + c.center
-			layer.discarded_point_clone_parent.visible = false
-
-	stop_watch.stop()
-	total_stop_watch.stop()
-
-	if Engine.editor_hint:
+			if layer.discarded_point_clone_parent != null:
+				for c in layer.discarded_object_circles:
+					var item = _get_rand_item(layer.clone_items, layer.discarded_point_clone_parent)
+					_own(item, get_tree().get_edited_scene_root())
+					item.global_position = rect_position + c.center
+				layer.discarded_point_clone_parent.visible = false
+		stop_watch.stop()
 		print(name + " items duplicated and distributed in msec: "
 			+ str(stop_watch.get_elapsed_msec()))
-		print(name + " total elapsed time in msec: " + str(total_stop_watch.get_elapsed_msec()))
-		print(name + " number of items duplicated: " + str(total_number_of_items))
+		print(name + " number of items duplicated: " + str(total_to_be_duplicated))
+	
+	
+	total_stop_watch.stop()
+
+	print(name + " total elapsed time in msec: " + str(total_stop_watch.get_elapsed_msec()))
