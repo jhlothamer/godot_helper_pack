@@ -121,7 +121,7 @@ export var populate_area_now: bool setget _update_populate_area
 export var clear_area_now: bool setget _set_clear_area_now
 export var allow_layer_objects_to_overlap := false
 export var allow_runtime_population := false
-export var duplicate_nodes_limit := 4000
+export (int, 1, 10000) var duplicate_nodes_limit := 2000
 
 
 var _rand := RandomNumberGenerator.new()
@@ -219,9 +219,15 @@ func _get_layers() -> Array:
 func _populate_area_multi_layer() -> void:
 	var layers = _get_layers()
 	if layers.size() < 1:
+		print(name + " must have 1 or more layers in order to populate area.")
 		return
 	
 	_rand.randomize()
+	
+	print("----------------------------------------------------------------")
+	print(name + " - begin populating area")
+	yield(get_tree().create_timer(.1), "timeout")
+	
 	
 	var total_stop_watch = StopWatch.new()
 	total_stop_watch.start()
@@ -245,7 +251,17 @@ func _populate_area_multi_layer() -> void:
 	stop_watch.stop()
 
 	print(name + " points distributed in msec: " + str(stop_watch.get_elapsed_msec()))
+	yield(get_tree().create_timer(.1), "timeout")
+	
+	
+	if layers[0].object_circles.size() > duplicate_nodes_limit:
+		print("Number of nodes to duplicate for layer 1 will exceed limit of %d" % duplicate_nodes_limit)
+		print("\tTotal duplicate nodes for layer 1: %d" % layers[0].object_circles.size())
+		return
 		
+	var total_to_be_duplicated:int = layers[0].object_circles.size()
+	var total_rejected_to_be_duplicated := 0
+
 	if !allow_layer_objects_to_overlap:
 		stop_watch.start()
 		# scan previous layers for overlapping object circles - removing current layer object circles
@@ -265,15 +281,22 @@ func _populate_area_multi_layer() -> void:
 					else:
 						layer.discarded_object_circles.append(layer_object_circle)
 				layer.object_circles = kept_layer_object_circles
+				total_to_be_duplicated += layer.object_circles.size()
+				if layer.discarded_point_clone_parent:
+					total_rejected_to_be_duplicated += layer.discarded_object_circles.size()
+				if duplicate_nodes_limit > 0 and total_to_be_duplicated + total_rejected_to_be_duplicated > duplicate_nodes_limit:
+					print(name + " abandoning overlapping points discard process - exceeded duplidate node limit")
+					break
+				
 		stop_watch.stop()
 		print(name + " overlapping points discarded in msec: " + str(stop_watch.get_elapsed_msec()))
-
-	var total_to_be_duplicated := 0
-	var total_rejected_to_be_duplicated := 0
-	for layer in layers:
-		total_to_be_duplicated += layer.object_circles.size()
-		if layer.discarded_point_clone_parent:
-			total_rejected_to_be_duplicated += layers.discarded_object_circles.size()
+		yield(get_tree().create_timer(.1), "timeout")
+	else:
+		total_to_be_duplicated = 0
+		for layer in layers:
+			total_to_be_duplicated += layer.object_circles.size()
+			if layer.discarded_point_clone_parent:
+				total_rejected_to_be_duplicated += layer.discarded_object_circles.size()
 
 	var duplicate_nodes := true
 	if duplicate_nodes_limit > 0 and total_to_be_duplicated + total_rejected_to_be_duplicated > duplicate_nodes_limit:
