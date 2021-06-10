@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Object",
+"class": "AngleUtil",
+"language": "GDScript",
+"path": "res://addons/godot_helper_pack/core/util/angle_util.gd"
+}, {
+"base": "Object",
 "class": "ArrayUtil",
 "language": "GDScript",
 "path": "res://addons/godot_helper_pack/core/util/array_util.gd"
@@ -140,6 +145,7 @@ _global_script_classes=[ {
 "path": "res://addons/godot_helper_pack/core/util/yield_util.gd"
 } ]
 _global_script_class_icons={
+"AngleUtil": "",
 "ArrayUtil": "",
 "CameraLimiter": "",
 "CameraMove2D": "",
