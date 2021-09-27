@@ -124,7 +124,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godot_helper_pack/core/util/stats_util.gd"
 }, {
-"base": "Object",
+"base": "Reference",
 "class": "StopWatch",
 "language": "GDScript",
 "path": "res://addons/godot_helper_pack/core/util/stop_watch.gd"
@@ -144,7 +144,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godot_helper_pack/core/2d/vector/vector2_util.gd"
 }, {
-"base": "Object",
+"base": "Reference",
 "class": "YieldUtil",
 "language": "GDScript",
 "path": "res://addons/godot_helper_pack/core/util/yield_util.gd"

@@ -1,5 +1,5 @@
 class_name YieldUtil
-extends Object
+extends Reference
 
 signal completed()
 

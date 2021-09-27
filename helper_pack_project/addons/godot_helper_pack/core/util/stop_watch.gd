@@ -1,5 +1,5 @@
 class_name StopWatch
-extends Object
+extends Reference
 """
 StopWatch utility class.
 """
