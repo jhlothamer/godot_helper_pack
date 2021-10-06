@@ -237,12 +237,14 @@ func test_clamp_angle_top_wedge_in():
 	var results = AngleUtil.clamp_angle(test_angle, start_angle, end_angle)
 	assert_eq(results, test_angle)
 
+
 func test_clamp_angle_top_wedge_close_to_end():
 	var start_angle := -.75*PI
 	var end_angle := -.25*PI
 	var test_angle := .25*PI
 	var results = AngleUtil.clamp_angle(test_angle, start_angle, end_angle)
 	assert_eq(results, end_angle)
+
 
 func test_clamp_angle_top_wedge_close_to_start():
 	var start_angle := -.75*PI
@@ -259,12 +261,14 @@ func test_clamp_angle_right_wedge_in():
 	var results = AngleUtil.clamp_angle(test_angle, start_angle, end_angle)
 	assert_eq(results, test_angle)
 
+
 func test_clamp_angle_right_wedge_close_to_end():
 	var start_angle := -.25*PI
 	var end_angle := .25*PI
 	var test_angle := .75*PI
 	var results = AngleUtil.clamp_angle(test_angle, start_angle, end_angle)
 	assert_eq(results, end_angle)
+
 
 func test_clamp_angle_right_wedge_close_to_start():
 	var start_angle := -.25*PI
@@ -273,12 +277,14 @@ func test_clamp_angle_right_wedge_close_to_start():
 	var results = AngleUtil.clamp_angle(test_angle, start_angle, end_angle)
 	assert_eq(results, start_angle)
 
+
 func test_clamp_angle_bottom_wedge_in():
 	var start_angle := .25*PI
 	var end_angle := .75*PI
 	var test_angle := .5*PI
 	var results = AngleUtil.clamp_angle(test_angle, start_angle, end_angle)
 	assert_eq(results, test_angle)
+
 
 func test_clamp_angle_bottom_wedge_close_to_end():
 	var start_angle := .25*PI
@@ -287,12 +293,14 @@ func test_clamp_angle_bottom_wedge_close_to_end():
 	var results = AngleUtil.clamp_angle(test_angle, start_angle, end_angle)
 	assert_eq(results, end_angle)
 
+
 func test_clamp_angle_bottom_wedge_close_to_start():
 	var start_angle := .25*PI
 	var end_angle := .75*PI
 	var test_angle := 0.0
 	var results = AngleUtil.clamp_angle(test_angle, start_angle, end_angle)
 	assert_eq(results, start_angle)
+
 
 func test_clamp_angle_left_wedge_in():
 	var start_angle := .75*PI
@@ -301,6 +309,7 @@ func test_clamp_angle_left_wedge_in():
 	var results = AngleUtil.clamp_angle(test_angle, start_angle, end_angle)
 	assert_eq(results, test_angle)
 
+
 func test_clamp_angle_left_wedge_close_to_end():
 	var start_angle := .75*PI
 	var end_angle := -.75*PI
@@ -308,9 +317,29 @@ func test_clamp_angle_left_wedge_close_to_end():
 	var results = AngleUtil.clamp_angle(test_angle, start_angle, end_angle)
 	assert_eq(results, end_angle)
 
+
 func test_clamp_angle_left_wedge_close_to_start():
 	var start_angle := .75*PI
 	var end_angle := -.75*PI
 	var test_angle := .25 * PI
 	var results = AngleUtil.clamp_angle(test_angle, start_angle, end_angle)
 	assert_eq(results, start_angle)
+
+
+func test_clamp_angle_plus_minus_pie_in():
+	var start_angle := -PI
+	var end_angle := PI
+	var test_angle := 0.0
+	var results = AngleUtil.clamp_angle(test_angle, start_angle, end_angle)
+	assert_eq(results, test_angle)
+	test_angle = PI
+	results = AngleUtil.clamp_angle(test_angle, start_angle, end_angle)
+	assert_eq(results, test_angle)
+	test_angle = -PI
+	results = AngleUtil.clamp_angle(test_angle, start_angle, end_angle)
+	assert_eq(results, test_angle)
+	test_angle = randi() * PI
+	results = AngleUtil.clamp_angle(test_angle, start_angle, end_angle)
+	assert_eq(results, test_angle)
+	
+
