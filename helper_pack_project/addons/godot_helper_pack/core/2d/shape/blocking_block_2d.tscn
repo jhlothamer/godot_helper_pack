@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://addons/godot_helper_pack/core/2d/shape/shape_draw_2d.gd" type="Script" id=1]
+[ext_resource path="res://addons/godot_helper_pack/core/2d/shape/blocking_block_2d.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+resource_local_to_scene = true
+extents = Vector2( 100, 100 )
+
+[node name="BlockingBlock" type="CollisionShape2D" groups=["blocking_block"]]
+shape = SubResource( 1 )
+script = ExtResource( 2 )
+
+[node name="ShapeDraw2D" type="Node2D" parent="."]
+script = ExtResource( 1 )
+color = Color( 0.027451, 0.803922, 0.168627, 1 )

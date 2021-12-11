@@ -1,0 +1,173 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://addons/godot_helper_pack/core/2d/shape/blocking_block_2d.tscn" type="PackedScene" id=1]
+[ext_resource path="res://demos/core/2d/shape/godot_helper_pack_scene_tree_blocking_block_warning.png" type="Texture" id=2]
+[ext_resource path="res://demos/core/2d/shape/godot_helper_pack_file_fav_blocking_block.png" type="Texture" id=3]
+[ext_resource path="res://demos/core/2d/shape/godot_helper_pack_global_blocking_color_setting.png" type="Texture" id=4]
+[ext_resource path="res://addons/godot_helper_pack/core/2d/camera/behavior/camera_zoom.gd" type="Script" id=5]
+[ext_resource path="res://addons/godot_helper_pack/core/2d/camera/behavior/camera_move.gd" type="Script" id=6]
+[ext_resource path="res://addons/godot_helper_pack/core/2d/camera/behavior/camera_limiter.gd" type="Script" id=7]
+
+[sub_resource type="RectangleShape2D" id=1]
+resource_local_to_scene = true
+extents = Vector2( 127, 65.5 )
+
+[sub_resource type="RectangleShape2D" id=2]
+resource_local_to_scene = true
+extents = Vector2( 192, 32 )
+
+[sub_resource type="RectangleShape2D" id=3]
+resource_local_to_scene = true
+extents = Vector2( 32, 96 )
+
+[sub_resource type="RectangleShape2D" id=4]
+resource_local_to_scene = true
+extents = Vector2( 32, 96 )
+
+[sub_resource type="RectangleShape2D" id=5]
+resource_local_to_scene = true
+extents = Vector2( 192, 32 )
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CameraLimitReferenceRect" type="ReferenceRect" parent="."]
+margin_left = -271.0
+margin_top = -147.0
+margin_right = 1924.0
+margin_bottom = 1310.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -116.0
+margin_top = -101.0
+margin_right = 116.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 212.0
+margin_bottom = 51.0
+rect_min_size = Vector2( 192, 31 )
+custom_colors/font_color = Color( 1, 0.0313726, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Move view with wasd/arrows
+Zoom with mouse wheel"
+align = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 524, 288 )
+current = true
+
+[node name="CameraMove2D" type="Node" parent="Camera2D"]
+script = ExtResource( 6 )
+move_speed = 5.0
+
+[node name="CameraZoom2D" type="Node" parent="Camera2D"]
+script = ExtResource( 5 )
+
+[node name="CameraLimiter" type="Node" parent="Camera2D"]
+script = ExtResource( 7 )
+limit_reference_rect = NodePath("../../CameraLimitReferenceRect")
+
+[node name="GodotHelperPackFileFavBlockingBlock" type="Sprite" parent="."]
+position = Vector2( 187, 250 )
+texture = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="GodotHelperPackFileFavBlockingBlock"]
+margin_left = -167.0
+margin_top = -236.0
+margin_right = -2.0
+margin_bottom = -171.0
+rect_scale = Vector2( 2, 2 )
+text = "Click and drag block from favorites in FileSystem dock.  Resize/move in 2D editor window."
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GodotHelperPackSceneTreeBlockingBlockWarning" type="Sprite" parent="."]
+position = Vector2( 565, 225 )
+texture = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="GodotHelperPackSceneTreeBlockingBlockWarning"]
+margin_left = -170.0
+margin_top = -204.0
+margin_right = -5.0
+margin_bottom = -156.0
+rect_scale = Vector2( 2, 2 )
+text = "Block will replace itself with StaticBody2D at runtime (ignore warning)"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GodotHelperPackGlobalBlockingColorSetting" type="Sprite" parent="."]
+position = Vector2( 1235, 470 )
+texture = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="GodotHelperPackGlobalBlockingColorSetting"]
+margin_left = -447.0
+margin_top = -468.0
+margin_right = -63.0
+margin_bottom = -420.0
+rect_scale = Vector2( 2, 2 )
+text = "Change color of all blocks from settings.  (Can turn this off on block by block basis.)  Changes are monitored and block colors updated in editor."
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BlockingBlock" parent="." instance=ExtResource( 1 )]
+position = Vector2( 205, 491 )
+shape = SubResource( 1 )
+color = Color( 1, 1, 1, 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2( 21, 823 )
+
+[node name="Label" type="Label" parent="StaticBody2D"]
+margin_left = 43.0
+margin_top = -103.0
+margin_right = 359.0
+margin_bottom = -55.0
+rect_scale = Vector2( 2, 2 )
+text = "Blocking blocks that are children of static, rigid, kinematic bodies or an area will not replace themselves with a StaticBody2D."
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BlockingBlock" parent="StaticBody2D" instance=ExtResource( 1 )]
+position = Vector2( 235, 41 )
+shape = SubResource( 2 )
+color = Color( 0.027451, 0.803922, 0.168627, 1 )
+
+[node name="BlockingBlock2" parent="StaticBody2D" instance=ExtResource( 1 )]
+position = Vector2( 395, 169 )
+shape = SubResource( 3 )
+color = Color( 0.027451, 0.803922, 0.168627, 1 )
+
+[node name="BlockingBlock3" parent="StaticBody2D" instance=ExtResource( 1 )]
+position = Vector2( 75, 169 )
+shape = SubResource( 4 )
+color = Color( 0.027451, 0.803922, 0.168627, 1 )
+
+[node name="BlockingBlock4" parent="StaticBody2D" instance=ExtResource( 1 )]
+position = Vector2( 235, 297 )
+shape = SubResource( 5 )
+color = Color( 0.027451, 0.803922, 0.168627, 1 )

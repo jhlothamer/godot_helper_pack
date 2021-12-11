@@ -34,8 +34,8 @@ static func load_json_data(file_path: String, default_value = {}) -> Dictionary:
 		return default_value
 	return parse_results.result
 
-static func save_json_data(file_path: String, data: Dictionary) -> void:
-	var json_string = JSON.print(data)
+static func save_json_data(file_path: String, data: Dictionary, delim: String = "") -> void:
+	var json_string = JSON.print(data, delim)
 	save_text(file_path, json_string)
 	
 	

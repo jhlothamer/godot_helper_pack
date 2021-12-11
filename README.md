@@ -29,6 +29,7 @@ The Godot Helper Pack contains the following:
 - **RandomDistributionArea/RandomDistributionLayer** - used for cloning sub-nodes as children of a target node using Poisson disk sampling. Can handle layering.
 - **SoundTrackMgr/SceneSoundTrack** - Have soundtrack music play without interruption in multiple scenes
 - **StateMachine/State** - node based state machine
+- **2D Level Blocking Helper** - Blocking out a level in 2D is easier with the BlockingBlock scene. This scene is added to the FileSystem dock's Favorites list.  Just drag it directly into your 2D level's scene.  Resize and move block as usual in the 2D editor.  Control the color of all blocking blocks in the project settings (Godot Helpr Pack Plugin -> Blocking Global Color) or set block colors individually.
 - **Many utility classes**
 - - **ArrayUtil** - append all array elements to another array, get random item, etc.
 - - **EnumUtil** - Lookup integer values from enumeration string and vice versa, etc.
