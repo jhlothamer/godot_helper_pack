@@ -152,7 +152,7 @@ func _make_prop(name: String, type: int, usage: int = PROPERTY_USAGE_DEFAULT, hi
 func _get_property_list():
 	var props := []
 	props.append(_make_prop("BlockingBlock2D", TYPE_NIL, PROPERTY_USAGE_CATEGORY))
-	props.append(_make_prop("use_global_color", TYPE_COLOR))
+	props.append(_make_prop("use_global_color", TYPE_BOOL))
 	props.append(_make_prop("color", TYPE_COLOR))
 	props.append(_make_prop("texture", TYPE_OBJECT))
 
