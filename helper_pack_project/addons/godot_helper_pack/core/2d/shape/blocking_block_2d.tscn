@@ -10,7 +10,29 @@ extents = Vector2( 100, 100 )
 [node name="BlockingBlock" type="CollisionShape2D" groups=["blocking_block"]]
 shape = SubResource( 1 )
 script = ExtResource( 2 )
+use_global_color = true
+color = Color( 1, 1, 1, 1 )
+texture = null
+nine_patch_draw_center = true
+nine_patch_region_rect = Rect2( 0, 0, 0, 0 )
+nine_patch_patch_left = 0
+nine_patch_patch_right = 0
+nine_patch_patch_top = 0
+nine_patch_patch_bottom = 0
+nine_patch_axis_stretch_horizontal = 0
+nine_patch_axis_stretch_vertical = 0
 
 [node name="ShapeDraw2D" type="Node2D" parent="."]
 script = ExtResource( 1 )
 color = Color( 0.027451, 0.803922, 0.168627, 1 )
+texture = null
+non_rect_texture_offset = Vector2( 0, 0 )
+non_rect_texture_scale = Vector2( 1, 1 )
+nine_patch_draw_center = true
+nine_patch_region_rect = Rect2( 0, 0, 0, 0 )
+nine_patch_patch_left = 0
+nine_patch_patch_right = 0
+nine_patch_patch_top = 0
+nine_patch_patch_bottom = 0
+nine_patch_axis_stretch_horizontal = 0
+nine_patch_axis_stretch_vertical = 0

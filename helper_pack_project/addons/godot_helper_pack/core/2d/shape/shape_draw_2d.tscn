@@ -4,3 +4,15 @@
 
 [node name="shapeDraw" type="Node2D"]
 script = ExtResource( 1 )
+color = Color( 1, 1, 1, 1 )
+texture = null
+non_rect_texture_offset = Vector2( 0, 0 )
+non_rect_texture_scale = Vector2( 1, 1 )
+nine_patch_draw_center = true
+nine_patch_region_rect = Rect2( 0, 0, 0, 0 )
+nine_patch_patch_left = 0
+nine_patch_patch_right = 0
+nine_patch_patch_top = 0
+nine_patch_patch_bottom = 0
+nine_patch_axis_stretch_horizontal = 0
+nine_patch_axis_stretch_vertical = 0

@@ -211,9 +211,11 @@ func _draw() -> void:
 		var right_pt = (Vector2.RIGHT * 100.0 * normal_length + Vector2.UP * l.d).rotated(angle)
 		draw_line(left_pt, right_pt, color, 3.0)
 
+
 func _on_draw() -> void:
 	_process_parent_shape()
 	update()
+
 
 func _make_prop(name: String, type: int, usage: int = PROPERTY_USAGE_DEFAULT, hint = null) -> Dictionary:
 	var prop = {
