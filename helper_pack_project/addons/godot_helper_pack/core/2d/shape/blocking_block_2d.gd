@@ -3,9 +3,12 @@ extends CollisionShape2D
 
 var use_global_color := true setget _set_use_global_color
 var color: Color = Color(1.0,1.0,1.0,1.0) setget _set_color
-
-
 var texture: Texture setget _set_texture
+
+# applies to all but rect
+var non_rect_texture_offset := Vector2.ZERO setget _set_non_rect_texture_offset
+var non_rect_texture_scale := Vector2.ONE setget _set_non_rect_texture_scale
+
 
 # applies to rectangle shape - for nine patch
 var nine_patch_draw_center := true setget _set_draw_center
@@ -37,6 +40,17 @@ func _set_texture(value: Texture) -> void:
 	texture = value
 	if _shapedraw:
 		_shapedraw.texture = value
+
+func _set_non_rect_texture_offset(value: Vector2) -> void:
+	non_rect_texture_offset = value
+	if _shapedraw:
+		_shapedraw.non_rect_texture_offset = value
+
+
+func _set_non_rect_texture_scale(value: Vector2) -> void:
+	non_rect_texture_scale = value
+	if _shapedraw:
+		_shapedraw.non_rect_texture_scale = value
 
 
 func _set_draw_center(value: bool) -> void:
@@ -88,12 +102,14 @@ func _set_axis_stretch_vertical(value: int) -> void:
 
 
 func _ready():
-	shape = shape.duplicate()
 	if use_global_color:
 		color = GodotHelperPackSettings.get_global_blocking_color()
 	
+	# pass property values along to shape draw
 	_shapedraw.color = color
 	_shapedraw.texture = texture
+	_shapedraw.non_rect_texture_offset = non_rect_texture_offset
+	_shapedraw.non_rect_texture_scale = non_rect_texture_scale
 	_shapedraw.nine_patch_draw_center = nine_patch_draw_center
 	_shapedraw.nine_patch_region_rect = nine_patch_region_rect
 	_shapedraw.nine_patch_patch_left = nine_patch_patch_left
@@ -104,13 +120,11 @@ func _ready():
 	_shapedraw.nine_patch_axis_stretch_vertical = nine_patch_axis_stretch_vertical	
 	
 	if Engine.editor_hint:
+		shape = shape.duplicate()
 		return
 	
 	var parent = get_parent()
-	if parent is StaticBody2D or \
-		parent is RigidBody2D or  \
-		parent is Area2D or \
-		parent is KinematicBody2D:
+	if parent is CollisionObject2D:
 			return
 	
 	yield(parent,"ready")
@@ -121,31 +135,34 @@ func _ready():
 	sb.add_child(self)
 
 
-func _make_prop(name: String, type: int, usage: int = PROPERTY_USAGE_DEFAULT, hint = null) -> Dictionary:
+func _make_prop(name: String, type: int, usage: int = PROPERTY_USAGE_DEFAULT, hint: int = -1, hint_string_data = null) -> Dictionary:
 	var prop = {
 		name = name,
 		type = type,
 		usage = usage
 	}
-	if hint:
-		if hint is String:
-			prop.hint_string = hint
-		elif hint is Array and hint.size() > 1:
-			prop.hint = PROPERTY_HINT_RANGE
-			if hint[0] is int and hint[1] is int:
-				prop.hint_string = "%d,%d" % hint
+	if hint > -1:
+		prop.hint = hint
+	if hint_string_data:
+		if hint_string_data is String:
+			prop.hint_string = hint_string_data
+		elif hint_string_data is Array and hint_string_data.size() > 1:
+			if hint < 0:
+				prop.hint = PROPERTY_HINT_RANGE
+			if hint_string_data[0] is int and hint_string_data[1] is int:
+				prop.hint_string = "%d,%d" % hint_string_data
 			else:
-				prop.hint_string = "%f,%f" % hint
-		elif hint is Dictionary:
-			prop.hint = PROPERTY_HINT_ENUM
+				prop.hint_string = "%f,%f" % hint_string_data
+		elif hint_string_data is Dictionary:
+			if hint < 0:
+				prop.hint = PROPERTY_HINT_ENUM
 			var temp = ""
-			for k in hint.keys():
+			for k in hint_string_data.keys():
 				if !temp.empty():
 					temp += ","
-				temp += "%s:%s" % [k, str(hint[k])]
+				temp += "%s:%s" % [k, str(hint_string_data[k])]
 			prop.hint_string = temp
-		else:
-			prop.hint_string = str(hint)
+		
 	return  prop
 
 
@@ -154,17 +171,22 @@ func _get_property_list():
 	props.append(_make_prop("BlockingBlock2D", TYPE_NIL, PROPERTY_USAGE_CATEGORY))
 	props.append(_make_prop("use_global_color", TYPE_BOOL))
 	props.append(_make_prop("color", TYPE_COLOR))
-	props.append(_make_prop("texture", TYPE_OBJECT))
+	props.append(_make_prop("texture", TYPE_OBJECT, PROPERTY_USAGE_DEFAULT | PROPERTY_USAGE_SCRIPT_VARIABLE, PROPERTY_HINT_RESOURCE_TYPE, "Texture"))
+	
+	props.append(_make_prop("Non-Rectangle Shape", TYPE_NIL, PROPERTY_USAGE_GROUP, -1, "non_rect"))
+	props.append(_make_prop("non_rect_texture_offset", TYPE_VECTOR2))
+	props.append(_make_prop("non_rect_texture_scale", TYPE_VECTOR2))
 
-	props.append(_make_prop("Rectangle Shape", TYPE_NIL, PROPERTY_USAGE_GROUP, "nine_patch"))
+
+	props.append(_make_prop("Rectangle Shape", TYPE_NIL, PROPERTY_USAGE_GROUP, -1, "nine_patch"))
 	props.append(_make_prop("nine_patch_draw_center", TYPE_BOOL))
 	props.append(_make_prop("nine_patch_region_rect", TYPE_RECT2))
-	props.append(_make_prop("nine_patch_patch_left", TYPE_INT, PROPERTY_USAGE_DEFAULT, [0, 16384]))
-	props.append(_make_prop("nine_patch_patch_right", TYPE_INT, PROPERTY_USAGE_DEFAULT, [0, 16384]))
-	props.append(_make_prop("nine_patch_patch_top", TYPE_INT, PROPERTY_USAGE_DEFAULT, [0, 16384]))
-	props.append(_make_prop("nine_patch_patch_bottom", TYPE_INT, PROPERTY_USAGE_DEFAULT, [0, 16384]))
-	props.append(_make_prop("nine_patch_axis_stretch_horizontal", TYPE_INT, PROPERTY_USAGE_DEFAULT, ShapeDraw2D.AxisStretchMode))
-	props.append(_make_prop("nine_patch_axis_stretch_vertical", TYPE_INT, PROPERTY_USAGE_DEFAULT, ShapeDraw2D.AxisStretchMode))
+	props.append(_make_prop("nine_patch_patch_left", TYPE_INT, PROPERTY_USAGE_DEFAULT, -1, [0, 16384]))
+	props.append(_make_prop("nine_patch_patch_right", TYPE_INT, PROPERTY_USAGE_DEFAULT, -1, [0, 16384]))
+	props.append(_make_prop("nine_patch_patch_top", TYPE_INT, PROPERTY_USAGE_DEFAULT, -1, [0, 16384]))
+	props.append(_make_prop("nine_patch_patch_bottom", TYPE_INT, PROPERTY_USAGE_DEFAULT, -1, [0, 16384]))
+	props.append(_make_prop("nine_patch_axis_stretch_horizontal", TYPE_INT, PROPERTY_USAGE_DEFAULT, -1, ShapeDraw2D.AxisStretchMode))
+	props.append(_make_prop("nine_patch_axis_stretch_vertical", TYPE_INT, PROPERTY_USAGE_DEFAULT, -1, ShapeDraw2D.AxisStretchMode))
 
 	return props
 

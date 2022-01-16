@@ -1,4 +1,4 @@
-class_name CameraLimiter
+class_name CameraLimiter2D
 extends Node
 
 export var limit_reference_rect: NodePath

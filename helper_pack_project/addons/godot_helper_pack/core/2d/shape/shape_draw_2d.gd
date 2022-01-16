@@ -30,7 +30,6 @@ var _shape: Shape2D
 var _polygon: Polygon2D
 var _polygon_midpt: Vector2
 var _nine_patch_rect: NinePatchRect
-var _texture_rect: TextureRect
 
 
 func _set_color(value):
@@ -147,6 +146,9 @@ func _process_parent_shape():
 
 func _create_polygon_2d(p: PoolVector2Array) -> void:
 	_shape = null
+	if _nine_patch_rect:
+		_nine_patch_rect.queue_free()
+		_nine_patch_rect = null
 	if !_polygon:
 		_polygon = Polygon2D.new()
 		add_child(_polygon)
@@ -165,9 +167,9 @@ func _create_polygon_2d(p: PoolVector2Array) -> void:
 
 func _create_nine_patch_rect(rect_shape: RectangleShape2D) -> void:
 	_shape = null
-	if _texture_rect:
-		_texture_rect.queue_free()
-		_texture_rect = null
+	if _polygon:
+		_polygon.queue_free()
+		_polygon = null
 	if !_nine_patch_rect:
 		_nine_patch_rect = NinePatchRect.new()
 		add_child(_nine_patch_rect)

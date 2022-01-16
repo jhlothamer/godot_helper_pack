@@ -20,7 +20,7 @@ _global_script_classes=[ {
 "path": "res://addons/godot_helper_pack/core/util/array_util.gd"
 }, {
 "base": "Node",
-"class": "CameraLimiter",
+"class": "CameraLimiter2D",
 "language": "GDScript",
 "path": "res://addons/godot_helper_pack/core/2d/camera/behavior/camera_limiter.gd"
 }, {
@@ -30,7 +30,7 @@ _global_script_classes=[ {
 "path": "res://addons/godot_helper_pack/core/2d/camera/behavior/camera_move.gd"
 }, {
 "base": "Node",
-"class": "CameraShake",
+"class": "CameraShake2D",
 "language": "GDScript",
 "path": "res://addons/godot_helper_pack/core/2d/camera/behavior/camera_shake.gd"
 }, {
@@ -162,9 +162,9 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "AngleUtil": "",
 "ArrayUtil": "",
-"CameraLimiter": "",
+"CameraLimiter2D": "",
 "CameraMove2D": "",
-"CameraShake": "",
+"CameraShake2D": "",
 "CameraZoom2D": "",
 "Circle2D": "",
 "EnumUtil": "",
@@ -216,6 +216,19 @@ enabled=PoolStringArray( "res://addons/godot_helper_pack/plugin.cfg", "res://add
 [godot_helper_pack_plugin]
 
 blocking_global_color=Color( 0.027451, 0.803922, 0.168627, 1 )
+
+[input]
+
+zoom_in={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":4,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+zoom_out={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":5,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
 
 [rendering]
 

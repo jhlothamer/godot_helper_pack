@@ -1,4 +1,4 @@
-class_name CameraShake
+class_name CameraShake2D
 extends Node
 
 
@@ -31,30 +31,25 @@ func _ready():
 	_noise.seed = _rand.randi()
 	_noise.period = 4
 	_noise.octaves = 2
+	set_physics_process(false)
 
 
 func shake_camera(priority: int, duration: float, amount: float) -> void:
-	start_camera_shake(priority, duration, amount)
-
-
-func start_camera_shake(priority: int, duration: float, amount: float):
 	if priority < _current_priority || _camera == null:
 		return
 	_current_priority = priority
 	_camera_shake_amount = amount
 	_camera_shake_timer_max = duration
 	_camera_shake_timer = 0.0
-
+	set_physics_process(true)
 
 func _physics_process(delta):
-	if _current_priority < 0:
-		return
 	_camera_shake_timer += delta
 	if _camera_shake_timer >= _camera_shake_timer_max:
 		_camera.offset = Vector2.ZERO
 		_camera.rotation_degrees = 0.0
 		_current_priority = -1
-		#print("done shaking camera at timer value " + str(camera_shake_timer))
+		set_physics_process(false)
 		return
 	var camera_offset = Vector2()
 	var rotation: float
