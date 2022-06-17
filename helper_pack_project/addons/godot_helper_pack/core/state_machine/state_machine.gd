@@ -8,14 +8,19 @@ export var disabled : bool
 export var host_node: NodePath
 
 
-var _current_state = null
 var _host: Node
 var _required_state_node_methods: Array = [
 	"init", "enter", "exit" , "physics_process", "unhandled_input", "change_state"]
 var _prohibited_state_node_methods: Array = ["_physics_process"]
 
 
+var _state_stack := []
+
+
 func _ready():
+	if disabled:
+		return
+	
 	yield(get_parent(), "ready")
 
 	if host_node != null && !host_node.is_empty() && has_node(host_node):
@@ -28,13 +33,17 @@ func _ready():
 		found_problems = _check_state_node(child) || found_problems
 		child.init(self, _host)
 		if child.is_starting_state:
-			_current_state = child
-	if _current_state != null:
-		_print_dbg("starting state is " + _current_state.name)
-		_current_state.enter()
-	else:
+			_state_stack.push_front(child)
+	
+	if _state_stack.empty():
 		push_error("No starting state designated for state machine.")
 		assert(false)
+	elif _state_stack.size() > 1:
+		push_error("Too many starting states for state machine.")
+		assert(false)
+	else:
+		_print_dbg("starting state is %s" % _state_stack[0].name)
+		_state_stack[0].enter()
 
 	if found_problems:
 		assert(false)
@@ -60,25 +69,47 @@ func _check_state_node(state_node: Node) -> bool:
 
 
 func change_state(state_name) -> void:
-	if _current_state != null:
-		_print_dbg("exiting state " + _current_state.name)
-		_current_state.exit()
+	if !_state_stack.empty():
+		_print_dbg("exiting state " + _state_stack[0].name)
+		_state_stack[0].exit()
+		
 	assert(has_node(state_name))
-	_current_state = get_node(state_name)
-	_print_dbg("entering state " + _current_state.name)
-	_current_state.enter()
+	var new_state = get_node(state_name)
+	if !_state_stack.empty():
+		_state_stack[0] = new_state
+	else:
+		_state_stack.push_front(new_state)
+	_print_dbg("entering state " + new_state.name)
+	new_state.enter()
+
+
+func push_state(state_name) -> void:
+	assert(has_node(state_name))
+	var new_state = get_node(state_name)
+	_state_stack.push_front(new_state)
+	_print_dbg("entering state " + new_state.name)
+	new_state.enter()
+
+func pop_state() -> void:
+	assert(!_state_stack.empty())
+	var state = _state_stack.pop_front()
+	state.exit()
+	if !_state_stack.empty():
+		_state_stack[0].reenter(state.name)
+	else:
+		_print_dbg("StateMachine: no states after pop: %s" % get_path())
 
 
 func _physics_process(delta) -> void:
 	if disabled:
 		return
-	if _current_state != null:
-		_current_state.physics_process(delta)
+	if !_state_stack.empty():
+		_state_stack[0].physics_process(delta)
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if _current_state != null:
-		_current_state.unhandled_input(event)
+	if !_state_stack.empty():
+		_state_stack[0].unhandled_input(event)
 
 
 func _print_dbg(msg):
