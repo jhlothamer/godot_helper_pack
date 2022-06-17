@@ -17,9 +17,6 @@ rect_min_size = Vector2( 740, 250 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 _include_subdirectories = true
 _directory1 = "res://test/unit"
 _directory2 = "res://test/integration"
