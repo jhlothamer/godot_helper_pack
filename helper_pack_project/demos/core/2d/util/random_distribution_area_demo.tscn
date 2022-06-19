@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://addons/godot_helper_pack/core/2d/util/random_distribution_area.gd" type="Script" id=1]
-[ext_resource path="res://addons/godot_helper_pack/core/2d/util/random_distribution_area_layer.gd" type="Script" id=2]
+[ext_resource path="res://addons/godot_helper_pack/core/2d/util/distribution/random_distribution_area.gd" type="Script" id=1]
+[ext_resource path="res://addons/godot_helper_pack/core/2d/util/distribution/random_distribution_area_layer.gd" type="Script" id=2]
 [ext_resource path="res://demos/core/2d/util/trees-and-bushes.png" type="Texture" id=3]
 [ext_resource path="res://addons/godot_helper_pack/core/2d/shape/circle_2d.gd" type="Script" id=4]
 [ext_resource path="res://demos/core/2d/util/random_distribution_area_demo.gd" type="Script" id=5]
@@ -22,6 +22,7 @@ margin_top = 0.210224
 margin_right = 1024.0
 margin_bottom = 600.21
 rect_min_size = Vector2( 1024, 600 )
+mouse_filter = 2
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_lock_": true,

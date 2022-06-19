@@ -131,7 +131,10 @@ func _ready():
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	if !Engine.editor_hint and !allow_runtime_population:
 		for c in get_children():
-			remove_child(c)
+			if c.has_method("_i_am_a_random_distribution_area_layer"):
+				remove_child(c)
+			else:
+				printerr("RandomDistributionArea: node not RandomDistributionAreaLayer.  Please move.  %s" % c.get_path())
 
 
 func _update_populate_area(value):
@@ -155,24 +158,20 @@ func _get_items_to_distribute(n: Node) -> Array:
 		if c.has_method("_i_am_a_random_distribution_area_layer"):
 			continue
 		items.append(c)
+	items.append_array(n.scenes_to_distribute)
 	return items
 
 
 func _get_item(item_scene_or_object, parent: Node):
+	var item: CanvasItem
 	if item_scene_or_object is PackedScene:
-		return item_scene_or_object.instance()
-	var item = item_scene_or_object.duplicate(Node.DUPLICATE_SCRIPTS)
+		item =  item_scene_or_object.instance()
+	else:
+		item = item_scene_or_object.duplicate(Node.DUPLICATE_SCRIPTS)
 	parent.add_child(item)
 	item.visible = true
 	return item
 
-
-static func _own(node, new_owner):
-	if not node == new_owner and (not node.owner or node.filename):
-		node.owner = new_owner
-	if node.get_child_count():
-		for kid in node.get_children():
-			_own(kid, new_owner)
 
 
 func _get_rand_item(items: Array, parent: Node):
@@ -313,12 +312,12 @@ func _populate_area_multi_layer() -> void:
 			total_number_of_items += layer.object_circles.size()
 			for c in layer.object_circles:
 				var item = _get_rand_item(layer.clone_items, layer.clone_parent)
-				_own(item, get_tree().get_edited_scene_root())
+				item.owner = get_tree().get_edited_scene_root()
 				item.global_position = rect_position + c.center
 			if layer.discarded_point_clone_parent != null:
 				for c in layer.discarded_object_circles:
 					var item = _get_rand_item(layer.clone_items, layer.discarded_point_clone_parent)
-					_own(item, get_tree().get_edited_scene_root())
+					item.owner = get_tree().get_edited_scene_root()
 					item.global_position = rect_position + c.center
 				layer.discarded_point_clone_parent.visible = false
 		stop_watch.stop()

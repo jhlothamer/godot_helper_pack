@@ -2,7 +2,7 @@ tool
 extends EditorPlugin
 
 const SCENE_PATH_BLOCKING_BLOCK = "res://addons/godot_helper_pack/core/2d/shape/blocking_block_2d.tscn"
-
+const DISTRIBUTION_EDITOR_PLUGIN_SCENE = preload("res://addons/godot_helper_pack/core/2d/util/distribution/distribution_editor_plugin.tscn")
 
 const HELPER_PACK_AUTOLOADS = {
 	"Globals": "res://addons/godot_helper_pack/core/globals.gd",
@@ -11,6 +11,8 @@ const HELPER_PACK_AUTOLOADS = {
 	"GlobalBlockingColorChangeMonitor": "res://addons/godot_helper_pack/core/2d/shape/global_blocking_color_monitor.tscn",
 }
 
+var _distribution_editor: DistributionEditorPlugin
+var _distribution_editor_tool_btn: ToolButton
 
 func _enter_tree():
 	# force addition of color setting
@@ -22,12 +24,16 @@ func _enter_tree():
 	var editor_interface = get_editor_interface()
 	
 	_add_remove_blocking_block_favorite(true, editor_interface.get_editor_settings())
+	
+	_add_distribution_editor()
 
 
 func _exit_tree():
 	var editor_interface = get_editor_interface()
 	
 	_add_remove_blocking_block_favorite(false, editor_interface.get_editor_settings())
+	
+	_remove_distribution_editor()
 
 	var autoloads = _get_autoloads()
 	for autoload_name in HELPER_PACK_AUTOLOADS.keys():
@@ -60,3 +66,37 @@ func _get_autoloads() -> Array:
 		if s.begins_with("autoload/"):
 			autoloads.append(s.replace("autoload/", ""))
 	return autoloads
+
+
+func _add_distribution_editor() -> void:
+	if !_distribution_editor:
+		_distribution_editor = DISTRIBUTION_EDITOR_PLUGIN_SCENE.instance()
+
+	_distribution_editor_tool_btn = add_control_to_bottom_panel(_distribution_editor, "Distribution")
+	_distribution_editor_tool_btn.visible = false
+	
+
+func _remove_distribution_editor() -> void:
+	if !_distribution_editor:
+		return
+	remove_control_from_bottom_panel(_distribution_editor)
+	_distribution_editor_tool_btn = null
+
+
+func edit(object: Object) -> void:
+	if _distribution_editor:
+		_distribution_editor.edit(object)
+
+
+func handles(object: Object) -> bool:
+	if object is MultiMeshInstanceDistributionArea:
+		return true
+	if _distribution_editor:
+		_distribution_editor.clear()
+	return false
+
+
+func make_visible(visible: bool) -> void:
+	_distribution_editor_tool_btn.visible = visible
+
+

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/random_distribution_area.svg-dfea133a55ce43f26fa93822c035822a.stex"
+path="res://.import/random_distribution_area_layer.svg-718757590c9f8bd722f1a5d9c8f4924b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/godot_helper_pack/core/2d/util/random_distribution_area.svg"
-dest_files=[ "res://.import/random_distribution_area.svg-dfea133a55ce43f26fa93822c035822a.stex" ]
+source_file="res://addons/godot_helper_pack/core/2d/util/distribution/random_distribution_area_layer.svg"
+dest_files=[ "res://.import/random_distribution_area_layer.svg-718757590c9f8bd722f1a5d9c8f4924b.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=true

@@ -27,7 +27,10 @@ func _physics_process(delta):
 	if move_direction == Vector2.ZERO:
 		return
 	
-	_node2d_parent.global_position += move_direction * movement_speed * delta
+	if _node2d_parent is KinematicBody2D:
+		_node2d_parent.move_and_slide(move_direction * movement_speed)
+	else:
+		_node2d_parent.global_position += move_direction * movement_speed * delta
 
 
 func _get_move_direction() -> Vector2:

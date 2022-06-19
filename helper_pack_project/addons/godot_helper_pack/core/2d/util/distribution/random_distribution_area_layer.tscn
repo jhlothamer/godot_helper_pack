@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/godot_helper_pack/core/2d/util/distribution/random_distribution_area_layer.gd" type="Script" id=1]
+
+[node name="RandomDistributionAreaLayer" type="Node"]
+script = ExtResource( 1 )
