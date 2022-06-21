@@ -114,7 +114,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godot_helper_pack/core/2d/util/distribution/random_distribution_area.gd"
 }, {
-"base": "Reference",
+"base": "Node",
 "class": "RandomDistributionAreaLayer",
 "language": "GDScript",
 "path": "res://addons/godot_helper_pack/core/2d/util/distribution/random_distribution_area_layer.gd"
@@ -216,7 +216,7 @@ _global_script_class_icons={
 "ProjectSettingsHelper": "",
 "PropertyUtil": "",
 "RandomDistributionArea": "res://addons/godot_helper_pack/core/2d/util/distribution/random_distribution_area.svg",
-"RandomDistributionAreaLayer": "",
+"RandomDistributionAreaLayer": "res://addons/godot_helper_pack/core/2d/util/distribution/random_distribution_area_layer.svg",
 "Rect2Util": "",
 "RotateIt": "",
 "SceneSoundTrack": "",

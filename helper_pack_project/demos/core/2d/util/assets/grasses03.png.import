@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/spr_boulder_0_grayscale.png-b53e1c658c8d51ce64f88d39cd6ba7c2.stex"
+path="res://.import/grasses03.png-61636386f2741814a29f0673fc5ab861.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://demos/core/2d/util/spr_boulder_0_grayscale.png"
-dest_files=[ "res://.import/spr_boulder_0_grayscale.png-b53e1c658c8d51ce64f88d39cd6ba7c2.stex" ]
+source_file="res://demos/core/2d/util/assets/grasses03.png"
+dest_files=[ "res://.import/grasses03.png-61636386f2741814a29f0673fc5ab861.stex" ]
 
 [params]
 

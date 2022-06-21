@@ -89,7 +89,7 @@ func edit(object: Object) -> void:
 
 
 func handles(object: Object) -> bool:
-	if object is MultiMeshInstanceDistributionArea:
+	if object is MultiMeshInstanceDistributionArea or object is RandomDistributionArea:
 		return true
 	if _distribution_editor:
 		_distribution_editor.clear()

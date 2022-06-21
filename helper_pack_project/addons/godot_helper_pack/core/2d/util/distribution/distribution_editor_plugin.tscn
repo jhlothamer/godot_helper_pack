@@ -25,11 +25,16 @@ margin_bottom = 295.0
 
 [node name="Label" type="Label" parent="CenterContainer"]
 visible = false
-margin_left = 113.0
-margin_top = 138.0
-margin_right = 477.0
-margin_bottom = 152.0
-text = "Please select a MultiMeshInstanceDistributionArea node"
+margin_left = 181.0
+margin_top = 104.0
+margin_right = 409.0
+margin_bottom = 186.0
+text = "Please select a 
+MultiMeshInstanceDistributionArea
+or
+RandomDistributionArea
+node"
+align = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 5.0
@@ -48,6 +53,7 @@ margin_right = 88.0
 margin_bottom = 20.0
 text = "Distribution"
 items = [ "Distribute", null, 0, false, false, 0, 0, null, "", false, "Clear", null, 0, false, false, 1, 0, null, "", false, "Calc Compact Distribution Radius", null, 0, false, false, 2, 0, null, "", false ]
+switch_on_hover = true
 script = ExtResource( 2 )
 
 [node name="CollisionPolygonsMenuBtn" type="MenuButton" parent="VBoxContainer/MenuHBoxContainer"]
@@ -56,6 +62,17 @@ margin_right = 311.0
 margin_bottom = 20.0
 text = "Static Body Collision Polygons"
 items = [ "Create Collision Polygons", null, 0, false, false, 0, 0, null, "", false, "Clear Collision Polygons", null, 0, false, false, 1, 0, null, "", false ]
+switch_on_hover = true
+script = ExtResource( 2 )
+
+[node name="RandDistArealDistributeMenuBtn" type="MenuButton" parent="VBoxContainer/MenuHBoxContainer"]
+visible = false
+margin_left = 331.0
+margin_right = 419.0
+margin_bottom = 20.0
+text = "Distribution"
+items = [ "Distribute", null, 0, false, false, 0, 0, null, "", false, "Clear", null, 0, false, false, 1, 0, null, "", false ]
+switch_on_hover = true
 script = ExtResource( 2 )
 
 [node name="StatusTextEdit" type="TextEdit" parent="VBoxContainer"]
@@ -68,3 +85,4 @@ highlight_current_line = true
 
 [connection signal="id_pressed" from="VBoxContainer/MenuHBoxContainer/DistributeMenuBtn" to="." method="_on_DistributeMenuBtn_id_pressed"]
 [connection signal="id_pressed" from="VBoxContainer/MenuHBoxContainer/CollisionPolygonsMenuBtn" to="." method="_on_CollisionPolygonsMenuBtn_id_pressed"]
+[connection signal="id_pressed" from="VBoxContainer/MenuHBoxContainer/RandDistArealDistributeMenuBtn" to="." method="_on_RandDistArealDistributeMenuBtn_id_pressed"]

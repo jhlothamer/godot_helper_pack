@@ -10,10 +10,10 @@ export var mesh_instance_2d: NodePath
 export var static_body_2d: NodePath
 export (float, 10.0, 10000.0) var distribution_radius := 100.0
 
-export var carving_polygon_node_group := "carving_polygon"
+export var exclusion_polygon_node_group := "exclusion_polygon"
 export var static_body_only_node_group := "static_body_only"
 export var distribution_only_node_group := "distribution_only"
-export var carving_polygon_group_node_group := "carving_polygon_group"
+export var exclusion_polygon_group_node_group := "exclusion_polygon_group"
 
 var status := ""
 
@@ -26,7 +26,11 @@ var _additional_carving_polygons := []
 var _additional_distribution_carving_polygons := []
 
 
-func _refresh_from_node_paths():
+func _ready():
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+
+func _refresh_references():
 	_mmi = null
 	_mi = null
 	_sb = null
@@ -44,42 +48,49 @@ func _refresh_from_node_paths():
 	if temp and temp is StaticBody2D:
 		_sb = temp
 	
-	if carving_polygon_node_group.empty():
-		return
-	
-	for i in get_tree().get_nodes_in_group(carving_polygon_node_group):
-		if !i is Polygon2D:
-			continue
-		var t := Transform2D(0.0, i.global_position)
-		if i.is_in_group(static_body_only_node_group):
-			_additional_carving_polygons.append(t.xform(i.polygon))
-		elif i.is_in_group(distribution_only_node_group):
-			_additional_distribution_carving_polygons.append(t.xform(i.polygon))
-		else:
-			_carving_polygons.append(t.xform(i.polygon))
+	if !exclusion_polygon_node_group.empty():
+		for i in get_tree().get_nodes_in_group(exclusion_polygon_node_group):
+			if !i is Polygon2D:
+				continue
+			_process_exclusion_polygon(i)
+
+	if !exclusion_polygon_group_node_group.empty():
+		for i in get_tree().get_nodes_in_group(exclusion_polygon_group_node_group):
+			for j in i.get_children():
+				if !j is Polygon2D:
+					continue
+				_process_exclusion_polygon(j)
+
+
+func _process_exclusion_polygon(polygon2d: Polygon2D) -> void:
+			var t := Transform2D(0.0, polygon2d.global_position)
+			if polygon2d.is_in_group(static_body_only_node_group):
+				_additional_carving_polygons.append(t.xform(polygon2d.polygon))
+			elif polygon2d.is_in_group(distribution_only_node_group):
+				_additional_distribution_carving_polygons.append(t.xform(polygon2d.polygon))
+			else:
+				_carving_polygons.append(t.xform(polygon2d.polygon))
 
 
 func _get_region_rect() -> Rect2:
 	return Rect2(rect_global_position, rect_size)
 
+
 func _clear_distribution():
-	_refresh_from_node_paths()
+	_refresh_references()
 	if !_mmi:
 		status = "MultiMeshInstanceDistribution: missing or bad nodepaths.  Please check nodepath properties."
 		return
 	_mmi.multimesh.instance_count = 0
 
+
 func _do_distribution():
-	_refresh_from_node_paths()
+	_refresh_references()
 	if !_mmi or !_mi:
 		status = "MultiMeshInstanceDistribution: missing or bad nodepaths.  Please check nodepath properties."
 		return
 	
 	_carving_polygons.append_array(_additional_distribution_carving_polygons)
-	
-#	print("MultiMeshInstanceDistribution: distribution started.  (this could take a while)")
-#	yield(get_tree(), "idle_frame")
-#	yield(get_tree(), "idle_frame")
 	
 	var sw := StopWatch.new()
 	sw.start()
@@ -137,7 +148,6 @@ func _do_distribution():
 	status += "\t\tstarting distributed point count: %d\r\n" % starting_distrib_pt_count
 	status += "\t\tending distributed point count: %d" % pts_kept.size()
 
-#	print(status)
 	emit_signal("operation_completed")
 
 
@@ -159,7 +169,7 @@ func _make_box_polygon(r: Rect2) -> Array:
 	]
 
 func _clear_static_body_collision_shapes():
-	_refresh_from_node_paths()
+	_refresh_references()
 	if!_sb:
 		status = "MultiMeshInstanceDistribution: missing or bad nodepaths.  Please check nodepath properties."
 		return
@@ -169,7 +179,7 @@ func _clear_static_body_collision_shapes():
 
 
 func _generate_static_body_collision_shapes():
-	_refresh_from_node_paths()
+	_refresh_references()
 	if !_mmi or !_mi or !_sb:
 		status = "MultiMeshInstanceDistribution: missing or bad nodepaths.  Please check nodepath properties."
 		return
@@ -179,16 +189,16 @@ func _generate_static_body_collision_shapes():
 	#_generate_shapes_exact()
 	_generate_shapes_simple()
 
-
+# This algorithm joins the distributed polygons together to get an exact match for
+# the static body collision polygons.  BUT this results in bad physics performance
+# and can even crash the editor by exceeding the max number of pooled vector2 arrays.
+# Leaving this in hoping to get back to this one day and develop something that works,
+# maybe using some sort of polygon simplification and changing the algorithm to not create
+# so many pooled vector2 arrays.
 func _generate_shapes_exact():
 	if _mmi.multimesh.instance_count > 100000:
 		status = "MultiMeshInstanceDistribution: too many mesh instances.  Cannot create exact collision shapes.  Mesh instance count: %d" % _mmi.multimesh.instance_count
 		return
-	
-#	print("MultiMeshInstanceDistribution: collision shape generation (exact) started.  (this could take a while)")
-#	yield(get_tree(), "idle_frame")
-#	yield(get_tree(), "idle_frame")
-
 	var sw := StopWatch.new()
 	sw.start()
 	
@@ -199,7 +209,6 @@ func _generate_shapes_exact():
 	var multi_mesh := _mmi.multimesh
 	
 	status = "MultiMeshInstanceDistribution: number of polygons to process: %d" % multi_mesh.instance_count
-#	print(status)
 	emit_signal("operation_completed")
 	return
 	
@@ -243,15 +252,10 @@ func _generate_shapes_exact():
 	status += "\t\tduration: %f ms\r\n" % sw.get_elapsed_msec()
 	status += "\t\tstarting polygon count: %d\r\n" % starting_polygon_count
 	status += "\t\tending polygon count: %d\r\n" % polygons.size()
-#	print(status)
 	emit_signal("operation_completed")
 
 
 func _generate_shapes_simple():
-#	print("MultiMeshInstanceDistribution: collision shape generation (simple) started.")
-#	yield(get_tree(), "idle_frame")
-#	yield(get_tree(), "idle_frame")
-
 	var sw := StopWatch.new()
 	sw.start()
 	var r = _get_region_rect()
@@ -311,12 +315,11 @@ func _generate_shapes_simple():
 	status += "\t\tcoll polys end: %d\r\n" % collision_polygons.size()
 	status += "\t\tloop count: %d , loop limit: %d\r\n" % [loop_count, loop_limit]
 	status += "\t\ttotal loop count: %d\r\n" % total_loop_count
-#	print(status)
 	emit_signal("operation_completed")
 
 
 func _calc_compact_distribution_radius() -> void:
-	_refresh_from_node_paths()
+	_refresh_references()
 	if !_mi:
 		status = "MultiMeshInstanceDistribution: please assign the mesh instance property"
 		return
