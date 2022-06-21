@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/godot_helper_pack/core/2d/util/distribution/multi_mesh_instance_distribution_area.gd" type="Script" id=1]
+
+[node name="MultiMeshInstanceDistributionArea" type="ReferenceRect"]
+margin_right = 200.0
+margin_bottom = 200.0
+script = ExtResource( 1 )

@@ -22,6 +22,9 @@ func init(_state_machine, _host):
 func enter() -> void:
 	pass
 
+func reenter(from_state: String) -> void:
+	pass
+
 
 func exit() -> void:
 	pass
@@ -37,3 +40,10 @@ func unhandled_input(event: InputEvent) -> void:
 
 func change_state(state_name: String) -> void:
 	state_machine.change_state(state_name)
+
+func pop_state() -> void:
+	state_machine.pop_state()
+
+func push_state(state_name: String) -> void:
+	state_machine.push_state(state_name)
+

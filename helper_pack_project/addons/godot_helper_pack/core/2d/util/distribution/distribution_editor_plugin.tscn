@@ -1,0 +1,88 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://addons/godot_helper_pack/core/2d/util/distribution/distribution_editor_plugin.gd" type="Script" id=1]
+[ext_resource path="res://addons/godot_helper_pack/core/control/pressable_menu_button.gd" type="Script" id=2]
+
+[node name="DistributionEditorPlugin" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -424.0
+margin_bottom = -300.0
+rect_min_size = Vector2( 600, 300 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+script = ExtResource( 1 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 595.0
+margin_bottom = 295.0
+
+[node name="Label" type="Label" parent="CenterContainer"]
+visible = false
+margin_left = 181.0
+margin_top = 104.0
+margin_right = 409.0
+margin_bottom = 186.0
+text = "Please select a 
+MultiMeshInstanceDistributionArea
+or
+RandomDistributionArea
+node"
+align = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 595.0
+margin_bottom = 295.0
+custom_constants/separation = 10
+
+[node name="MenuHBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 590.0
+margin_bottom = 20.0
+custom_constants/separation = 20
+
+[node name="DistributeMenuBtn" type="MenuButton" parent="VBoxContainer/MenuHBoxContainer"]
+margin_right = 88.0
+margin_bottom = 20.0
+text = "Distribution"
+items = [ "Distribute", null, 0, false, false, 0, 0, null, "", false, "Clear", null, 0, false, false, 1, 0, null, "", false, "Calc Compact Distribution Radius", null, 0, false, false, 2, 0, null, "", false ]
+switch_on_hover = true
+script = ExtResource( 2 )
+
+[node name="CollisionPolygonsMenuBtn" type="MenuButton" parent="VBoxContainer/MenuHBoxContainer"]
+margin_left = 108.0
+margin_right = 311.0
+margin_bottom = 20.0
+text = "Static Body Collision Polygons"
+items = [ "Create Collision Polygons", null, 0, false, false, 0, 0, null, "", false, "Clear Collision Polygons", null, 0, false, false, 1, 0, null, "", false ]
+switch_on_hover = true
+script = ExtResource( 2 )
+
+[node name="RandDistArealDistributeMenuBtn" type="MenuButton" parent="VBoxContainer/MenuHBoxContainer"]
+visible = false
+margin_left = 331.0
+margin_right = 419.0
+margin_bottom = 20.0
+text = "Distribution"
+items = [ "Distribute", null, 0, false, false, 0, 0, null, "", false, "Clear", null, 0, false, false, 1, 0, null, "", false ]
+switch_on_hover = true
+script = ExtResource( 2 )
+
+[node name="StatusTextEdit" type="TextEdit" parent="VBoxContainer"]
+margin_top = 30.0
+margin_right = 590.0
+margin_bottom = 290.0
+size_flags_vertical = 3
+readonly = true
+highlight_current_line = true
+
+[connection signal="id_pressed" from="VBoxContainer/MenuHBoxContainer/DistributeMenuBtn" to="." method="_on_DistributeMenuBtn_id_pressed"]
+[connection signal="id_pressed" from="VBoxContainer/MenuHBoxContainer/CollisionPolygonsMenuBtn" to="." method="_on_CollisionPolygonsMenuBtn_id_pressed"]
+[connection signal="id_pressed" from="VBoxContainer/MenuHBoxContainer/RandDistArealDistributeMenuBtn" to="." method="_on_RandDistArealDistributeMenuBtn_id_pressed"]
