@@ -26,3 +26,20 @@ func test_load_json_data_returns_correct_data():
 	assert_true(results.has("Lorem"))
 	assert_eq(results["Lorem"], "ipsum")
 
+
+func test_save_load_var_data_vector2():
+	var data = {
+		"sub_dictionary": {
+			"vector2": Vector2.ONE
+		}
+	}
+	var save_load_test_file = "res://test/files/test_var_data_vector2.json"
+	FileUtil.save_var_data(save_load_test_file, data)
+	var results = FileUtil.load_var_data(save_load_test_file)
+	assert_true(results is Dictionary)
+	assert_true(results.has("sub_dictionary"))
+	assert_true(results["sub_dictionary"] is Dictionary)
+	assert_true(results["sub_dictionary"].has("vector2"))
+	assert_true(results["sub_dictionary"]["vector2"] is Vector2)
+
+
