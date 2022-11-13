@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/godot_helper_pack/core/3d/shape/collision_shape_ex.gd" type="Script" id=1]
+
+[node name="CollisionShapeEx" type="CollisionShape"]
+script = ExtResource( 1 )

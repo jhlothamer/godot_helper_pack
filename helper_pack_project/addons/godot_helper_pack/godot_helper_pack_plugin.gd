@@ -1,7 +1,7 @@
 tool
 extends EditorPlugin
 
-const SCENE_PATH_BLOCKING_BLOCK = "res://addons/godot_helper_pack/core/2d/shape/blocking_block_2d.tscn"
+const SCENE_PATH_BLOCKING_BLOCK_2D = "res://addons/godot_helper_pack/core/2d/shape/blocking_block_2d.tscn"
 const DISTRIBUTION_EDITOR_PLUGIN_SCENE = preload("res://addons/godot_helper_pack/core/2d/util/distribution/distribution_editor_plugin.tscn")
 
 const HELPER_PACK_AUTOLOADS = {
@@ -23,7 +23,7 @@ func _enter_tree():
 	
 	var editor_interface = get_editor_interface()
 	
-	_add_remove_blocking_block_favorite(true, editor_interface.get_editor_settings())
+	_add_remove_favorite(true, SCENE_PATH_BLOCKING_BLOCK_2D, editor_interface.get_editor_settings())
 	
 	_add_distribution_editor()
 
@@ -31,7 +31,7 @@ func _enter_tree():
 func _exit_tree():
 	var editor_interface = get_editor_interface()
 	
-	_add_remove_blocking_block_favorite(false, editor_interface.get_editor_settings())
+	_add_remove_favorite(false, SCENE_PATH_BLOCKING_BLOCK_2D, editor_interface.get_editor_settings())
 	
 	_remove_distribution_editor()
 
@@ -41,12 +41,12 @@ func _exit_tree():
 			remove_autoload_singleton(autoload_name)
 
 
-func _add_remove_blocking_block_favorite(add: bool, editor_settings: EditorSettings) -> void:
+func _add_remove_favorite(add: bool, entry: String, editor_settings: EditorSettings) -> void:
 	var favorites = editor_settings.get_favorites()
 	var i = 0
 	var index = -1
 	for fav in favorites:
-		if fav == SCENE_PATH_BLOCKING_BLOCK:
+		if fav == entry:
 			index = i
 			break
 		i += 1
@@ -55,7 +55,7 @@ func _add_remove_blocking_block_favorite(add: bool, editor_settings: EditorSetti
 		favorites.remove(index)
 		editor_settings.set_favorites(favorites)
 	elif add and index < 0:
-		favorites.append(SCENE_PATH_BLOCKING_BLOCK)
+		favorites.append(entry)
 		editor_settings.set_favorites(favorites)
 
 

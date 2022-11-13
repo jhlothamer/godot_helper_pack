@@ -23,16 +23,19 @@ func edit(object: Object) -> void:
 	elif object is RandomDistributionArea:
 		_curr_rand_dist_area = object
 	_update_ui()
-	
-	_please_select_label.visible = false
-	_main_ui.visible = true
+	if _please_select_label:
+		_please_select_label.visible = false
+	if _main_ui:
+		_main_ui.visible = true
 
 func _update_ui():
 	if !_curr_mmi_dist_area and !_curr_rand_dist_area:
 		clear()
 		return
-	_please_select_label.visible = false
-	_main_ui.visible = true
+	if _please_select_label:
+		_please_select_label.visible = false
+	if _main_ui:
+		_main_ui.visible = true
 	for m in _mmi_dis_area_menus:
 		m.visible = _curr_mmi_dist_area != null
 	for m in _rand_dist_area_menus:
@@ -41,10 +44,12 @@ func _update_ui():
 
 
 func clear():
-	_please_select_label.visible = true
+	if _please_select_label:
+		_please_select_label.visible = true
 	_curr_mmi_dist_area = null
 	_curr_rand_dist_area = null
-	_main_ui.visible = false
+	if _main_ui:
+		_main_ui.visible = false
 
 
 func _on_DistributeMenuBtn_id_pressed(id: int) -> void:
@@ -60,7 +65,6 @@ func _on_DistributeMenuBtn_id_pressed(id: int) -> void:
 			_curr_mmi_dist_area._clear_distribution()
 			_status_txt.text = "Distribution cleared"
 		2:
-			pass
 			#calc radius
 			_curr_mmi_dist_area._calc_compact_distribution_radius()
 			_status_txt.text = _curr_mmi_dist_area.status
