@@ -1,4 +1,4 @@
-tool
+@tool
 class_name GodotHelperPackSettings
 extends Object
 
@@ -8,6 +8,6 @@ const PROJECT_SETTING_GLOBAL_BLOCKING_COLOR_KEY = "godot_helper_pack_plugin/bloc
 
 static func get_global_blocking_color() -> Color:
 	if !ProjectSettings.has_setting(PROJECT_SETTING_GLOBAL_BLOCKING_COLOR_KEY):
-		ProjectSettings.set_setting(PROJECT_SETTING_GLOBAL_BLOCKING_COLOR_KEY, Color.white)
+		ProjectSettings.set_setting(PROJECT_SETTING_GLOBAL_BLOCKING_COLOR_KEY, Color.WHITE)
 	return ProjectSettings.get_setting(PROJECT_SETTING_GLOBAL_BLOCKING_COLOR_KEY)
 

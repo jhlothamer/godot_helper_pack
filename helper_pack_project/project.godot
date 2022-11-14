@@ -6,209 +6,209 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
+config_version=5
 
-_global_script_classes=[ {
+_global_script_classes=[{
 "base": "Object",
-"class": "AngleUtil",
-"language": "GDScript",
+"class": &"AngleUtil",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/util/angle_util.gd"
 }, {
 "base": "Object",
-"class": "ArrayUtil",
-"language": "GDScript",
+"class": &"ArrayUtil",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/util/array_util.gd"
 }, {
 "base": "Object",
-"class": "BitFlagUtil",
-"language": "GDScript",
+"class": &"BitFlagUtil",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/util/bit_flag_util.gd"
 }, {
 "base": "Node",
-"class": "Camera3DMove",
-"language": "GDScript",
+"class": &"Camera3DMove",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/3d/camera/camera3d_move.gd"
 }, {
 "base": "Node",
-"class": "CameraLimiter2D",
-"language": "GDScript",
+"class": &"CameraLimiter2D",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/2d/camera/behavior/camera_limiter.gd"
 }, {
 "base": "Node",
-"class": "CameraMove2D",
-"language": "GDScript",
+"class": &"CameraMove2D",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/2d/camera/behavior/camera_move.gd"
 }, {
 "base": "Node",
-"class": "CameraShake2D",
-"language": "GDScript",
+"class": &"CameraShake2D",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/2d/camera/behavior/camera_shake.gd"
 }, {
 "base": "Node",
-"class": "CameraZoom2D",
-"language": "GDScript",
+"class": &"CameraZoom2D",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/2d/camera/behavior/camera_zoom.gd"
 }, {
-"base": "Position2D",
-"class": "Circle2D",
-"language": "GDScript",
+"base": "Marker2D",
+"class": &"Circle2D",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/2d/shape/circle_2d.gd"
 }, {
-"base": "CollisionShape",
-"class": "CollisionShapeEx",
-"language": "GDScript",
+"base": "CollisionShape3D",
+"class": &"CollisionShapeEx",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/3d/shape/collision_shape_ex.gd"
 }, {
 "base": "MarginContainer",
-"class": "DistributionEditorPlugin",
-"language": "GDScript",
+"class": &"DistributionEditorPlugin",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/2d/util/distribution/distribution_editor_plugin.gd"
 }, {
 "base": "Object",
-"class": "EnumUtil",
-"language": "GDScript",
+"class": &"EnumUtil",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/util/enum_util.gd"
 }, {
 "base": "Object",
-"class": "FileUtil",
-"language": "GDScript",
+"class": &"FileUtil",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/util/file_util.gd"
 }, {
 "base": "Object",
-"class": "GodotHelperPackSettings",
-"language": "GDScript",
+"class": &"GodotHelperPackSettings",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/godot_helper_pack_settings.gd"
 }, {
 "base": "Node",
-"class": "GutTest",
-"language": "GDScript",
-"path": "res://addons/gut/test.gd"
-}, {
-"base": "Node",
-"class": "Mover2D",
-"language": "GDScript",
+"class": &"Mover2D",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/2d/util/mover_2d.gd"
 }, {
 "base": "ReferenceRect",
-"class": "MultiMeshInstanceDistributionArea",
-"language": "GDScript",
+"class": &"MultiMeshInstanceDistributionArea",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/2d/util/distribution/multi_mesh_instance_distribution_area.gd"
 }, {
-"base": "Node",
-"class": "NodeUtil",
-"language": "GDScript",
+"base": "Object",
+"class": &"NodeUtil",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/util/node_util.gd"
 }, {
-"base": "Node",
-"class": "PolygonUtil",
-"language": "GDScript",
+"base": "Object",
+"class": &"PolygonUtil",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/2d/util/polygon_util.gd"
 }, {
 "base": "MenuButton",
-"class": "PressableMenuButton",
-"language": "GDScript",
+"class": &"PressableMenuButton",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/control/pressable_menu_button.gd"
 }, {
-"base": "Node",
-"class": "ProjectSettingsHelper",
-"language": "GDScript",
+"base": "Object",
+"class": &"ProjectSettingsHelper",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/util/project_settings_helper.gd"
 }, {
 "base": "Object",
-"class": "PropertyUtil",
-"language": "GDScript",
+"class": &"PropertyUtil",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/util/property_util.gd"
 }, {
 "base": "ReferenceRect",
-"class": "RandomDistributionArea",
-"language": "GDScript",
+"class": &"RandomDistributionArea",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/2d/util/distribution/random_distribution_area.gd"
 }, {
 "base": "Node",
-"class": "RandomDistributionAreaLayer",
-"language": "GDScript",
+"class": &"RandomDistributionAreaLayer",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/2d/util/distribution/random_distribution_area_layer.gd"
 }, {
-"base": "Node",
-"class": "Rect2Util",
-"language": "GDScript",
+"base": "Object",
+"class": &"Rect2Util",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/2d/util/rect2_util.gd"
 }, {
 "base": "Node",
-"class": "RotateIt",
-"language": "GDScript",
+"class": &"RotateIt",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/2d/util/rotate_it.gd"
 }, {
 "base": "Node",
-"class": "SceneSoundTrack",
-"language": "GDScript",
+"class": &"SceneSoundTrack",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/audio/scene_sound_track.gd"
 }, {
 "base": "Node",
-"class": "ShakeIt",
-"language": "GDScript",
+"class": &"ShakeIt",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/2d/util/shake_it.gd"
 }, {
 "base": "Object",
-"class": "Shape2DUtil",
-"language": "GDScript",
+"class": &"Shape2DUtil",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/2d/shape/shape2d_util.gd"
 }, {
 "base": "Node2D",
-"class": "ShapeDraw2D",
-"language": "GDScript",
+"class": &"ShapeDraw2D",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/2d/shape/shape_draw_2d.gd"
 }, {
-"base": "Spatial",
-"class": "ShapeDraw3D",
-"language": "GDScript",
+"base": "Node3D",
+"class": &"ShapeDraw3D",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/3d/shape/shape_draw_3d.gd"
 }, {
 "base": "Node",
-"class": "SoundTrackMgr",
-"language": "GDScript",
+"class": &"SoundTrackMgr",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/audio/sound_track_mgr.gd"
 }, {
 "base": "Node",
-"class": "State",
-"language": "GDScript",
+"class": &"State",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/state_machine/state.gd"
 }, {
 "base": "Node",
-"class": "StateMachine",
-"language": "GDScript",
+"class": &"StateMachine",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/state_machine/state_machine.gd"
 }, {
 "base": "Object",
-"class": "StatsUtil",
-"language": "GDScript",
+"class": &"StatsUtil",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/util/stats_util.gd"
 }, {
-"base": "Reference",
-"class": "StopWatch",
-"language": "GDScript",
+"base": "RefCounted",
+"class": &"StopWatch",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/util/stop_watch.gd"
 }, {
 "base": "Object",
-"class": "StringUtil",
-"language": "GDScript",
+"class": &"StringUtil",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/util/string_util.gd"
 }, {
 "base": "Node",
-"class": "TestServiceA",
-"language": "GDScript",
+"class": &"TestServiceA",
+"language": &"GDScript",
 "path": "res://test/services/test_service_a.gd"
 }, {
 "base": "Object",
-"class": "Vector2Util",
-"language": "GDScript",
+"class": &"Vector2Util",
+"language": &"GDScript",
 "path": "res://addons/godot_helper_pack/core/2d/vector/vector2_util.gd"
 }, {
-"base": "Reference",
-"class": "YieldUtil",
-"language": "GDScript",
-"path": "res://addons/godot_helper_pack/core/util/yield_util.gd"
-} ]
+"base": "RefCounted",
+"class": &"WaitAll",
+"language": &"GDScript",
+"path": "res://addons/godot_helper_pack/core/util/wait_all.gd"
+}, {
+"base": "RefCounted",
+"class": &"WaitAny",
+"language": &"GDScript",
+"path": "res://addons/godot_helper_pack/core/util/wait_any.gd"
+}]
 _global_script_class_icons={
 "AngleUtil": "",
 "ArrayUtil": "",
@@ -224,7 +224,6 @@ _global_script_class_icons={
 "EnumUtil": "",
 "FileUtil": "",
 "GodotHelperPackSettings": "",
-"GutTest": "",
 "Mover2D": "",
 "MultiMeshInstanceDistributionArea": "",
 "NodeUtil": "",
@@ -249,13 +248,15 @@ _global_script_class_icons={
 "StringUtil": "",
 "TestServiceA": "",
 "Vector2Util": "",
-"YieldUtil": ""
+"WaitAll": "",
+"WaitAny": ""
 }
 
 [application]
 
 config/name="Godot Helper Pack"
 run/main_scene="res://test/tests.tscn"
+config/features=PackedStringArray("4.0")
 config/icon="res://icon.png"
 
 [autoload]
@@ -267,27 +268,29 @@ GlobalBlockingColorChangeMonitor="*res://addons/godot_helper_pack/core/2d/shape/
 
 [display]
 
+window/size/viewport_width=1024
+window/size/viewport_height=600
 window/stretch/mode="2d"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/godot_helper_pack/plugin.cfg", "res://addons/gut/plugin.cfg" )
+enabled=PackedStringArray("res://addons/godot_helper_pack/plugin.cfg")
 
 [godot_helper_pack_plugin]
 
-blocking_global_color=Color( 0.027451, 0.803922, 0.168627, 1 )
+blocking_global_color=Color(0, 0.803922, 0.215686, 1)
 
 [input]
 
 zoom_in={
 "deadzone": 0.5,
-"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":4,"pressed":false,"doubleclick":false,"script":null)
- ]
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":4,"pressed":false,"double_click":false,"script":null)
+]
 }
 zoom_out={
 "deadzone": 0.5,
-"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":5,"pressed":false,"doubleclick":false,"script":null)
- ]
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":5,"pressed":false,"double_click":false,"script":null)
+]
 }
 
 [rendering]

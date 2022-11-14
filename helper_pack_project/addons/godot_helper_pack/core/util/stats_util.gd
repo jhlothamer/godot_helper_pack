@@ -1,8 +1,8 @@
 class_name StatsUtil
 extends Object
-"""
-Collection of statistic functions.
-"""
+
+# Collection of statistic functions.
+
 
 class Line:
 	var b: float

@@ -1,14 +1,14 @@
 class_name Mover2D
 extends Node
 
-export (float, .1, 10000.0) var movement_speed := 400.0
-export var up_action_name := "ui_up"
-export var down_action_name := "ui_down"
-export var left_action_name := "ui_left"
-export var right_action_name := "ui_right"
-export var follow_mouse := false
+@export_range(.1, 10000.0) var movement_speed := 400.0
+@export var up_action_name := "ui_up"
+@export var down_action_name := "ui_down"
+@export var left_action_name := "ui_left"
+@export var right_action_name := "ui_right"
+@export var follow_mouse := false
 
-onready var _node2d_parent: Node2D = get_parent()
+@onready var _node2d_parent: Node2D = get_parent()
 
 
 func _ready():
@@ -27,7 +27,7 @@ func _physics_process(delta):
 	if move_direction == Vector2.ZERO:
 		return
 	
-	if _node2d_parent is KinematicBody2D:
+	if _node2d_parent is CharacterBody2D:
 		_node2d_parent.move_and_slide(move_direction * movement_speed)
 	else:
 		_node2d_parent.global_position += move_direction * movement_speed * delta

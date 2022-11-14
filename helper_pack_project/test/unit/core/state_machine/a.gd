@@ -7,7 +7,7 @@ var exit_called := false
 var physics_process_called := false
 
 func init(_state_machine, _host):
-	.init(_state_machine, _host)
+	super.init(_state_machine, _host)
 	init_called = true
 
 

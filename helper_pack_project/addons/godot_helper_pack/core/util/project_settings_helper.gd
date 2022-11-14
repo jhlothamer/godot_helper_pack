@@ -1,4 +1,4 @@
-extends Node
+extends Object
 
 class_name ProjectSettingsHelper
 
@@ -7,4 +7,4 @@ static func get_physics_process_delta() -> float:
 
 
 static func get_audio_channel_disable_threshold_db() -> float:
-	return float(ProjectSettings.get("audio/channel_disable_threshold_db"))
+	return float(ProjectSettings.get("audio/buses/channel_disable_threshold_db"))

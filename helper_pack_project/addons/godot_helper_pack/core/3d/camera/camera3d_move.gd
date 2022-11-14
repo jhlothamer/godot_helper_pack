@@ -1,37 +1,37 @@
 class_name Camera3DMove
 extends Node
 
-export (float, .1, 5) var move_speed: float = .1
-export var mouse_sensitivity := 1.5
-export var invert_mouse_y := false
-export var forward_action_name := "ui_up"
-export var back_action_name := "ui_down"
-export var strafe_left_action_name := "ui_left"
-export var strafe_right_action_name := "ui_right"
-export var fly := false
-export var up_action_name := "ui_page_up"
-export var down_action_name := "ui_page_down"
+@export_range(.1, 5) var move_speed: float = .1
+@export var mouse_sensitivity := 1.5
+@export var invert_mouse_y := false
+@export var forward_action_name := "ui_up"
+@export var back_action_name := "ui_down"
+@export var strafe_left_action_name := "ui_left"
+@export var strafe_right_action_name := "ui_right"
+@export var fly := false
+@export var up_action_name := "ui_page_up"
+@export var down_action_name := "ui_page_down"
 
-onready var _camera: Camera = get_parent()
+@onready var _camera: Camera3D = get_parent()
 
 func _ready():
 	if !_camera:
-		printerr("Camera3DMove: parent must be Camera")
+		printerr("Camera3DMove: parent must be Camera3D")
 		queue_free()
 
 func _input(event):
 	if !event is InputEventMouseMotion:
 		return
 	var mm:InputEventMouseMotion = event
-	var y_deg = rad2deg(_camera.rotation.y)
+	var y_deg = rad_to_deg(_camera.rotation.y)
 	y_deg -= mm.relative.x * mouse_sensitivity / 10.0
-	#_camera.rotate_y(deg2rad(-mm.relative.x * mouse_sensitivity / 10.0))
-	_camera.rotation.y = deg2rad(y_deg)
+	#_camera.rotate_y(deg_to_rad(-mm.relative.x * mouse_sensitivity / 10.0))
+	_camera.rotation.y = deg_to_rad(y_deg)
 	var factor := 1.0 if invert_mouse_y else -1.0
-	var x_deg = rad2deg(_camera.rotation.x)
+	var x_deg = rad_to_deg(_camera.rotation.x)
 	x_deg = clamp(x_deg + factor*mm.relative.y * mouse_sensitivity/10.0, -70.0, 70.0)
-	_camera.rotation.x = deg2rad(x_deg)
-	#_camera.rotate_z(deg2rad(x_deg) - _camera.rotation.z)
+	_camera.rotation.x = deg_to_rad(x_deg)
+	#_camera.rotate_z(deg_to_rad(x_deg) - _camera.rotation.z)
 
 
 

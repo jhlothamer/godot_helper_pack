@@ -1,15 +1,15 @@
-tool
+@tool
 class_name DistributionEditorPlugin
 extends MarginContainer
 
-onready var _please_select_label: Label = $CenterContainer/Label
-onready var _main_ui: VBoxContainer = $VBoxContainer
-onready var _status_txt: TextEdit = $VBoxContainer/StatusTextEdit
-onready var _mmi_dis_area_menus := [
+@onready var _please_select_label: Label = $CenterContainer/Label
+@onready var _main_ui: VBoxContainer = $VBoxContainer
+@onready var _status_txt: TextEdit = $VBoxContainer/StatusTextEdit
+@onready var _mmi_dis_area_menus := [
 	$VBoxContainer/MenuHBoxContainer/DistributeMenuBtn,
 	$VBoxContainer/MenuHBoxContainer/CollisionPolygonsMenuBtn
 ]
-onready var _rand_dist_area_menus := [
+@onready var _rand_dist_area_menus := [
 	$VBoxContainer/MenuHBoxContainer/RandDistArealDistributeMenuBtn
 ]
 
@@ -59,7 +59,7 @@ func _on_DistributeMenuBtn_id_pressed(id: int) -> void:
 		0:
 			_status_txt.text = "Starting distribution.  This could take a while."
 			_curr_mmi_dist_area._do_distribution()
-			yield(_curr_mmi_dist_area, "operation_completed")
+			await _curr_mmi_dist_area.operation_completed
 			_status_txt.text = _curr_mmi_dist_area.status
 		1:
 			_curr_mmi_dist_area._clear_distribution()
@@ -78,7 +78,7 @@ func _on_CollisionPolygonsMenuBtn_id_pressed(id: int) -> void:
 		0:
 			_status_txt.text = ""
 			_curr_mmi_dist_area._generate_static_body_collision_shapes()
-			yield(_curr_mmi_dist_area, "operation_completed")
+			await _curr_mmi_dist_area.operation_completed
 			_status_txt.text = _curr_mmi_dist_area.status
 		1:
 			_curr_mmi_dist_area._clear_static_body_collision_shapes()
@@ -91,11 +91,11 @@ func _on_RandDistArealDistributeMenuBtn_id_pressed(id: int) -> void:
 	match id:
 		0:
 			_status_txt.text = "Starting distribution.  This could take a while."
-			_curr_rand_dist_area.connect("status_updated", self, "_on_status_updated")
+			_curr_rand_dist_area.connect("status_updated",Callable(self,"_on_status_updated"))
 			_curr_rand_dist_area.do_distribution()
-			yield(_curr_rand_dist_area, "operation_completed")
+			await _curr_rand_dist_area.operation_completed
 			print("DistributionEditorPlugin: distribution operation completed")
-			_curr_rand_dist_area.disconnect("status_updated", self, "_on_status_updated")
+			_curr_rand_dist_area.disconnect("status_updated",Callable(self,"_on_status_updated"))
 			_status_txt.text = _curr_rand_dist_area.status
 		1:
 			_curr_rand_dist_area.clear_distribution()

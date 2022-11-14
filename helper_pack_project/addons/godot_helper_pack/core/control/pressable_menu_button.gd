@@ -1,4 +1,4 @@
-tool
+@tool
 class_name PressableMenuButton
 extends MenuButton
 
@@ -7,8 +7,8 @@ signal id_focused(id)
 
 func _ready():
 	var popup_menu := get_popup()
-	popup_menu.connect("id_pressed", self, "_on_popup_menu_id_pressed")
-	popup_menu.connect("id_focused", self, "_on_popup_menu_id_focused")
+	popup_menu.connect("id_pressed",Callable(self,"_on_popup_menu_id_pressed"))
+	popup_menu.connect("id_focused",Callable(self,"_on_popup_menu_id_focused"))
 
 
 func _on_popup_menu_id_pressed(id):

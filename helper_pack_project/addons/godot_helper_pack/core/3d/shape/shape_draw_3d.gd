@@ -1,30 +1,30 @@
-tool
+@tool
 class_name ShapeDraw3D
-extends Spatial
+extends Node3D
 
-export var color: Color = Color.white setget _set_color
+@export var color: Color = Color.WHITE :
+	set(mod_value):
+		color = mod_value
+		if _material:
+			_material.albedo_color = color
 
 
-var _mesh_instance: MeshInstance # := MeshInstance.new()
-var _material := SpatialMaterial.new()
-var _parent_collision_shape: CollisionShape
+var _mesh_instance: MeshInstance3D # := MeshInstance3D.new()
+var _material := StandardMaterial3D.new()
+var _parent_collision_shape: CollisionShape3D
 
-func _set_color(value):
-	color = value
-	if _material:
-		_material.albedo_color = color
 
 func _ready():
 	_parent_collision_shape = get_parent()
-	update_configuration_warning()
+	update_configuration_warnings()
 	if !_parent_collision_shape:
 		#printerr("ShapeDraw3D: Parent must be CollisionShapeEx")
 		push_warning("Warning!")
 		return
-	_parent_collision_shape.connect("shape_changed", self, "_on_parent_shape_changed", [])
+	_parent_collision_shape.connect("shape_changed",Callable(self,"_on_parent_shape_changed").bind())
 
 	for c in get_children():
-		if c is MeshInstance:
+		if c is MeshInstance3D:
 			_mesh_instance = c
 			_mesh_instance.mesh = _mesh_instance.mesh.duplicate()
 			_mesh_instance.mesh.material = _material
@@ -32,7 +32,7 @@ func _ready():
 			break
 	
 	if !_mesh_instance:
-		_mesh_instance = MeshInstance.new()
+		_mesh_instance = MeshInstance3D.new()
 		add_child(_mesh_instance)
 
 	self.color = color
@@ -50,23 +50,23 @@ func _process_parent_shape():
 		print("ShapeDraw3D: parent collision shape has no shape")
 		return
 	# must wait a bit for shape change to take affect
-	yield(get_tree().create_timer(.01), "timeout")
+	await get_tree().create_timer(.01).timeout
 	_update_mesh(_parent_collision_shape.shape)
 
 
-func _update_mesh(shape: Shape):
-	if shape is BoxShape:
-		var bs := shape as BoxShape
-		var cm: CubeMesh
-		if _mesh_instance.mesh is CubeMesh:
+func _update_mesh(shape: Shape3D):
+	if shape is BoxShape3D:
+		var bs := shape as BoxShape3D
+		var cm: BoxMesh
+		if _mesh_instance.mesh is BoxMesh:
 			cm = _mesh_instance.mesh
 		else:
-			cm = CubeMesh.new()
+			cm = BoxMesh.new()
 			_mesh_instance.mesh = cm
 			cm.material = _material
 		cm.size = bs.extents * 2
-	elif shape is CapsuleShape:
-		var cs := shape as CapsuleShape
+	elif shape is CapsuleShape3D:
+		var cs := shape as CapsuleShape3D
 		var cm: CapsuleMesh
 		if _mesh_instance.mesh is CapsuleMesh:
 			cm = _mesh_instance.mesh
@@ -74,10 +74,10 @@ func _update_mesh(shape: Shape):
 			cm = CapsuleMesh.new()
 			_mesh_instance.mesh = cm
 			cm.material = _material
-		cm.mid_height = cs.height
+		cm.height = cs.height
 		cm.radius = cs.radius
-	elif shape is CylinderShape:
-		var cs := shape as CylinderShape
+	elif shape is CylinderShape3D:
+		var cs := shape as CylinderShape3D
 		var cm: CylinderMesh
 		if _mesh_instance.mesh is CylinderMesh:
 			cm = _mesh_instance.mesh
@@ -88,8 +88,8 @@ func _update_mesh(shape: Shape):
 		cm.bottom_radius = cs.radius
 		cm.top_radius = cs.radius
 		cm.height = cs.height
-	elif shape is SphereShape:
-		var ss := shape as SphereShape
+	elif shape is SphereShape3D:
+		var ss := shape as SphereShape3D
 		var sm: SphereMesh
 		if _mesh_instance.mesh is SphereMesh:
 			sm = _mesh_instance.mesh
@@ -99,13 +99,13 @@ func _update_mesh(shape: Shape):
 			sm.material = _material
 		sm.radius = ss.radius
 		sm.height = ss.radius * 2.0
-#	elif shape is ConcavePolygonShape:
-#		var cps := shape as ConcavePolygonShape
-#	elif shape is ConvexPolygonShape:
-#		var cps := shape as ConvexPolygonShape
+#	elif shape is ConcavePolygonShape3D:
+#		var cps := shape as ConcavePolygonShape3D
+#	elif shape is ConvexPolygonShape3D:
+#		var cps := shape as ConvexPolygonShape3D
 
 
-func _get_configuration_warning():
+func _get_configuration_warnings():
 	if !_parent_collision_shape is CollisionShapeEx:
 		return "Cannot update shape in editor unless parent is CollisionShapeEx"
 	return ""

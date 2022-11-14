@@ -16,7 +16,7 @@ var _camera_limits_descrition := [
 ]
 var _current_camera_limit := 0
 
-onready var limit_region_desc_value := $CanvasLayer/MarginContainer/VBoxContainer/LimitRegionHBox/LimitRegionDescValue
+@onready var limit_region_desc_value := $CanvasLayer/MarginContainer/VBoxContainer/LimitRegionHBox/LimitRegionDescValue
 
 func _ready():
 	_update_limit_region_desc_lbl()

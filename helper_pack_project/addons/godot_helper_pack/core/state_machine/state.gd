@@ -1,10 +1,14 @@
 extends Node
-class_name State, "state.svg"
+class_name State
+@icon("state.svg") 
 
-export var is_starting_state : bool
+
+@export var is_starting_state : bool
+
 
 var state_machine: StateMachine
 var host
+
 
 func _ready():
 	set_physics_process(false)

@@ -1,8 +1,7 @@
 class_name PropertyUtil
 extends Object
-"""
-collection of property utility functions.
-"""
+
+# collection of property utility functions.
 
 
 # checks if an object has a property and optionally of a given type

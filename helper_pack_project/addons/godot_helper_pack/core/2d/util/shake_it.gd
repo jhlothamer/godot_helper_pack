@@ -9,16 +9,16 @@ enum ShakeType {
 	SINE
 }
 
-export var simplex_noise_speed: float = 1.0
-export (ShakeType) var shake_type: int = 0
-export (float, .001, 10000.0) var shake_duration := 1.0
-export var shake_amount := 20.0
-export var shake_speed := 1.0
+@export var simplex_noise_speed: float = 1.0
+@export_enum(ShakeType) var shake_type: int = 0
+@export_range(.001, 10000.0) var shake_duration := 1.0
+@export var shake_amount := 20.0
+@export var shake_speed := 1.0
 
 
 var shaking := false
 
-var _noise :OpenSimplexNoise
+var _noise :FastNoiseLite
 var _parent: Node2D
 
 
@@ -45,7 +45,7 @@ func _ready():
 	_parent_original_position = _parent.position
 	_rand = RandomNumberGenerator.new()
 	_rand.randomize()
-	_noise = OpenSimplexNoise.new()
+	_noise = FastNoiseLite.new()
 	_noise.seed = _rand.randi()
 	_noise.period = 4
 	_noise.octaves = 2
@@ -101,7 +101,7 @@ func _physics_process(delta):
 	elif _current_shake_type == ShakeType.RANDOM:
 		offset = Vector2(_rand.randf_range(-1,1)*_camera_shake_amount, _rand.randf_range(-1,1)*_camera_shake_amount)
 	else:
-		var ticks_ms := OS.get_ticks_msec()*_camera_shake_speed
+		var ticks_ms := Time.get_ticks_msec()*_camera_shake_speed
 		offset.x = _camera_shake_amount * sin(ticks_ms * .03)
 		offset.y = _camera_shake_amount * cos(ticks_ms * .07)
 	

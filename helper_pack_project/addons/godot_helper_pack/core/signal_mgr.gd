@@ -1,7 +1,5 @@
 extends Node
-"""
-Signal Manager automatically connects subscribers to the signals of publishers.
-"""
+# Signal Manager automatically connects subscribers to the signals of publishers.
 
 
 class Subscriber:
@@ -9,19 +7,19 @@ class Subscriber:
 	var signal_name: String
 	var method_name: String
 	var binds
-	func _init(_subscriber: Object, _signal_name: String, _method_name: String, _binds:Array) -> void:
+	func _init(_subscriber: Object,_signal_name: String,_method_name: String,_binds:Array):
 		subscriber = _subscriber
 		signal_name = _signal_name
 		method_name = _method_name
 		binds = _binds
 	func connect_publisher(publisher: Object) -> void:
-		if !publisher.is_connected(signal_name, subscriber, method_name):
-			publisher.connect(signal_name, subscriber, method_name, binds)
+		if !publisher.is_connected(signal_name,Callable(subscriber,method_name)):
+			publisher.connect(signal_name,Callable(subscriber,method_name).bind(binds))
 
 class Publisher:
 	var publisher: Object
 	var signal_name: String
-	func _init(_publisher: Object, _signal_name: String) -> void:
+	func _init(_publisher: Object,_signal_name: String):
 		publisher = _publisher
 		signal_name = _signal_name
 	func connect_subscribers(subscribers: Subscriber) -> void:
@@ -87,8 +85,8 @@ func clear() -> void:
 
 
 func _watch_tree_exited(publisher_or_subscriber: Object) -> void:
-	if !publisher_or_subscriber.is_connected("tree_exited", self, "_on_tree_exited"):
-		publisher_or_subscriber.connect("tree_exited", self, "_on_tree_exited", [publisher_or_subscriber])
+	if !publisher_or_subscriber.is_connected("tree_exited",Callable(self,"_on_tree_exited")):
+		publisher_or_subscriber.connect("tree_exited",Callable(self,"_on_tree_exited").bind(publisher_or_subscriber))
 
 
 func _on_tree_exited(publisher_or_subscriber: Object) -> void:

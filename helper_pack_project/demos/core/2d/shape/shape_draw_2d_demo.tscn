@@ -12,9 +12,9 @@ radius = 117.453
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 192.809, 48.7213 )
 
-[sub_resource type="LineShape2D" id=4]
+[sub_resource type="WorldBoundaryShape2D" id=4]
 
-[sub_resource type="RayShape2D" id=5]
+[sub_resource type="SeparationRayShape2D" id=5]
 length = 100.0
 
 [sub_resource type="SegmentShape2D" id=6]
@@ -27,10 +27,10 @@ __meta__ = {
 }
 
 [node name="ExplanationLabel" type="Label" parent="."]
-margin_left = 10.5857
-margin_top = 10.0
-margin_right = 394.586
-margin_bottom = 106.0
+offset_left = 10.5857
+offset_top = 10.0
+offset_right = 394.586
+offset_bottom = 106.0
 text = "ShapeDraw2D is meant for prototyping quickly.  Add a ShapeDraw2D node under a CollisionShape2D or CollsionPolygon2D node and it will draw the shape.  Any changes to the collision shape are reflected immediately in the editor.  You can also set the color of the shape."
 autowrap = true
 __meta__ = {
@@ -71,7 +71,7 @@ color = Color( 0.054902, 1, 0, 1 )
 position = Vector2( 828.372, 454.271 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Polygon"]
-polygon = PoolVector2Array( -5.06085, -85.631, -92.0599, -85.4044, -139.604, 8.54938, -159.786, -4.90497, -124.468, 101.048, -80.7416, 87.5937, -11.788, 129.638, 62.2109, 92.639, 114.346, 104.412, 141.255, 50.5942, 77.347, -3.22314, 121.074, -82.2674, 72.3016, -134.403 )
+polygon = PackedVector2Array( -5.06085, -85.631, -92.0599, -85.4044, -139.604, 8.54938, -159.786, -4.90497, -124.468, 101.048, -80.7416, 87.5937, -11.788, 129.638, 62.2109, 92.639, 114.346, 104.412, 141.255, 50.5942, 77.347, -3.22314, 121.074, -82.2674, 72.3016, -134.403 )
 
 [node name="ShapeDraw2D" type="Node2D" parent="Polygon/CollisionPolygon2D"]
 script = ExtResource( 1 )

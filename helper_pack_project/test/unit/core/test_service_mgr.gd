@@ -25,7 +25,7 @@ func test_register_succeeds():
 	assert_not_null(test_service)
 	test_service.foo()
 	assert_eq(test_service._test_service_a_foo_called_in, "TestServiceAImpl1")
-	var results = test_service.is_connected("tree_exited", ServiceMgr, "_on_implementation_tree_exited")
+	var results = test_service.is_connected("tree_exited",Callable(ServiceMgr,"_on_implementation_tree_exited"))
 	assert_true(results)
 
 
@@ -35,7 +35,7 @@ func test_register_named_instance_succeeds():
 	assert_not_null(test_service)
 	test_service.foo()
 	assert_eq(test_service._test_service_a_foo_called_in, "TestServiceAImpl1")
-	var results = test_service.is_connected("tree_exited", ServiceMgr, "_on_implementation_tree_exited")
+	var results = test_service.is_connected("tree_exited",Callable(ServiceMgr,"_on_implementation_tree_exited"))
 	assert_true(results)
 
 
@@ -47,9 +47,9 @@ func test_register_multi_named_instance_succeeds():
 	assert_not_null(test_service1)
 	assert_not_null(test_service2)
 	assert_ne(test_service1, test_service2)
-	var results = test_service1.is_connected("tree_exited", ServiceMgr, "_on_implementation_tree_exited")
+	var results = test_service1.is_connected("tree_exited",Callable(ServiceMgr,"_on_implementation_tree_exited"))
 	assert_true(results)
-	results = test_service2.is_connected("tree_exited", ServiceMgr, "_on_implementation_tree_exited")
+	results = test_service2.is_connected("tree_exited",Callable(ServiceMgr,"_on_implementation_tree_exited"))
 	assert_true(results)
 
 

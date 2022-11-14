@@ -1,8 +1,8 @@
 extends Object
 class_name Vector2Util
-"""
-Collection of Vector2 utilities
-"""
+
+# Collection of Vector2 utilities
+
 
 
 # checks that given vectors are equal - handled -0 == 0
@@ -27,7 +27,7 @@ static func closest_angle(angle_diff: float) -> float:
 # returns midpoint of given vectors.  If no vectors given, returns Vector2.INF
 static func midpoint_v2(vectors: Array) -> Vector2:
 	if(vectors.size() == 0):
-		return Vector2.INF
+		return Vector2(INF, INF)
 	var midpoint = Vector2.ZERO
 	for vector in vectors:
 		midpoint += vector

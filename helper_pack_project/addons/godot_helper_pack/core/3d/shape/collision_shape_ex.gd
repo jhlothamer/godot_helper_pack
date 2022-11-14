@@ -1,6 +1,6 @@
-tool
+@tool
 class_name CollisionShapeEx
-extends CollisionShape
+extends CollisionShape3D
 
 
 signal shape_changed()

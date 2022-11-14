@@ -2,7 +2,7 @@ class_name Shape2DUtil
 extends Object
 
 
-static func make_polygon_from_shape(shape2d: Shape2D, var point_count:int = 100) -> Array:
+static func make_polygon_from_shape(shape2d: Shape2D, point_count:int = 100) -> Array:
 	var polygon: Array
 	
 	if !shape2d:
@@ -35,7 +35,7 @@ static func make_polygon_from_shape(shape2d: Shape2D, var point_count:int = 100)
 			pts.append(v+c1center)
 			pts.append(v+c2center)
 			v = v.rotated(a)
-		polygon = Geometry.convex_hull_2d(pts)
+		polygon = Geometry2D.convex_hull(pts)
 	else:
 		printerr("Unhandled shape 2d class: %s" % shape2d.get_class())
 	return polygon

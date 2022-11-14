@@ -1,5 +1,5 @@
 class_name Rect2Util
-extends Node
+extends Object
 
 static func make_polygon(r: Rect2) -> Array:
 	var pts = []

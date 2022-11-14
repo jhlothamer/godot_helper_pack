@@ -1,11 +1,11 @@
 extends Node
-class_name StateMachine, "state_machine.svg"
+class_name StateMachine
+@icon("state_machine.svg") 
 
 
-
-export var debug : bool
-export var disabled : bool
-export var host_node: NodePath
+@export var debug : bool
+@export var disabled : bool
+@export var host_node: NodePath
 
 
 var _host: Node
@@ -21,7 +21,7 @@ func _ready():
 	if disabled:
 		return
 	
-	yield(get_parent(), "ready")
+	await get_parent().ready
 
 	if host_node != null && !host_node.is_empty() && has_node(host_node):
 		_host = get_node(host_node)
@@ -35,7 +35,7 @@ func _ready():
 		if child.is_starting_state:
 			_state_stack.push_front(child)
 	
-	if _state_stack.empty():
+	if _state_stack.is_empty():
 		push_error("No starting state designated for state machine.")
 		assert(false)
 	elif _state_stack.size() > 1:
@@ -69,13 +69,13 @@ func _check_state_node(state_node: Node) -> bool:
 
 
 func change_state(state_name) -> void:
-	if !_state_stack.empty():
+	if !_state_stack.is_empty():
 		_print_dbg("exiting state " + _state_stack[0].name)
 		_state_stack[0].exit()
 		
 	assert(has_node(state_name))
 	var new_state = get_node(state_name)
-	if !_state_stack.empty():
+	if !_state_stack.is_empty():
 		_state_stack[0] = new_state
 	else:
 		_state_stack.push_front(new_state)
@@ -91,10 +91,10 @@ func push_state(state_name) -> void:
 	new_state.enter()
 
 func pop_state() -> void:
-	assert(!_state_stack.empty())
+	assert(!_state_stack.is_empty())
 	var state = _state_stack.pop_front()
 	state.exit()
-	if !_state_stack.empty():
+	if !_state_stack.is_empty():
 		_state_stack[0].reenter(state.name)
 	else:
 		_print_dbg("StateMachine: no states after pop: %s" % get_path())
@@ -103,16 +103,16 @@ func pop_state() -> void:
 func _physics_process(delta) -> void:
 	if disabled:
 		return
-	if !_state_stack.empty():
+	if !_state_stack.is_empty():
 		_state_stack[0].physics_process(delta)
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if !_state_stack.empty():
+	if !_state_stack.is_empty():
 		_state_stack[0].unhandled_input(event)
 
 
 func _print_dbg(msg):
 	if !debug:
 		return
-	print(str(OS.get_ticks_msec()) + ": " + msg)
+	print(str(Time.get_ticks_msec()) + ": " + msg)

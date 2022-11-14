@@ -30,7 +30,7 @@ func test_object_does_has_variant_property_no_type():
 
 
 func test_object_does_not_have_variant_property_with_type():
-	var results = PropertyUtil.has_property(self, "_property_2", TYPE_REAL)
+	var results = PropertyUtil.has_property(self, "_property_2", TYPE_FLOAT)
 	assert_false(results)
 
 

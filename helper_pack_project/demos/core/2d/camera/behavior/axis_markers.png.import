@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8gm2pdd0bsvy"
-path="res://.godot/imported/state.svg-c72351ce93e870b6c1b8cec5fe528823.ctex"
+uid="uid://dvpl28yyln7b2"
+path="res://.godot/imported/axis_markers.png-25d6a1e273534fd69e1672087ee62b1b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/godot_helper_pack/core/state_machine/state.svg"
-dest_files=["res://.godot/imported/state.svg-c72351ce93e870b6c1b8cec5fe528823.ctex"]
+source_file="res://demos/core/2d/camera/behavior/axis_markers.png"
+dest_files=["res://.godot/imported/axis_markers.png-25d6a1e273534fd69e1672087ee62b1b.ctex"]
 
 [params]
 
@@ -32,6 +32,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

@@ -1,10 +1,10 @@
 class_name CameraLimiter2D
 extends Node
 
-export var limit_reference_rect: NodePath
+@export var limit_reference_rect: NodePath
 
 
-onready var _camera: Camera2D
+@onready var _camera: Camera2D
 
 
 func _enter_tree():
@@ -18,7 +18,7 @@ func _ready():
 	if limit_reference_rect != null:
 		var limit_reference_rect_node = get_node_or_null(limit_reference_rect)
 		if limit_reference_rect_node != null and limit_reference_rect_node is ReferenceRect:
-			var limit_rect := Rect2(limit_reference_rect_node.rect_global_position, limit_reference_rect_node.rect_size)
+			var limit_rect := Rect2(limit_reference_rect_node.global_position, limit_reference_rect_node.size)
 			limit_camera(limit_rect)
 
 

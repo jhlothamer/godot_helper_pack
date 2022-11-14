@@ -1,8 +1,9 @@
 class_name SceneSoundTrack
 extends Node
 
-export (Array, String, FILE, "*.tscn, *.scn") var scenes
-export var startup := false
+#(Array, String, FILE, "*.tscn, *.scn")
+@export var scenes: Array[String]
+@export var startup := false
 
 var _scene_names := []
 

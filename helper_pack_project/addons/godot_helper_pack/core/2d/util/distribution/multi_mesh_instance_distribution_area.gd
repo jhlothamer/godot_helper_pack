@@ -1,19 +1,19 @@
-tool
+@tool
 class_name MultiMeshInstanceDistributionArea
 extends ReferenceRect
 
 signal operation_completed()
 
 
-export var multi_mesh_instance_2d: NodePath
-export var mesh_instance_2d: NodePath
-export var static_body_2d: NodePath
-export (float, 10.0, 10000.0) var distribution_radius := 100.0
+@export var multi_mesh_instance_2d: NodePath
+@export var mesh_instance_2d: NodePath
+@export var static_body_2d: NodePath
+@export_range(10.0, 10000.0) var distribution_radius := 100.0
 
-export var exclusion_polygon_node_group := "exclusion_polygon"
-export var static_body_only_node_group := "static_body_only"
-export var distribution_only_node_group := "distribution_only"
-export var exclusion_polygon_group_node_group := "exclusion_polygon_group"
+@export var exclusion_polygon_node_group := "exclusion_polygon"
+@export var static_body_only_node_group := "static_body_only"
+@export var distribution_only_node_group := "distribution_only"
+@export var exclusion_polygon_group_node_group := "exclusion_polygon_group"
 
 var status := ""
 
@@ -48,13 +48,13 @@ func _refresh_references():
 	if temp and temp is StaticBody2D:
 		_sb = temp
 	
-	if !exclusion_polygon_node_group.empty():
+	if !exclusion_polygon_node_group.is_empty():
 		for i in get_tree().get_nodes_in_group(exclusion_polygon_node_group):
 			if !i is Polygon2D:
 				continue
 			_process_exclusion_polygon(i)
 
-	if !exclusion_polygon_group_node_group.empty():
+	if !exclusion_polygon_group_node_group.is_empty():
 		for i in get_tree().get_nodes_in_group(exclusion_polygon_group_node_group):
 			for j in i.get_children():
 				if !j is Polygon2D:
@@ -65,15 +65,15 @@ func _refresh_references():
 func _process_exclusion_polygon(polygon2d: Polygon2D) -> void:
 			var t := Transform2D(0.0, polygon2d.global_position)
 			if polygon2d.is_in_group(static_body_only_node_group):
-				_additional_carving_polygons.append(t.xform(polygon2d.polygon))
+				_additional_carving_polygons.append(t * polygon2d.polygon)
 			elif polygon2d.is_in_group(distribution_only_node_group):
-				_additional_distribution_carving_polygons.append(t.xform(polygon2d.polygon))
+				_additional_distribution_carving_polygons.append(t * polygon2d.polygon)
 			else:
-				_carving_polygons.append(t.xform(polygon2d.polygon))
+				_carving_polygons.append(t * polygon2d.polygon)
 
 
 func _get_region_rect() -> Rect2:
-	return Rect2(rect_global_position, rect_size)
+	return Rect2(global_position, size)
 
 
 func _clear_distribution():
@@ -104,7 +104,7 @@ func _do_distribution():
 	var pds := RandomDistributionArea.PoissonDiscSampling.new()
 	var distrib_pts := pds.generate_points(distribution_radius, sample_region.size)
 	var t := Transform2D(0.0, sample_region.position)
-	distrib_pts = t.xform(PoolVector2Array(distrib_pts))
+	distrib_pts = t * PackedVector2Array(distrib_pts)
 	swSampling.stop()
 	var starting_distrib_pt_count = distrib_pts.size()
 	
@@ -114,7 +114,7 @@ func _do_distribution():
 	for pt in distrib_pts:
 		var discard := false
 		for poly in _carving_polygons:
-			if Geometry.is_point_in_polygon(pt, poly):
+			if Geometry2D.is_point_in_polygon(pt, poly):
 				discard = true
 				break
 		if !discard:
@@ -129,7 +129,7 @@ func _do_distribution():
 	_mmi.multimesh = multi_mesh
 	multi_mesh.mesh = _mi.mesh
 	var mmi_transform = Transform2D(0.0, -_mmi.global_position)
-	pts_kept = mmi_transform.xform(PoolVector2Array(pts_kept))
+	pts_kept = mmi_transform * PackedVector2Array(pts_kept)
 	multi_mesh.instance_count = pts_kept.size()
 	for i in multi_mesh.instance_count:
 		var pt = pts_kept[i]
@@ -157,7 +157,7 @@ func _get_mesh_polygon() -> Array:
 	for v3 in shape.points:
 		var v2 = Vector2(v3.x, v3.y)
 		pts.append(v2)
-	pts = Geometry.convex_hull_2d(pts)
+	pts = Geometry2D.convex_hull(pts)
 	return pts
 
 func _make_box_polygon(r: Rect2) -> Array:
@@ -214,7 +214,7 @@ func _generate_shapes_exact():
 	
 	for i in multi_mesh.instance_count:
 		var t := multi_mesh.get_instance_transform_2d(i)
-		polygons.append(t.xform(mesh_poly))
+		polygons.append(t * PackedVector2Array(mesh_poly))
 	
 	var starting_polygon_count := polygons.size()
 	
@@ -226,10 +226,10 @@ func _generate_shapes_exact():
 		var i = 0
 		while i < polygons.size():
 			var poly = polygons[i]
-			var intersection = Geometry.intersect_polygons_2d(curr_poly, poly)
+			var intersection = Geometry2D.intersect_polygons(curr_poly, poly)
 			if intersection:
 				polygons.erase(poly)
-				curr_poly = Geometry.merge_polygons_2d(curr_poly, poly)[0]
+				curr_poly = Geometry2D.merge_polygons(curr_poly, poly)[0]
 				count_since_last_join = 0
 				continue
 			count_since_last_join += 1
@@ -275,14 +275,14 @@ func _generate_shapes_simple():
 		while collision_polygons:
 			total_loop_count += 1
 			var col_poly = collision_polygons.pop_front()
-			var intersection = Geometry.intersect_polygons_2d(carve_poly, col_poly)
+			var intersection = Geometry2D.intersect_polygons(carve_poly, col_poly)
 			if !intersection:
 				new_collsion_polygons.append(col_poly)
 				continue
-			var clip_results = Geometry.clip_polygons_2d(col_poly, carve_poly)
+			var clip_results = Geometry2D.clip_polygons(col_poly, carve_poly)
 			var have_hole := false
 			for cr in clip_results:
-				have_hole = Geometry.is_polygon_clockwise(cr)
+				have_hole = Geometry2D.is_polygon_clockwise(cr)
 				if have_hole:
 					break
 			if !have_hole:
@@ -302,7 +302,7 @@ func _generate_shapes_simple():
 	var sb_transform = Transform2D(0.0, -_sb.global_position)
 	for col_poly in collision_polygons:
 		var c := CollisionPolygon2D.new()
-		c.polygon = sb_transform.xform(col_poly)
+		c.polygon = sb_transform * col_poly
 		_sb.add_child(c)
 		c.owner = get_tree().get_edited_scene_root()
 

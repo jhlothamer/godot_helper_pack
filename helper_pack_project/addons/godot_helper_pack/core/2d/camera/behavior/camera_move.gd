@@ -4,22 +4,22 @@ class_name CameraMove2D
 signal camera_pan_started()
 signal camera_pan_stopped()
 
-export var move_speed: float = 10
-export var up_action_name := "ui_up"
-export var down_action_name := "ui_down"
-export var left_action_name := "ui_left"
-export var right_action_name := "ui_right"
-export var right_mouse_button_drag := false
-export var left_mouse_button_drag := false
-export var middle_mouse_button_drag := false
+@export var move_speed: float = 10
+@export var up_action_name := "ui_up"
+@export var down_action_name := "ui_down"
+@export var left_action_name := "ui_left"
+@export var right_action_name := "ui_right"
+@export var right_mouse_button_drag := false
+@export var left_mouse_button_drag := false
+@export var middle_mouse_button_drag := false
 
 
-onready var _camera: Camera2D = get_parent() if typeof(get_parent()) == typeof(Camera2D) else null
+@onready var _camera: Camera2D = get_parent() if typeof(get_parent()) == typeof(Camera2D) else null
 
 
 var _is_dragging := false
-var _drag_location_start := Vector2.INF
-var _drag_last_location := Vector2.INF
+var _drag_location_start := Vector2(INF, INF)
+var _drag_last_location := Vector2(INF, INF)
 
 
 func _ready():
@@ -51,7 +51,7 @@ func _process(_delta):
 	if move_direction == Vector2.ZERO:
 		return
 
-	move_direction *= move_speed * _camera.zoom.x
+	move_direction *= move_speed * (1.0 / _camera.zoom.x)
 
 	var limit_check_offset: Vector2 = Vector2.ZERO
 	var limit_check_top_left: Vector2 = Vector2.ZERO
@@ -89,11 +89,11 @@ func _handle_mouse_button_event(event: InputEventMouseButton) -> void:
 		Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 		emit_signal("camera_pan_stopped")
 		return
-	if event.button_index == BUTTON_LEFT && left_mouse_button_drag:
+	if event.button_index == MOUSE_BUTTON_LEFT && left_mouse_button_drag:
 		_is_dragging = true
-	elif event.button_index == BUTTON_RIGHT && right_mouse_button_drag:
+	elif event.button_index == MOUSE_BUTTON_RIGHT && right_mouse_button_drag:
 		_is_dragging = true
-	if event.button_index == BUTTON_MIDDLE && middle_mouse_button_drag:
+	if event.button_index == MOUSE_BUTTON_MIDDLE && middle_mouse_button_drag:
 		_is_dragging = true
 	if _is_dragging:
 		Input.set_default_cursor_shape(Input.CURSOR_DRAG)
@@ -103,4 +103,4 @@ func _handle_mouse_button_event(event: InputEventMouseButton) -> void:
 func _handle_mouse_motion_event(event: InputEventMouseMotion) -> void:
 	if !_is_dragging:
 		return
-	_camera.global_position -= event.relative * _camera.zoom.x
+	_camera.global_position -= event.relative * (1.0 / _camera.zoom.x)

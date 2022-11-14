@@ -1,4 +1,4 @@
-tool
+@tool
 extends EditorPlugin
 
 const SCENE_PATH_BLOCKING_BLOCK_2D = "res://addons/godot_helper_pack/core/2d/shape/blocking_block_2d.tscn"
@@ -12,7 +12,7 @@ const HELPER_PACK_AUTOLOADS = {
 }
 
 var _distribution_editor: DistributionEditorPlugin
-var _distribution_editor_tool_btn: ToolButton
+var _distribution_editor_tool_btn: Button
 
 func _enter_tree():
 	# force addition of color setting
@@ -52,7 +52,7 @@ func _add_remove_favorite(add: bool, entry: String, editor_settings: EditorSetti
 		i += 1
 	
 	if !add and index >= 0:
-		favorites.remove(index)
+		favorites.remove_at(index)
 		editor_settings.set_favorites(favorites)
 	elif add and index < 0:
 		favorites.append(entry)
@@ -70,7 +70,7 @@ func _get_autoloads() -> Array:
 
 func _add_distribution_editor() -> void:
 	if !_distribution_editor:
-		_distribution_editor = DISTRIBUTION_EDITOR_PLUGIN_SCENE.instance()
+		_distribution_editor = DISTRIBUTION_EDITOR_PLUGIN_SCENE.instantiate()
 
 	_distribution_editor_tool_btn = add_control_to_bottom_panel(_distribution_editor, "Distribution")
 	_distribution_editor_tool_btn.visible = false
@@ -96,7 +96,7 @@ func handles(object: Object) -> bool:
 	return false
 
 
-func make_visible(visible: bool) -> void:
+func _make_visible(visible: bool) -> void:
 	_distribution_editor_tool_btn.visible = visible
 
 

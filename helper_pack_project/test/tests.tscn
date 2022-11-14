@@ -1,22 +1,23 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://bu2frilhpj1yx"]
 
-[ext_resource path="res://addons/gut/plugin_control.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://addons/gut/plugin_control.gd" id="1"]
 
 [node name="Tests" type="Control"]
+layout_mode = 3
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -512.0
-margin_top = -300.0
-margin_right = 512.0
-margin_bottom = 300.0
+offset_left = -512.0
+offset_top = -300.0
+offset_right = 512.0
+offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
-rect_min_size = Vector2( 740, 250 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource( 1 )
+script = ExtResource("1")
 _include_subdirectories = true
 _directory1 = "res://test/unit"
 _directory2 = "res://test/integration"

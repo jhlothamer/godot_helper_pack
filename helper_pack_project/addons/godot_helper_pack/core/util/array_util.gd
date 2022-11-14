@@ -1,8 +1,7 @@
 class_name ArrayUtil
 extends Object
-"""
-Collection of array utility functions.
-"""
+
+# Collection of array utility functions.
 
 # appends all elements from source to dest array
 static func append_all(dest: Array, source: Array):
@@ -13,7 +12,7 @@ static func append_all(dest: Array, source: Array):
 static func get_rand(a: Array):
 	if a.size() == 0:
 		return null
-	return a[int(rand_range(0, a.size())) % a.size()]
+	return a[int(randf_range(0, a.size())) % a.size()]
 
 
 static func has_any(a: Array, b: Array) -> bool:

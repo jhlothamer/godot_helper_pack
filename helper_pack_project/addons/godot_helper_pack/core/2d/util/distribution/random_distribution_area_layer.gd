@@ -1,19 +1,19 @@
-tool
-class_name RandomDistributionAreaLayer, "random_distribution_area_layer.svg"
+@tool
+class_name RandomDistributionAreaLayer
 extends Node
-
+@icon("random_distribution_area_layer.svg")
 
 # the min distance between spawned objects
-export (float, 1.0, 10000.0) var distribution_radius : float = 128.0
+@export_range(1.0, 10000.0) var distribution_radius : float = 128.0
 # The area the objects take up - used for multiple layers to reject overlapping objects
-export (float, 1.0, 10000.0) var object_radius : float = 64.0
+@export_range(1.0, 10000.0) var object_radius : float = 64.0
 # node cloned objects are added to - this cannot be the rand distribution areay itself
-export var distributed_clone_parent: NodePath
-export var discarded_point_clone_parent: NodePath
+@export var distributed_clone_parent: NodePath
+@export var discarded_point_clone_parent: NodePath
 # Array of scenes to clone - can add as children to this node instead
-export (Array, PackedScene) var scenes_to_distribute: Array = []
-export var enabled := true
-export var layer_exclusion_polygon_node_group := "layer_exclusion_polygon"
+@export var scenes_to_distribute: Array[PackedScene] = []
+@export var enabled := true
+@export var layer_exclusion_polygon_node_group := "layer_exclusion_polygon"
 
 
 
@@ -42,10 +42,10 @@ func get_items_to_distribute() -> Array:
 	return items
 
 func _enter_tree():
-	update_configuration_warning()
+	update_configuration_warnings()
 
 
-func _get_configuration_warning() -> String:
+func _get_configuration_warnings():
 	var parent = get_parent()
 	if parent != null and !parent is RandomDistributionArea:
 		return "Parent must be a RandomDistributionArea node"

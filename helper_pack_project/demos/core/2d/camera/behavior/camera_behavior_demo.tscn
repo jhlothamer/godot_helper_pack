@@ -1,106 +1,94 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=3 uid="uid://cll2cqw4882a3"]
 
-[ext_resource path="res://addons/godot_helper_pack/core/2d/camera/behavior/camera_limiter.gd" type="Script" id=1]
-[ext_resource path="res://addons/godot_helper_pack/core/2d/camera/behavior/camera_move.gd" type="Script" id=2]
-[ext_resource path="res://addons/godot_helper_pack/core/2d/camera/behavior/camera_shake.gd" type="Script" id=3]
-[ext_resource path="res://addons/godot_helper_pack/core/2d/camera/behavior/camera_zoom.gd" type="Script" id=4]
-[ext_resource path="res://demos/core/2d/camera/behavior/camera_behavior_demo.gd" type="Script" id=5]
+[ext_resource type="Script" path="res://addons/godot_helper_pack/core/2d/camera/behavior/camera_limiter.gd" id="1"]
+[ext_resource type="Script" path="res://addons/godot_helper_pack/core/2d/camera/behavior/camera_move.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://dvpl28yyln7b2" path="res://demos/core/2d/camera/behavior/axis_markers.png" id="2_jmxxc"]
+[ext_resource type="Script" path="res://addons/godot_helper_pack/core/2d/camera/behavior/camera_shake.gd" id="3"]
+[ext_resource type="Script" path="res://addons/godot_helper_pack/core/2d/camera/behavior/camera_zoom.gd" id="4"]
+[ext_resource type="Script" path="res://demos/core/2d/camera/behavior/camera_behavior_demo.gd" id="5"]
 
-[sub_resource type="OpenSimplexNoise" id=1]
+[sub_resource type="FastNoiseLite" id="1"]
 
-[sub_resource type="NoiseTexture" id=2]
+[sub_resource type="NoiseTexture2D" id="2"]
 seamless = true
-noise = SubResource( 1 )
+noise = SubResource("1")
 
-[sub_resource type="Gradient" id=3]
+[sub_resource type="Gradient" id="3"]
 
-[sub_resource type="GradientTexture" id=4]
-gradient = SubResource( 3 )
+[sub_resource type="GradientTexture2D" id="4"]
+gradient = SubResource("3")
 width = 2000
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_aagwc"]
+
 [node name="CameraBehaviorDemo" type="Node2D"]
-script = ExtResource( 5 )
+script = ExtResource("5")
 
 [node name="Background" type="TextureRect" parent="."]
-margin_left = -2000.0
-margin_top = -2000.0
-margin_right = 2000.0
-margin_bottom = 2000.0
-rect_min_size = Vector2( 4000, 4000 )
+offset_left = -2000.0
+offset_top = -2000.0
+offset_right = 2000.0
+offset_bottom = 2000.0
 mouse_filter = 2
-texture = SubResource( 2 )
-stretch_mode = 2
-__meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
+texture = SubResource("2")
+stretch_mode = 1
 
 [node name="QuadColor1" type="TextureRect" parent="Background"]
-self_modulate = Color( 0.262745, 1, 0, 0.501961 )
-margin_left = 2000.0
-margin_top = 2000.0
-margin_right = 4000.0
-margin_bottom = 4000.0
-rect_min_size = Vector2( 2000, 2000 )
-rect_rotation = -90.0
+self_modulate = Color(0.262745, 1, 0, 0.501961)
+offset_left = 2000.0
+offset_top = 2000.0
+offset_right = 4000.0
+offset_bottom = 4000.0
+rotation = -1.57079
 mouse_filter = 2
-texture = SubResource( 4 )
-stretch_mode = 2
-__meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
+texture = SubResource("4")
+stretch_mode = 1
 
 [node name="QuadColor2" type="TextureRect" parent="Background"]
-self_modulate = Color( 0.87451, 1, 0, 0.501961 )
-margin_left = 2000.0
-margin_top = 4000.0
-margin_right = 4000.0
-margin_bottom = 6000.0
-rect_min_size = Vector2( 2000, 2000 )
-rect_rotation = -90.0
+self_modulate = Color(0.87451, 1, 0, 0.501961)
+offset_left = 2000.0
+offset_top = 4000.0
+offset_right = 4000.0
+offset_bottom = 6000.0
+rotation = -1.5708
 mouse_filter = 2
-texture = SubResource( 4 )
-stretch_mode = 2
-__meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
+texture = SubResource("4")
+stretch_mode = 1
 
 [node name="QuadColor3" type="TextureRect" parent="Background"]
-self_modulate = Color( 0, 0.243137, 1, 0.501961 )
-margin_top = 4000.0
-margin_right = 2000.0
-margin_bottom = 6000.0
-rect_min_size = Vector2( 2000, 2000 )
-rect_rotation = -90.0
+self_modulate = Color(0, 0.243137, 1, 0.501961)
+offset_top = 4000.0
+offset_right = 2000.0
+offset_bottom = 6000.0
+rotation = -1.5708
 mouse_filter = 2
-texture = SubResource( 4 )
-stretch_mode = 2
-__meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
+texture = SubResource("4")
+stretch_mode = 1
 
 [node name="QuadColor4" type="TextureRect" parent="Background"]
-self_modulate = Color( 1, 0, 0.164706, 0.501961 )
-margin_top = 2000.0
-margin_right = 2000.0
-margin_bottom = 4000.0
-rect_min_size = Vector2( 2000, 2000 )
-rect_rotation = -90.0
+self_modulate = Color(1, 0, 0.164706, 0.501961)
+offset_top = 2000.0
+offset_right = 2000.0
+offset_bottom = 4000.0
+rotation = -1.5708
 mouse_filter = 2
-texture = SubResource( 4 )
-stretch_mode = 2
-__meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
+texture = SubResource("4")
+stretch_mode = 1
+
+[node name="XAxis" type="TextureRect" parent="Background"]
+offset_top = 1952.0
+offset_right = 4000.0
+offset_bottom = 2002.0
+texture = ExtResource("2_jmxxc")
+stretch_mode = 1
+
+[node name="YAxis" type="TextureRect" parent="Background"]
+offset_left = 2048.0
+offset_right = 6048.0
+offset_bottom = 50.0
+rotation = 1.5708
+texture = ExtResource("2_jmxxc")
+stretch_mode = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -111,88 +99,74 @@ limit_bottom = 2000
 editor_draw_limits = true
 
 [node name="CameraMove2D" type="Node" parent="Camera2D"]
-script = ExtResource( 2 )
+script = ExtResource("2")
 left_mouse_button_drag = true
 
 [node name="CameraZoom2D" type="Node" parent="Camera2D"]
-script = ExtResource( 4 )
+script = ExtResource("4")
 min_camera_zoom = 0.5
 max_camera_zoom = 5.0
 
 [node name="CameraShake" type="Node" parent="Camera2D"]
-script = ExtResource( 3 )
+script = ExtResource("3")
+noise_speed_factor = 6.0
+noise = SubResource("FastNoiseLite_aagwc")
 
 [node name="CameraLimiter" type="Node" parent="Camera2D"]
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="InstructionsLbl" type="Label" parent="CanvasLayer"]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 40.0
-margin_bottom = 14.0
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 40.0
+offset_bottom = 14.0
 text = "Use arrows/wasd keys to move camera
 Click and drag left mouse to move camera
 Use mouse wheel to zoom in/out
 Use buttons to try out other camera behaviors"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -204.0
-margin_bottom = 84.0
-custom_constants/margin_right = 10
-custom_constants/margin_top = 10
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_left = -204.0
+offset_bottom = 84.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
-margin_top = 10.0
-margin_right = 194.0
-margin_bottom = 84.0
-custom_constants/separation = 10
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
+offset_top = 10.0
+offset_right = 234.0
+offset_bottom = 106.0
 
 [node name="ShakeCameraBtn" type="Button" parent="CanvasLayer/MarginContainer/VBoxContainer"]
-margin_right = 194.0
-margin_bottom = 20.0
-text = "Shake Camera"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_right = 234.0
+offset_bottom = 31.0
+text = "Shake Camera3D"
 
 [node name="LimitCameraBtn" type="Button" parent="CanvasLayer/MarginContainer/VBoxContainer"]
-margin_top = 30.0
-margin_right = 194.0
-margin_bottom = 50.0
-text = "Limit Camera"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_top = 35.0
+offset_right = 234.0
+offset_bottom = 66.0
+text = "Limit Camera3D"
 
 [node name="LimitRegionHBox" type="HBoxContainer" parent="CanvasLayer/MarginContainer/VBoxContainer"]
-margin_top = 60.0
-margin_right = 194.0
-margin_bottom = 74.0
+offset_top = 70.0
+offset_right = 234.0
+offset_bottom = 96.0
 
 [node name="LimitRegionDescLbl" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/LimitRegionHBox"]
-margin_right = 105.0
-margin_bottom = 14.0
+offset_right = 126.0
+offset_bottom = 26.0
 text = "Limit camera to:"
 
 [node name="LimitRegionDescValue" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/LimitRegionHBox"]
-margin_left = 109.0
-margin_right = 194.0
-margin_bottom = 14.0
+offset_left = 130.0
+offset_right = 234.0
+offset_bottom = 26.0
 text = "yellow region"
 
 [node name="Camera2D2" type="Camera2D" parent="."]

@@ -1,17 +1,16 @@
 class_name RotateIt
 extends Node
 
-export var rotation_speed_degrees = rad2deg(.25*PI) setget _set_rotation_speed_degrees
-export var clockwise := true
+@export var rotation_speed_degrees = rad_to_deg(.25*PI) :
+	set(mod_value):
+		rotation_speed_degrees= mod_value
+		_rotation_speed = deg_to_rad(rotation_speed_degrees)
+@export var clockwise := true
 
 var _rotation_speed := 0.0
 
 var _parent: Node2D
-onready var _clockwise: float = 1 if clockwise else -1
-
-func _set_rotation_speed_degrees(value: float) -> void:
-	rotation_speed_degrees = value
-	_rotation_speed = deg2rad(rotation_speed_degrees)
+@onready var _clockwise: float = 1 if clockwise else -1
 
 
 func _ready():

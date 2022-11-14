@@ -1,8 +1,8 @@
 class_name StringUtil
 extends Object
-"""
-Collection of string utility functions.
-"""
+
+# Collection of string utility functions.
+
 
 
 # gets file name without extension

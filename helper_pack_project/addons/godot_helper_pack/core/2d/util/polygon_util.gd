@@ -1,8 +1,8 @@
 class_name PolygonUtil
-extends Node
+extends Object
 
 
-static func get_midpoint(polygon: PoolVector2Array) -> Vector2:
+static func get_midpoint(polygon: PackedVector2Array) -> Vector2:
 	var mid_point = Vector2.ZERO
 	for v in polygon:
 		mid_point += v

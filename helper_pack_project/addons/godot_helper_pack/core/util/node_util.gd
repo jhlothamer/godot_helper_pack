@@ -1,8 +1,7 @@
 class_name NodeUtil
-extends Node
-"""
-Collection of node utility functions.
-"""
+extends Object
+
+# Collection of node utility functions.
 
 
 # removes all children from a node, optionally freeing children

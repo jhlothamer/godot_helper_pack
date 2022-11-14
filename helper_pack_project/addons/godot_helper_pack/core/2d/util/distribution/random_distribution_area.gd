@@ -1,6 +1,8 @@
-tool
-class_name RandomDistributionArea, "random_distribution_area.svg"
+@tool
+class_name RandomDistributionArea
 extends ReferenceRect
+@icon("random_distribution_area.svg")
+
 
 signal operation_completed()
 signal status_updated(status_text)
@@ -42,7 +44,7 @@ class PoissonDiscSampling:
 					candidate_accepted = true
 					break
 			if !candidate_accepted:
-				spawn_points.remove(spawn_index)
+				spawn_points.remove_at(spawn_index)
 
 		return grid.values()
 
@@ -76,7 +78,7 @@ class Vector2YSorter:
 class Circle:
 	var center := Vector2.ZERO
 	var radius := 1.0
-	func _init(_center: Vector2, _radius: float):
+	func _init(_center: Vector2,_radius: float):
 		center = _center
 		radius = _radius
 	func intersects(other_circle: Circle) -> bool:
@@ -111,7 +113,7 @@ class DistributionAreaLayer:
 			var oc:Circle = i
 			var discard := false
 			for j in exclusion_polygons:
-				if Geometry.is_point_in_polygon(oc.center, j):
+				if Geometry2D.is_point_in_polygon(oc.center, j):
 					discard = true
 					break
 			if !discard:
@@ -129,12 +131,12 @@ class DistributionAreaLayerSorter:
 
 
 # parameter for Poisson Disc Sampling
-export (int, 1, 500) var num_samples_before_rejection: int = 30
-export var allow_layer_objects_to_overlap := false
-export var allow_runtime_population := false
-export (int, 1, 10000) var duplicate_nodes_limit := 2000
-export var sort_y := false
-export var exclusion_polygon_node_group := "exclusion_polygon"
+@export_range(1, 500) var num_samples_before_rejection: int = 30
+@export var allow_layer_objects_to_overlap := false
+@export var allow_runtime_population := false
+@export_range(1, 10000) var duplicate_nodes_limit := 2000
+@export var sort_y := false
+@export var exclusion_polygon_node_group := "exclusion_polygon"
 
 
 var status := ""
@@ -144,7 +146,7 @@ var _rand := RandomNumberGenerator.new()
 
 func _ready():
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	if !Engine.editor_hint and !allow_runtime_population:
+	if !Engine.is_editor_hint() and !allow_runtime_population:
 		for c in get_children():
 			if c.has_method("_i_am_a_random_distribution_area_layer"):
 				remove_child(c)
@@ -163,7 +165,7 @@ func clear_distribution() -> void:
 func _get_item(item_scene_or_object, parent: Node):
 	var item: CanvasItem
 	if item_scene_or_object is PackedScene:
-		item =  item_scene_or_object.instance()
+		item =  item_scene_or_object.instantiate()
 	else:
 		item = item_scene_or_object.duplicate(Node.DUPLICATE_SCRIPTS)
 	parent.add_child(item)
@@ -177,13 +179,13 @@ func _get_rand_item(items: Array, parent: Node):
 
 func _get_exclusion_polygons(group_name: String) -> Array:
 	var polygons := []
-	if group_name.empty():
+	if group_name.is_empty():
 		return polygons
 	for i in get_tree().get_nodes_in_group(group_name):
 		if !i is Polygon2D:
 			continue
 		var t := Transform2D(0.0, i.global_position)
-		polygons.append(t.xform(i.polygon))
+		polygons.append(t * i.polygon)
 	return polygons
 
 
@@ -212,7 +214,7 @@ func _get_layers() -> Array:
 			items, clone_parent, discarded_point_clone_parent)
 		if global_exclusion_polygons.size() > 0:
 			layer.exclusion_polygons.append_array(global_exclusion_polygons)
-		if !layer_node.layer_exclusion_polygon_node_group.empty():
+		if !layer_node.layer_exclusion_polygon_node_group.is_empty():
 			if !polygons_by_layer_group_name.has(layer_node.layer_exclusion_polygon_node_group):
 				polygons_by_layer_group_name[layer_node.layer_exclusion_polygon_node_group] = _get_exclusion_polygons(layer_node.layer_exclusion_polygon_node_group)
 			layer.exclusion_polygons.append_array(polygons_by_layer_group_name[layer_node.layer_exclusion_polygon_node_group])
@@ -221,7 +223,7 @@ func _get_layers() -> Array:
 	if layers.size() < 1:
 		push_error("RandomDistributionArea: Invalid distribution area data. See previous errors.  Aborting distribution.")
 
-	layers.sort_custom(DistributionAreaLayerSorter.new(), "sort_by_distribution_radius_desc")
+	layers.sort_custom(Callable(DistributionAreaLayerSorter.new(),"sort_by_distribution_radius_desc"))
 
 	return layers
 
@@ -237,10 +239,10 @@ func _generate_layer_points(layers: Array) -> int:
 		if layer.discarded_point_clone_parent != null:
 			NodeUtil.remove_children(layer.discarded_point_clone_parent)
 		
-		var points = poisson_disc_sampling.generate_points(layer.distribution_radius, rect_size,
+		var points = poisson_disc_sampling.generate_points(layer.distribution_radius, size,
 			num_samples_before_rejection)
 		if sort_y:
-			points.sort_custom(Vector2YSorter.new(), "sort")
+			points.sort_custom(Callable(Vector2YSorter.new(),"sort"))
 		layer.populate_object_circles(points)
 		total_point_count += points.size()
 
@@ -300,12 +302,12 @@ func _duplicate_layer_items(layers: Array) -> void:
 		for c in layer.object_circles:
 			var item = _get_rand_item(layer.clone_items, layer.clone_parent)
 			item.owner = get_tree().get_edited_scene_root()
-			item.global_position = rect_position + c.center
+			item.global_position = position + c.center
 		if layer.discarded_point_clone_parent != null:
 			for c in layer.discarded_object_circles:
 				var item = _get_rand_item(layer.clone_items, layer.discarded_point_clone_parent)
 				item.owner = get_tree().get_edited_scene_root()
-				item.global_position = rect_position + c.center
+				item.global_position = position + c.center
 			layer.discarded_point_clone_parent.visible = false
 	stop_watch.stop()
 	status += "\titems duplicated in %d msec\r\n" % stop_watch.get_elapsed_msec()
@@ -314,7 +316,7 @@ func _duplicate_layer_items(layers: Array) -> void:
 
 
 func do_distribution() -> void:
-	yield(get_tree(), "idle_frame")
+	await get_tree().idle_frame
 	var layers = _get_layers()
 	if layers.size() < 1:
 		#print(name + " must have 1 or more layers in order to populate area.")
@@ -328,10 +330,10 @@ func do_distribution() -> void:
 	emit_signal("status_updated", status)
 	
 	var total_point_count = _generate_layer_points(layers)
-	yield(get_tree(), "idle_frame")
+	await get_tree().idle_frame
 	
 	_discard_excluded_points(layers)
-	yield(get_tree(), "idle_frame")
+	await get_tree().idle_frame
 	
 	var total_stop_watch = StopWatch.new()
 	total_stop_watch.start()
@@ -345,7 +347,7 @@ func do_distribution() -> void:
 
 	if !allow_layer_objects_to_overlap:
 		_discard_overlapping_object(layers)
-		yield(get_tree(), "idle_frame")
+		await get_tree().idle_frame
 	
 	var total_to_be_duplicated := 0
 	var total_rejected_to_be_duplicated := 0
@@ -369,7 +371,7 @@ func do_distribution() -> void:
 		status += "\t\tTotal nodes rejected for overlap: %d\r\n" % total_rejected
 	emit_signal("status_updated", status)
 
-	yield(get_tree(), "idle_frame")
+	await get_tree().idle_frame
 
 	if duplicate_nodes:
 		_duplicate_layer_items(layers)

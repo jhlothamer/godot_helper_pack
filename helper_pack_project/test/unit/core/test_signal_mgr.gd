@@ -20,4 +20,4 @@ func test_mgr_connects_publisher_to_subscriber():
 	SignalMgr.register_publisher(publisher, "foo")
 	var subscriber = TestSubscriber.new()
 	SignalMgr.register_subscriber(subscriber, "foo", "bar")
-	assert_true(publisher.is_connected("foo", subscriber, "bar"))
+	assert_true(publisher.is_connected("foo",Callable(subscriber,"bar")))

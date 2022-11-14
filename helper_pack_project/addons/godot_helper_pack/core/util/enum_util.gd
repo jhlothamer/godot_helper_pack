@@ -1,8 +1,8 @@
 class_name EnumUtil
 extends Object
-"""
-Collection of enum utility.
-"""
+
+# Collection of enum utility.
+
 
 static func get_id(enum_class: Dictionary, enum_string: String) -> int:
 	if !enum_class.has(enum_string):
