@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://si3btmdubk5x"]
+[gd_scene load_steps=16 format=3 uid="uid://si3btmdubk5x"]
 
 [ext_resource type="PackedScene" path="res://addons/godot_helper_pack/core/2d/shape/blocking_block_2d.tscn" id="1"]
 [ext_resource type="Texture2D" uid="uid://ddtupiawd7h0b" path="res://demos/core/2d/shape/godot_helper_pack_scene_tree_blocking_block_warning.png" id="2"]
@@ -9,27 +9,43 @@
 [ext_resource type="Script" path="res://addons/godot_helper_pack/core/2d/camera/behavior/camera_limiter.gd" id="7"]
 [ext_resource type="Texture2D" uid="uid://yw75vpshtkn1" path="res://demos/core/2d/shape/nine_patch.png" id="8_3wmbs"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ke6c"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ixris"]
+bg_color = Color(0, 0, 0, 0.776471)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.8, 0, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cw5t7"]
 resource_local_to_scene = true
 size = Vector2(254, 131)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cytg6"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5x6qb"]
 resource_local_to_scene = true
 size = Vector2(384, 64)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1dmsy"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b0asq"]
 resource_local_to_scene = true
 size = Vector2(64, 192)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gp5a8"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_08r5i"]
 resource_local_to_scene = true
 size = Vector2(64, 192)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kyi48"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wkw7a"]
 resource_local_to_scene = true
 size = Vector2(384, 64)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5u3rn"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_22knf"]
 resource_local_to_scene = true
 size = Vector2(345, 279)
 
@@ -39,7 +55,7 @@ size = Vector2(345, 279)
 offset_left = -272.0
 offset_top = -152.0
 offset_right = 1923.0
-offset_bottom = 1477.0
+offset_bottom = 1800.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -57,9 +73,11 @@ grow_vertical = 0
 
 [node name="Label" type="Label" parent="CanvasLayer/MarginContainer"]
 layout_mode = 2
-offset_top = 24.0
-offset_right = 232.0
-offset_bottom = 76.0
+offset_top = 20.0
+offset_right = 233.0
+offset_bottom = 80.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_ixris")
 text = "Move view with wasd/arrows
 Zoom with mouse wheel"
 
@@ -120,7 +138,7 @@ autowrap_mode = 3
 
 [node name="BlockingBlock" parent="." instance=ExtResource("1")]
 position = Vector2(176, 552)
-shape = SubResource("RectangleShape2D_2ke6c")
+shape = SubResource("RectangleShape2D_cw5t7")
 color = Color(0, 0.803922, 0.215686, 1)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
@@ -137,27 +155,27 @@ autowrap_mode = 3
 
 [node name="BlockingBlock" parent="StaticBody2D" instance=ExtResource("1")]
 position = Vector2(235, 41)
-shape = SubResource("RectangleShape2D_cytg6")
+shape = SubResource("RectangleShape2D_5x6qb")
 color = Color(0, 0.803922, 0.215686, 1)
 
 [node name="BlockingBlock2" parent="StaticBody2D" instance=ExtResource("1")]
 position = Vector2(395, 169)
-shape = SubResource("RectangleShape2D_1dmsy")
+shape = SubResource("RectangleShape2D_b0asq")
 color = Color(0, 0.803922, 0.215686, 1)
 
 [node name="BlockingBlock3" parent="StaticBody2D" instance=ExtResource("1")]
 position = Vector2(75, 169)
-shape = SubResource("RectangleShape2D_gp5a8")
+shape = SubResource("RectangleShape2D_08r5i")
 color = Color(0, 0.803922, 0.215686, 1)
 
 [node name="BlockingBlock4" parent="StaticBody2D" instance=ExtResource("1")]
 position = Vector2(235, 297)
-shape = SubResource("RectangleShape2D_kyi48")
+shape = SubResource("RectangleShape2D_wkw7a")
 color = Color(0, 0.803922, 0.215686, 1)
 
 [node name="BlockingBlockWithTexture" parent="." instance=ExtResource("1")]
 position = Vector2(240, 1528)
-shape = SubResource("RectangleShape2D_5u3rn")
+shape = SubResource("RectangleShape2D_22knf")
 color = Color(0, 0.803922, 0.215686, 1)
 texture = ExtResource("8_3wmbs")
 nine_patch_patch_left = 16
