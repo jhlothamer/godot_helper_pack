@@ -25,27 +25,27 @@ expand_margin_top = 5.0
 expand_margin_right = 5.0
 expand_margin_bottom = 5.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cw5t7"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_36xld"]
 resource_local_to_scene = true
 size = Vector2(254, 131)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5x6qb"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0trdf"]
 resource_local_to_scene = true
 size = Vector2(384, 64)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_b0asq"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gsdnw"]
 resource_local_to_scene = true
 size = Vector2(64, 192)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_08r5i"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mkttq"]
 resource_local_to_scene = true
 size = Vector2(64, 192)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wkw7a"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rc7hk"]
 resource_local_to_scene = true
 size = Vector2(384, 64)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_22knf"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_orn1n"]
 resource_local_to_scene = true
 size = Vector2(345, 279)
 
@@ -72,7 +72,6 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="Label" type="Label" parent="CanvasLayer/MarginContainer"]
-layout_mode = 2
 offset_top = 20.0
 offset_right = 233.0
 offset_bottom = 80.0
@@ -138,7 +137,7 @@ autowrap_mode = 3
 
 [node name="BlockingBlock" parent="." instance=ExtResource("1")]
 position = Vector2(176, 552)
-shape = SubResource("RectangleShape2D_cw5t7")
+shape = SubResource("RectangleShape2D_36xld")
 color = Color(0, 0.803922, 0.215686, 1)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
@@ -155,27 +154,27 @@ autowrap_mode = 3
 
 [node name="BlockingBlock" parent="StaticBody2D" instance=ExtResource("1")]
 position = Vector2(235, 41)
-shape = SubResource("RectangleShape2D_5x6qb")
+shape = SubResource("RectangleShape2D_0trdf")
 color = Color(0, 0.803922, 0.215686, 1)
 
 [node name="BlockingBlock2" parent="StaticBody2D" instance=ExtResource("1")]
 position = Vector2(395, 169)
-shape = SubResource("RectangleShape2D_b0asq")
+shape = SubResource("RectangleShape2D_gsdnw")
 color = Color(0, 0.803922, 0.215686, 1)
 
 [node name="BlockingBlock3" parent="StaticBody2D" instance=ExtResource("1")]
 position = Vector2(75, 169)
-shape = SubResource("RectangleShape2D_08r5i")
+shape = SubResource("RectangleShape2D_mkttq")
 color = Color(0, 0.803922, 0.215686, 1)
 
 [node name="BlockingBlock4" parent="StaticBody2D" instance=ExtResource("1")]
 position = Vector2(235, 297)
-shape = SubResource("RectangleShape2D_wkw7a")
+shape = SubResource("RectangleShape2D_rc7hk")
 color = Color(0, 0.803922, 0.215686, 1)
 
 [node name="BlockingBlockWithTexture" parent="." instance=ExtResource("1")]
 position = Vector2(240, 1528)
-shape = SubResource("RectangleShape2D_22knf")
+shape = SubResource("RectangleShape2D_orn1n")
 color = Color(0, 0.803922, 0.215686, 1)
 texture = ExtResource("8_3wmbs")
 nine_patch_patch_left = 16

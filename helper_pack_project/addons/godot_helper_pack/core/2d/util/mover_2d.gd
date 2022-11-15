@@ -28,7 +28,8 @@ func _physics_process(delta):
 		return
 	
 	if _node2d_parent is CharacterBody2D:
-		_node2d_parent.move_and_slide(move_direction * movement_speed)
+		_node2d_parent.velocity = move_direction * movement_speed
+		_node2d_parent.move_and_slide()
 	else:
 		_node2d_parent.global_position += move_direction * movement_speed * delta
 

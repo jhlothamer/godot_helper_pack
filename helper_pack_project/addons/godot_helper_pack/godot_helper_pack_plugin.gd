@@ -83,12 +83,12 @@ func _remove_distribution_editor() -> void:
 	_distribution_editor_tool_btn = null
 
 
-func edit(object: Object) -> void:
+func _edit(object) -> void:
 	if _distribution_editor:
 		_distribution_editor.edit(object)
 
 
-func handles(object: Object) -> bool:
+func _handles(object) -> bool:
 	if object is MultiMeshInstanceDistributionArea or object is RandomDistributionArea:
 		return true
 	if _distribution_editor:

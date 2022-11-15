@@ -1,11 +1,14 @@
 class_name SceneSoundTrack
 extends Node
 
+
 #(Array, String, FILE, "*.tscn, *.scn")
 @export var scenes: Array[String]
 @export var startup := false
 
+
 var _scene_names := []
+
 
 func _ready():
 	for scene_file_path in scenes:
@@ -14,6 +17,7 @@ func _ready():
 	
 	if startup and _scene_names.size() > 0:
 		check_scene_and_play(_scene_names[0])
+
 
 func check_scene_and_play(scene_name: String) -> bool:
 	if !_scene_names.has(scene_name.to_lower()):
@@ -25,6 +29,7 @@ func check_scene_and_play(scene_name: String) -> bool:
 				c.play()
 			played_sound = true
 	return played_sound
+
 
 func stop() -> void:
 	for c in get_children():

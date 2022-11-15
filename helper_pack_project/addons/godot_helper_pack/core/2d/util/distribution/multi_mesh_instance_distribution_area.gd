@@ -15,6 +15,7 @@ signal operation_completed()
 @export var distribution_only_node_group := "distribution_only"
 @export var exclusion_polygon_group_node_group := "exclusion_polygon_group"
 
+
 var status := ""
 
 
@@ -85,9 +86,11 @@ func _clear_distribution():
 
 
 func _do_distribution():
+	await get_tree().process_frame
 	_refresh_references()
 	if !_mmi or !_mi:
 		status = "MultiMeshInstanceDistribution: missing or bad nodepaths.  Please check nodepath properties."
+		emit_signal("operation_completed")
 		return
 	
 	_carving_polygons.append_array(_additional_distribution_carving_polygons)
@@ -126,14 +129,14 @@ func _do_distribution():
 	var rand := RandomNumberGenerator.new()
 	rand.randomize()
 	var multi_mesh := MultiMesh.new()
+	multi_mesh.transform_format = MultiMesh.TRANSFORM_2D
 	_mmi.multimesh = multi_mesh
-	multi_mesh.mesh = _mi.mesh
-	var mmi_transform = Transform2D(0.0, -_mmi.global_position)
-	pts_kept = mmi_transform * PackedVector2Array(pts_kept)
+	multi_mesh.mesh = _mi.mesh.duplicate()
+	
 	multi_mesh.instance_count = pts_kept.size()
 	for i in multi_mesh.instance_count:
 		var pt = pts_kept[i]
-		var ptt = Transform2D(rand.randf()*TAU, pt)
+		var ptt = Transform2D(rand.randf()*TAU, pt - _mmi.global_position)
 		multi_mesh.set_instance_transform_2d(i, ptt)
 	swSetTransforms.stop()
 	
@@ -276,7 +279,7 @@ func _generate_shapes_simple():
 			total_loop_count += 1
 			var col_poly = collision_polygons.pop_front()
 			var intersection = Geometry2D.intersect_polygons(carve_poly, col_poly)
-			if !intersection:
+			if intersection == null or intersection.is_empty():
 				new_collsion_polygons.append(col_poly)
 				continue
 			var clip_results = Geometry2D.clip_polygons(col_poly, carve_poly)
@@ -336,7 +339,7 @@ func _calc_compact_distribution_radius() -> void:
 	var min_d := INF
 	
 	for i in vertices:
-		var v: Vector2 = i
+		var v := Vector2(i.x, i.y)
 		var d = v.distance_to(mid_pt)
 		if d < min_d:
 			min_d = d
@@ -345,5 +348,3 @@ func _calc_compact_distribution_radius() -> void:
 	distribution_radius = min_d
 	
 	status = "MultiMeshInstanceDistribution: Distribution radius set to %d" % min_d
-
-

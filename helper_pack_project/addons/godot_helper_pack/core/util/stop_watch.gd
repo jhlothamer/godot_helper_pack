@@ -4,7 +4,6 @@ extends RefCounted
 # StopWatch utility class.
 
 
-
 var _start_time : float
 var _stop_time : float
 

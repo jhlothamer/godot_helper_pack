@@ -1,11 +1,14 @@
 class_name WaitAll
 extends RefCounted
 
+
 signal completed()
+
 
 var _wait_count := 0
 var _signaled_count := 0
 var _completed := false
+
 
 func add(s: Signal) -> void:
 	if s.is_connected(self._signal_handler):

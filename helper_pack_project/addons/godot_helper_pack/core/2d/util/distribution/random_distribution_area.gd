@@ -316,7 +316,7 @@ func _duplicate_layer_items(layers: Array) -> void:
 
 
 func do_distribution() -> void:
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	var layers = _get_layers()
 	if layers.size() < 1:
 		#print(name + " must have 1 or more layers in order to populate area.")
@@ -330,10 +330,10 @@ func do_distribution() -> void:
 	emit_signal("status_updated", status)
 	
 	var total_point_count = _generate_layer_points(layers)
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	
 	_discard_excluded_points(layers)
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	
 	var total_stop_watch = StopWatch.new()
 	total_stop_watch.start()
@@ -347,7 +347,7 @@ func do_distribution() -> void:
 
 	if !allow_layer_objects_to_overlap:
 		_discard_overlapping_object(layers)
-		await get_tree().idle_frame
+		await get_tree().process_frame
 	
 	var total_to_be_duplicated := 0
 	var total_rejected_to_be_duplicated := 0
@@ -371,7 +371,7 @@ func do_distribution() -> void:
 		status += "\t\tTotal nodes rejected for overlap: %d\r\n" % total_rejected
 	emit_signal("status_updated", status)
 
-	await get_tree().idle_frame
+	await get_tree().process_frame
 
 	if duplicate_nodes:
 		_duplicate_layer_items(layers)

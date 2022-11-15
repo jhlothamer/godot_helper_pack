@@ -1,6 +1,7 @@
 class_name Camera3DMove
 extends Node
 
+
 @export_range(.1, 5) var move_speed: float = .1
 @export var mouse_sensitivity := 1.5
 @export var invert_mouse_y := false
@@ -12,12 +13,15 @@ extends Node
 @export var up_action_name := "ui_page_up"
 @export var down_action_name := "ui_page_down"
 
+
 @onready var _camera: Camera3D = get_parent()
+
 
 func _ready():
 	if !_camera:
 		printerr("Camera3DMove: parent must be Camera3D")
 		queue_free()
+
 
 func _input(event):
 	if !event is InputEventMouseMotion:
@@ -32,8 +36,6 @@ func _input(event):
 	x_deg = clamp(x_deg + factor*mm.relative.y * mouse_sensitivity/10.0, -70.0, 70.0)
 	_camera.rotation.x = deg_to_rad(x_deg)
 	#_camera.rotate_z(deg_to_rad(x_deg) - _camera.rotation.z)
-
-
 
 
 func _physics_process(delta):

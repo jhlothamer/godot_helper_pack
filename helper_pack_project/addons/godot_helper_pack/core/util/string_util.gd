@@ -4,7 +4,6 @@ extends Object
 # Collection of string utility functions.
 
 
-
 # gets file name without extension
 static func get_file_name(s: String) -> String:
 	var file_name = s.get_file()

@@ -4,7 +4,6 @@ class_name Vector2Util
 # Collection of Vector2 utilities
 
 
-
 # checks that given vectors are equal - handled -0 == 0
 static func equal(v1: Vector2, v2: Vector2) -> bool:
 	return is_equal_approx(v1.x, v2.x) && is_equal_approx(v1.y, v2.y)
@@ -23,6 +22,7 @@ static func closest_angle(angle_diff: float) -> float:
 	elif angle_diff < -PI:
 		angle_diff = 2*PI - angle_diff
 	return angle_diff
+
 
 # returns midpoint of given vectors.  If no vectors given, returns Vector2.INF
 static func midpoint_v2(vectors: Array) -> Vector2:

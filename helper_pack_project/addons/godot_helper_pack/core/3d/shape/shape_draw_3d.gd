@@ -2,6 +2,7 @@
 class_name ShapeDraw3D
 extends Node3D
 
+
 @export var color: Color = Color.WHITE :
 	set(mod_value):
 		color = mod_value
@@ -39,8 +40,10 @@ func _ready():
 	
 	_process_parent_shape()
 
+
 func _on_parent_shape_changed():
 	_process_parent_shape()
+
 
 func _process_parent_shape():
 	if !_parent_collision_shape:

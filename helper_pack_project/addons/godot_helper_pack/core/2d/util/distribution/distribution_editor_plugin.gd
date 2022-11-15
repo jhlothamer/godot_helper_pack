@@ -59,8 +59,10 @@ func _on_DistributeMenuBtn_id_pressed(id: int) -> void:
 		0:
 			_status_txt.text = "Starting distribution.  This could take a while."
 			_curr_mmi_dist_area._do_distribution()
+			_status_txt.text = "%s\r\n - _do_distribution" % _status_txt.text
 			await _curr_mmi_dist_area.operation_completed
-			_status_txt.text = _curr_mmi_dist_area.status
+			_status_txt.text = "%s\r\n - await done" % _status_txt.text
+			_status_txt.text = "%s\r\n%s" % [_status_txt.text, _curr_mmi_dist_area.status]
 		1:
 			_curr_mmi_dist_area._clear_distribution()
 			_status_txt.text = "Distribution cleared"

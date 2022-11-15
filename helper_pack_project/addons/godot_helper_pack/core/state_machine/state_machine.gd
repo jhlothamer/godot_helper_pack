@@ -55,7 +55,7 @@ func _check_state_node(state_node: Node) -> bool:
 	#check that it has these methods - indicates it extends State
 	for required_method in _required_state_node_methods:
 		if !state_node.has_method(required_method):
-			push_error("state node " + state_node.name + " is missing method " + required_method)
+			push_error("state node %s is missing method %s" % [state_node.name, required_method])
 			problem_found = true
 
 	#check that it does not have these methods - they will just cause problems

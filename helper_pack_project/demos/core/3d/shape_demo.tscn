@@ -1,7 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://dlqllwmc5fkd5"]
+[gd_scene load_steps=8 format=3 uid="uid://dlqllwmc5fkd5"]
 
 [ext_resource type="Script" path="res://addons/godot_helper_pack/core/3d/shape/collision_shape_ex.gd" id="1"]
 [ext_resource type="Script" path="res://addons/godot_helper_pack/core/3d/shape/shape_draw_3d.gd" id="3"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2str8"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_ra8cq"]
+sky_material = SubResource("ProceduralSkyMaterial_2str8")
+
+[sub_resource type="Environment" id="Environment_3wfti"]
+background_mode = 2
+sky = SubResource("Sky_ra8cq")
+tonemap_mode = 2
+glow_enabled = true
 
 [sub_resource type="BoxShape3D" id="2"]
 
@@ -9,6 +22,13 @@
 size = Vector3(8, 2, 8)
 
 [node name="ShapeDemo" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3wfti")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 3, 6)
@@ -30,12 +50,16 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 0
 offset_right = 297.0
 offset_bottom = 119.0
 
 [node name="Label" type="Label" parent="Control/MarginContainer"]
+layout_mode = 2
 offset_top = 7.0
 offset_right = 297.0
 offset_bottom = 111.0
