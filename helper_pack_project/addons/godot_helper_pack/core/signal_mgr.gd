@@ -22,7 +22,7 @@ class Publisher:
 	func _init(_publisher: Object,_signal_name: String):
 		publisher = _publisher
 		signal_name = _signal_name
-	func connect_subscribers(subscribers: Subscriber) -> void:
+	func connect_subscribers(subscribers: Array[Subscriber]) -> void:
 		for subscriber in subscribers:
 			subscriber.connect_publisher(publisher)
 	func connect_subscriber(subscriber: Subscriber) -> void:

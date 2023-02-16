@@ -1,7 +1,7 @@
 @tool
+@icon("random_distribution_area.svg")
 class_name RandomDistributionArea
 extends ReferenceRect
-@icon("random_distribution_area.svg")
 
 
 signal operation_completed()
