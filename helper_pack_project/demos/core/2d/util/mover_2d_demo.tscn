@@ -44,10 +44,7 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
 [node name="FollowMouseChkBtn" type="CheckButton" parent="Hud/MarginContainer"]
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 188.0
-offset_bottom = 60.0
+layout_mode = 2
 text = "Follow Mouse"
 
 [node name="MarginContainer2" type="MarginContainer" parent="Hud"]
@@ -56,8 +53,8 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -440.0
-offset_top = -122.0
+offset_left = -536.0
+offset_top = -144.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_constants/margin_left = 20
@@ -66,10 +63,7 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
 [node name="Label" type="Label" parent="Hud/MarginContainer2"]
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 420.0
-offset_bottom = 176.0
+layout_mode = 2
 text = "Mover2D is a node that will move it's parent.  It's meant for quickly creating prototypes and experiments.  Use wasd/arrows to move Godot robot.  Or toggle the Follow Mouse checked/unchecked (lower left) to have robot icon follow mouse cursor."
 autowrap_mode = 3
 

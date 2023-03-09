@@ -8,5 +8,5 @@ func _ready():
 func _input(event):
 	if event.is_pressed() and event is InputEventKey:
 		var ek: InputEventKey = event
-		if ek.scancode == KEY_ESCAPE:
+		if ek.keycode == KEY_ESCAPE:
 			get_tree().quit()

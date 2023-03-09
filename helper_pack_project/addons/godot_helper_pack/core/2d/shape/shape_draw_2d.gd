@@ -185,8 +185,8 @@ func _draw() -> void:
 		var l: WorldBoundaryShape2D = _shape
 		var angle = l.normal.angle() + .5 * PI
 		var normal_length = l.normal.length()
-		var left_pt = (Vector2.LEFT * 100.0 * normal_length + Vector2.UP * l.d).rotated(angle)
-		var right_pt = (Vector2.RIGHT * 100.0 * normal_length + Vector2.UP * l.d).rotated(angle)
+		var left_pt = (Vector2.LEFT * 100.0 * normal_length + Vector2.UP * l.distance).rotated(angle)
+		var right_pt = (Vector2.RIGHT * 100.0 * normal_length + Vector2.UP * l.distance).rotated(angle)
 		draw_line(left_pt, right_pt, color, 3.0)
 
 

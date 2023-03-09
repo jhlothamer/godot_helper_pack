@@ -121,15 +121,6 @@ class DistributionAreaLayer:
 		object_circles = kept_object_circles
 
 
-class DistributionAreaLayerSorter:
-	static func sort_by_distribution_radius_asc(a: DistributionAreaLayer, b: DistributionAreaLayer) -> bool:
-		if a.distribution_radius < b.distribution_radius:
-			return true
-		return false
-	static func sort_by_distribution_radius_desc(a: DistributionAreaLayer, b: DistributionAreaLayer) -> bool:
-		return !sort_by_distribution_radius_asc(a, b)
-
-
 # parameter for Poisson Disc Sampling
 @export_range(1, 500) var num_samples_before_rejection: int = 30
 @export var allow_layer_objects_to_overlap := false
@@ -223,7 +214,11 @@ func _get_layers() -> Array:
 	if layers.size() < 1:
 		push_error("RandomDistributionArea: Invalid distribution area data. See previous errors.  Aborting distribution.")
 
-	layers.sort_custom(Callable(DistributionAreaLayerSorter.new(),"sort_by_distribution_radius_desc"))
+	layers.sort_custom(func (a, b):
+		if a.distribution_radius < b.distribution_radius:
+			return false
+		return true
+	)
 
 	return layers
 

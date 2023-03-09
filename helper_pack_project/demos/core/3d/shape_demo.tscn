@@ -60,9 +60,6 @@ offset_bottom = 119.0
 
 [node name="Label" type="Label" parent="Control/MarginContainer"]
 layout_mode = 2
-offset_top = 7.0
-offset_right = 297.0
-offset_bottom = 111.0
 text = "Demo of the ShapeDraw3D node.  Use the shapeDraw3D node to dynamically create meshes matching collision shapes."
 autowrap_mode = 3
 

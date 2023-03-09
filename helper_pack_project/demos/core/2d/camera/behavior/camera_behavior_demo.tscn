@@ -35,6 +35,7 @@ stretch_mode = 1
 
 [node name="QuadColor1" type="TextureRect" parent="Background"]
 self_modulate = Color(0.262745, 1, 0, 0.501961)
+layout_mode = 0
 offset_left = 2000.0
 offset_top = 2000.0
 offset_right = 4000.0
@@ -46,6 +47,7 @@ stretch_mode = 1
 
 [node name="QuadColor2" type="TextureRect" parent="Background"]
 self_modulate = Color(0.87451, 1, 0, 0.501961)
+layout_mode = 0
 offset_left = 2000.0
 offset_top = 4000.0
 offset_right = 4000.0
@@ -57,6 +59,7 @@ stretch_mode = 1
 
 [node name="QuadColor3" type="TextureRect" parent="Background"]
 self_modulate = Color(0, 0.243137, 1, 0.501961)
+layout_mode = 0
 offset_top = 4000.0
 offset_right = 2000.0
 offset_bottom = 6000.0
@@ -67,6 +70,7 @@ stretch_mode = 1
 
 [node name="QuadColor4" type="TextureRect" parent="Background"]
 self_modulate = Color(1, 0, 0.164706, 0.501961)
+layout_mode = 0
 offset_top = 2000.0
 offset_right = 2000.0
 offset_bottom = 4000.0
@@ -76,6 +80,7 @@ texture = SubResource("4")
 stretch_mode = 1
 
 [node name="XAxis" type="TextureRect" parent="Background"]
+layout_mode = 0
 offset_top = 1952.0
 offset_right = 4000.0
 offset_bottom = 2002.0
@@ -83,6 +88,7 @@ texture = ExtResource("2_jmxxc")
 stretch_mode = 1
 
 [node name="YAxis" type="TextureRect" parent="Background"]
+layout_mode = 0
 offset_left = 2048.0
 offset_right = 6048.0
 offset_bottom = 50.0
@@ -91,7 +97,6 @@ texture = ExtResource("2_jmxxc")
 stretch_mode = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
-current = true
 limit_left = -2000
 limit_top = -2000
 limit_right = 2000
@@ -138,35 +143,25 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
-offset_top = 10.0
-offset_right = 234.0
-offset_bottom = 106.0
+layout_mode = 2
 
 [node name="ShakeCameraBtn" type="Button" parent="CanvasLayer/MarginContainer/VBoxContainer"]
-offset_right = 234.0
-offset_bottom = 31.0
+layout_mode = 2
 text = "Shake Camera3D"
 
 [node name="LimitCameraBtn" type="Button" parent="CanvasLayer/MarginContainer/VBoxContainer"]
-offset_top = 35.0
-offset_right = 234.0
-offset_bottom = 66.0
+layout_mode = 2
 text = "Limit Camera3D"
 
 [node name="LimitRegionHBox" type="HBoxContainer" parent="CanvasLayer/MarginContainer/VBoxContainer"]
-offset_top = 70.0
-offset_right = 234.0
-offset_bottom = 96.0
+layout_mode = 2
 
 [node name="LimitRegionDescLbl" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/LimitRegionHBox"]
-offset_right = 126.0
-offset_bottom = 26.0
+layout_mode = 2
 text = "Limit camera to:"
 
 [node name="LimitRegionDescValue" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/LimitRegionHBox"]
-offset_left = 130.0
-offset_right = 234.0
-offset_bottom = 26.0
+layout_mode = 2
 text = "yellow region"
 
 [node name="Camera2D2" type="Camera2D" parent="."]

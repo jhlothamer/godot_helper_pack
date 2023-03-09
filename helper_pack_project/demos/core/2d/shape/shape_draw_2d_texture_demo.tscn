@@ -1,51 +1,45 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=7 format=3 uid="uid://bf0s4fp2pl3s2"]
 
-[ext_resource path="res://addons/godot_helper_pack/core/2d/shape/shape_draw_2d.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture2D" id=2]
+[ext_resource type="Script" path="res://addons/godot_helper_pack/core/2d/shape/shape_draw_2d.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://c2b8uav6fokh6" path="res://icon.png" id="2"]
 
-[sub_resource type="CapsuleShape2D" id=1]
+[sub_resource type="CapsuleShape2D" id="1"]
 radius = 61.9952
 height = 126.836
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id="2"]
 radius = 116.842
 
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 230, 42 )
+[sub_resource type="RectangleShape2D" id="3"]
+size = Vector2(460, 84)
 
-[sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 230, 41 )
+[sub_resource type="RectangleShape2D" id="7"]
+size = Vector2(460, 82)
 
 [node name="ShapeDraw2dTextureDemo" type="Node2D"]
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="ExplanationLabel" type="Label" parent="."]
-offset_left = 10.5857
+offset_left = 11.0
 offset_top = 10.0
-offset_right = 394.586
+offset_right = 1024.0
 offset_bottom = 106.0
 text = "ShapeDraw2D is meant for prototyping quickly.  Add a ShapeDraw2D node under a CollisionShape2D or CollsionPolygon2D node and it will draw the shape.  Any changes to the collision shape are reflected immediately in the editor.  This demo shows using a texture."
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+autowrap_mode = 2
 
 [node name="Capsule" type="StaticBody2D" parent="."]
-position = Vector2( 183, 451 )
+position = Vector2(183, 451)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Capsule"]
-shape = SubResource( 1 )
+shape = SubResource("1")
 
 [node name="ShapeDraw2D" type="Node2D" parent="Capsule/CollisionShape2D"]
-script = ExtResource( 1 )
-color = Color( 1, 1, 1, 1 )
-texture = ExtResource( 2 )
-non_rect_texture_offset = Vector2( 0, 0 )
-non_rect_texture_scale = Vector2( 2, 3 )
+script = ExtResource("1")
+color = Color(1, 1, 1, 1)
+texture = ExtResource("2")
+non_rect_texture_offset = Vector2(0, 0)
+non_rect_texture_scale = Vector2(2, 3)
 nine_patch_draw_center = true
-nine_patch_region_rect = Rect2( 0, 0, 0, 0 )
+nine_patch_region_rect = Rect2(0, 0, 0, 0)
 nine_patch_patch_left = 0
 nine_patch_patch_right = 0
 nine_patch_patch_top = 0
@@ -54,19 +48,19 @@ nine_patch_axis_stretch_horizontal = 0
 nine_patch_axis_stretch_vertical = 0
 
 [node name="Circle" type="StaticBody2D" parent="."]
-position = Vector2( 524, 451 )
+position = Vector2(524, 451)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Circle"]
-shape = SubResource( 2 )
+shape = SubResource("2")
 
 [node name="ShapeDraw2D" type="Node2D" parent="Circle/CollisionShape2D"]
-script = ExtResource( 1 )
-color = Color( 1, 1, 1, 1 )
-texture = ExtResource( 2 )
-non_rect_texture_offset = Vector2( 0, 0 )
-non_rect_texture_scale = Vector2( 3, 3 )
+script = ExtResource("1")
+color = Color(1, 1, 1, 1)
+texture = ExtResource("2")
+non_rect_texture_offset = Vector2(0, 0)
+non_rect_texture_scale = Vector2(3, 3)
 nine_patch_draw_center = true
-nine_patch_region_rect = Rect2( 0, 0, 0, 0 )
+nine_patch_region_rect = Rect2(0, 0, 0, 0)
 nine_patch_patch_left = 0
 nine_patch_patch_right = 0
 nine_patch_patch_top = 0
@@ -75,19 +69,19 @@ nine_patch_axis_stretch_horizontal = 0
 nine_patch_axis_stretch_vertical = 0
 
 [node name="NinePatchRectangle" type="StaticBody2D" parent="."]
-position = Vector2( 256, 177 )
+position = Vector2(256, 177)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NinePatchRectangle"]
-shape = SubResource( 3 )
+shape = SubResource("3")
 
 [node name="ShapeDraw2D" type="Node2D" parent="NinePatchRectangle/CollisionShape2D"]
-script = ExtResource( 1 )
-color = Color( 1, 1, 1, 1 )
-texture = ExtResource( 2 )
-non_rect_texture_offset = Vector2( 0, 0 )
-non_rect_texture_scale = Vector2( 1, 1 )
+script = ExtResource("1")
+color = Color(1, 1, 1, 1)
+texture = ExtResource("2")
+non_rect_texture_offset = Vector2(0, 0)
+non_rect_texture_scale = Vector2(1, 1)
 nine_patch_draw_center = true
-nine_patch_region_rect = Rect2( 0, 0, 0, 0 )
+nine_patch_region_rect = Rect2(0, 0, 0, 0)
 nine_patch_patch_left = 0
 nine_patch_patch_right = 0
 nine_patch_patch_top = 0
@@ -96,19 +90,19 @@ nine_patch_axis_stretch_horizontal = 0
 nine_patch_axis_stretch_vertical = 0
 
 [node name="TiledTextureRect" type="StaticBody2D" parent="."]
-position = Vector2( 754, 177 )
+position = Vector2(754, 177)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TiledTextureRect"]
-shape = SubResource( 7 )
+shape = SubResource("7")
 
 [node name="ShapeDraw2D" type="Node2D" parent="TiledTextureRect/CollisionShape2D"]
-script = ExtResource( 1 )
-color = Color( 1, 1, 1, 1 )
-texture = ExtResource( 2 )
-non_rect_texture_offset = Vector2( 0, 0 )
-non_rect_texture_scale = Vector2( 1, 1 )
+script = ExtResource("1")
+color = Color(1, 1, 1, 1)
+texture = ExtResource("2")
+non_rect_texture_offset = Vector2(0, 0)
+non_rect_texture_scale = Vector2(1, 1)
 nine_patch_draw_center = true
-nine_patch_region_rect = Rect2( 0, 0, 0, 0 )
+nine_patch_region_rect = Rect2(0, 0, 0, 0)
 nine_patch_patch_left = 0
 nine_patch_patch_right = 0
 nine_patch_patch_top = 0
@@ -117,20 +111,20 @@ nine_patch_axis_stretch_horizontal = 1
 nine_patch_axis_stretch_vertical = 1
 
 [node name="Polygon" type="StaticBody2D" parent="."]
-position = Vector2( 860, 451 )
+position = Vector2(860, 451)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Polygon"]
-position = Vector2( -3.37201, -3.271 )
-polygon = PackedVector2Array( -5.06085, -85.631, -92.0599, -85.4044, -139.604, 8.54938, -159.786, -4.90497, -124.468, 101.048, -80.7416, 87.5937, -11.788, 129.638, 62.2109, 92.639, 114.346, 104.412, 141.255, 50.5942, 73, 0, 121.074, -82.2674, 72.3016, -134.403 )
+position = Vector2(-3.37201, -3.271)
+polygon = PackedVector2Array(-5.06085, -85.631, -92.0599, -85.4044, -139.604, 8.54938, -159.786, -4.90497, -124.468, 101.048, -80.7416, 87.5937, -11.788, 129.638, 62.2109, 92.639, 114.346, 104.412, 141.255, 50.5942, 73, 0, 121.074, -82.2674, 72.3016, -134.403)
 
 [node name="ShapeDraw2D" type="Node2D" parent="Polygon/CollisionPolygon2D"]
-script = ExtResource( 1 )
-color = Color( 1, 1, 1, 1 )
-texture = ExtResource( 2 )
-non_rect_texture_offset = Vector2( 0, 0 )
-non_rect_texture_scale = Vector2( 5, 5 )
+script = ExtResource("1")
+color = Color(1, 1, 1, 1)
+texture = ExtResource("2")
+non_rect_texture_offset = Vector2(0, 0)
+non_rect_texture_scale = Vector2(5, 5)
 nine_patch_draw_center = true
-nine_patch_region_rect = Rect2( 0, 0, 0, 0 )
+nine_patch_region_rect = Rect2(0, 0, 0, 0)
 nine_patch_patch_left = 0
 nine_patch_patch_right = 0
 nine_patch_patch_top = 0

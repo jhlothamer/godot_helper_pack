@@ -1,7 +1,7 @@
+@icon("random_distribution_area_layer.svg")
 @tool
 class_name RandomDistributionAreaLayer
 extends Node
-@icon("random_distribution_area_layer.svg")
 
 # the min distance between spawned objects
 @export_range(1.0, 10000.0) var distribution_radius : float = 128.0
