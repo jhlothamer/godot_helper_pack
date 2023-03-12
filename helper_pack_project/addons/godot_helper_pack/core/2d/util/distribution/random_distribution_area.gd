@@ -323,6 +323,9 @@ func do_distribution() -> void:
 	
 	status = "RandomDistributionArea: starting distribution process.\r\n"
 	emit_signal("status_updated", status)
+
+	var total_stop_watch = StopWatch.new()
+	total_stop_watch.start()
 	
 	var total_point_count = _generate_layer_points(layers)
 	await get_tree().process_frame
@@ -330,8 +333,6 @@ func do_distribution() -> void:
 	_discard_excluded_points(layers)
 	await get_tree().process_frame
 	
-	var total_stop_watch = StopWatch.new()
-	total_stop_watch.start()
 	
 	# check first layer (with biggest object radius) to see if we're already over duplicate node limit
 	if layers[0].object_circles.size() > duplicate_nodes_limit:
