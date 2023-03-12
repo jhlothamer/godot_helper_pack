@@ -26,14 +26,11 @@ static func load_json_data(file_path: String, default_value = {}) -> Dictionary:
 	if json_text == "":
 		return default_value
 	var test_json_conv = JSON.new()
-	test_json_conv.parse(json_text)
-	var parse_results:JSON =  test_json_conv.get_data()
-	if parse_results.error != OK:
-		print("error parsing data: %s" % parse_results.error_string)
-		print(parse_results.error_string)
-		print(parse_results.error_line)
+	if OK != test_json_conv.parse(json_text):
+		print("error parsing data: %s" % test_json_conv.get_error_message())
+		print(test_json_conv.get_error_line())
 		return default_value
-	return parse_results.result
+	return test_json_conv.data
 
 
 static func save_json_data(file_path: String, data: Dictionary, delim: String = "") -> void:
@@ -43,7 +40,7 @@ static func save_json_data(file_path: String, data: Dictionary, delim: String = 
 
 static func load_var_data(file_path: String):
 	var text_data = load_text(file_path)
-	if !text_data:
+	if text_data == null:
 		return text_data
 	return str_to_var(text_data)
 

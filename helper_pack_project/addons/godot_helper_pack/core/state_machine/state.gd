@@ -1,6 +1,6 @@
+@icon("state.svg") 
 extends Node
 class_name State
-@icon("state.svg") 
 
 
 @export var is_starting_state : bool

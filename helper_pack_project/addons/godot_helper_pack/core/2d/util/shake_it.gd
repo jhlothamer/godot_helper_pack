@@ -10,7 +10,7 @@ enum ShakeType {
 }
 
 @export var simplex_noise_speed: float = 1.0
-@export_enum(ShakeType) var shake_type: int = 0
+@export var shake_type: ShakeType = ShakeType.RANDOM
 @export_range(.001, 10000.0) var shake_duration := 1.0
 @export var shake_amount := 20.0
 @export var shake_speed := 1.0

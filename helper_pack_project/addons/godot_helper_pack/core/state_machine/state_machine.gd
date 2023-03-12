@@ -1,6 +1,6 @@
+@icon("state_machine.svg") 
 extends Node
 class_name StateMachine
-@icon("state_machine.svg") 
 
 
 @export var debug : bool

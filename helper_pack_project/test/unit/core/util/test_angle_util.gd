@@ -159,7 +159,7 @@ func test_clamp_angle_top_half_angle_close_to_start():
 func test_clamp_angle_right_half_angle_in():
 	var start_angle := -.5*PI
 	var end_angle := .5*PI
-	var test_angle := 0
+	var test_angle := 0.0
 	var results = AngleUtil.clamp_angle(test_angle, start_angle, end_angle)
 	assert_eq(results, test_angle)
 

@@ -22,6 +22,9 @@ func before_each():
 	add_child(state_machine)
 	emit_signal("ready")
 
+func after_each():
+	state_machine.queue_free()
+
 
 func test_initial_state_functions_called():
 	var a = state_machine.get_node("A")

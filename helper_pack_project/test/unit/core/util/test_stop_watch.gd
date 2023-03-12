@@ -10,4 +10,4 @@ func test_stop_watch():
 	assert_true(msec > 0.0)
 	assert_true(usec > 0.0)
 	assert_true(stop_watch._stop_time > stop_watch._start_time)
-	assert_eq(msec * 1000, usec)
+	assert_true(is_equal_approx(msec * 1000.0, usec))

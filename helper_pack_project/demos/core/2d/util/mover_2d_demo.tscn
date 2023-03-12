@@ -64,6 +64,7 @@ theme_override_constants/margin_bottom = 20
 
 [node name="Label" type="Label" parent="Hud/MarginContainer2"]
 layout_mode = 2
+mouse_filter = 1
 text = "Mover2D is a node that will move it's parent.  It's meant for quickly creating prototypes and experiments.  Use wasd/arrows to move Godot robot.  Or toggle the Follow Mouse checked/unchecked (lower left) to have robot icon follow mouse cursor."
 autowrap_mode = 3
 
