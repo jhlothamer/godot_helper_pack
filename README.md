@@ -1,4 +1,4 @@
-# Godot Helper Pack
+# Godot Helper Pack (For Godot 4.x)
 This Godot Engine add-on is a collection of helper scripts and classes.  Please see below for a list of classes and utilities for details.
 
 
