@@ -1,12 +1,17 @@
 extends Node
-# Signal Manager automatically connects subscribers to the signals of publishers.
-
+## Automatically connects subscribers to the signals of publishers.
+##
+## The SignalMgr autoload singleton lets you register publishers and subscribers
+## of signals.  This way you don't have to pass around a reference to an object
+## in order to connnect a callback function for a signal.  This is also handy for
+## dynamically instanced signal emitters, like enemies, which can register themselves,
+## emit their signals as normal, and then be freed.
 
 class Subscriber:
 	var subscriber: Object
 	var signal_name: String
 	var method_name: String
-	var binds
+	var binds: Array
 	func _init(_subscriber: Object,_signal_name: String,_method_name: String,_binds:Array):
 		subscriber = _subscriber
 		signal_name = _signal_name
@@ -14,7 +19,10 @@ class Subscriber:
 		binds = _binds
 	func connect_publisher(publisher: Object) -> void:
 		if !publisher.is_connected(signal_name,Callable(subscriber,method_name)):
-			publisher.connect(signal_name,Callable(subscriber,method_name).bind(binds))
+			if binds != null and !binds.is_empty():
+				publisher.connect(signal_name,Callable(subscriber,method_name).bind(binds))
+			else:
+				publisher.connect(signal_name,Callable(subscriber,method_name))
 
 class Publisher:
 	var publisher: Object
@@ -28,13 +36,18 @@ class Publisher:
 	func connect_subscriber(subscriber: Subscriber) -> void:
 		subscriber.connect_publisher(publisher)
 
+# If a subscriber callback method name is not supplied when a subscriber is registered
+# for a signal, then the callback method name will be assumed to be this string prefixed
+# to the signal name.  E.g. "_on_enemy_destroyed" for a signal with the name "enemy_destroyed".
+const subscriber_method_name_prefix := "_on_"
 
-var subscriber_method_name_prefix := "_on_"
+# dictionary of subscribers
+var _subscribers:Dictionary = {}
+# dictionary of publishers
+var _publishers:Dictionary = {}
 
-var _subscribers = {}
-var _publishers = {}
-
-
+## register a subscriber for a signal.  The default method name for the callback function
+## is "_on_<signal>".
 func register_subscriber(subscriber: Object, signal_name: String,
 	method_name: String="", binds:Array =Array()) -> void:
 	if method_name == "":
@@ -50,7 +63,7 @@ func register_subscriber(subscriber: Object, signal_name: String,
 			if pub.signal_name == sub.signal_name:
 				pub.connect_subscriber(sub)
 
-
+## register a publisher of a signal.
 func register_publisher(publisher: Object, signal_name: String) -> void:
 	var pub = Publisher.new(publisher, signal_name)
 	var instance_id = publisher.get_instance_id()
@@ -64,27 +77,33 @@ func register_publisher(publisher: Object, signal_name: String) -> void:
 				pub.connect_subscriber(sub)
 
 
+## unregister a subscriber.
 func unregister_subscriber(subscriber: Object) -> void:
 	var instance_id = subscriber.get_instance_id()
 	_subscribers.erase(instance_id)
 
 
+## unregister a publisher.
 func unregister_publisher(publisher: Object) -> void:
 	var instance_id = publisher.get_instance_id()
 	_publishers.erase(instance_id)
 
 
+## unregister a publisher or subscriber (or both)
 func unregister(publisher_or_subscriber: Object) -> void:
 	unregister_publisher(publisher_or_subscriber)
 	unregister_subscriber(publisher_or_subscriber)
 
 
+## clears all subscribers and publishers
 func clear() -> void:
 	_subscribers.clear()
 	_publishers.clear()
 
 
 func _watch_tree_exited(publisher_or_subscriber: Object) -> void:
+	if !publisher_or_subscriber.has_signal("tree_exited"):
+		return
 	if !publisher_or_subscriber.is_connected("tree_exited",Callable(self,"_on_tree_exited")):
 		publisher_or_subscriber.connect("tree_exited",Callable(self,"_on_tree_exited").bind(publisher_or_subscriber))
 

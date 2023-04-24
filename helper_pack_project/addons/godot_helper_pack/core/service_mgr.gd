@@ -1,9 +1,23 @@
 extends Node
 
+## Allows the use of a class name to used to register and retrieve implementations of
+## services.
+
+
 var _services := {}
 var _named_services := {}
 
 
+## Registers a service implementation.  Optionally a name can be given as an extra key.  This extra key (name)
+## is used later in [method get_service] to retreive that specific implementation.
+## [br]
+## e.g. of registering an implementation.
+## [codeblock]
+##  class_name Foo
+##  extends Node
+##  func _enter_tree():
+##    ServiceMgr.register_service(Foo, self)
+## [/codeblock]
 func register_service(service: Script, implementation: Object, name: String = "") -> void:
 	if name != "":
 		if !_named_services.has(service):
@@ -15,6 +29,20 @@ func register_service(service: Script, implementation: Object, name: String = ""
 		_watch_service_implementation_tree_exit(service, implementation, name)
 
 
+## Gets a service implementation.  Optionally a name can be given as an extra key to find a specific implementation.
+## [br]
+## e.g. of getting a service
+## [codeblock]
+##  class_name Bar
+##  extends Node
+##  func _do_important_thing_with_service():
+##    var foo_svc:Foo = ServiceMgr.get_service(Foo)
+##    if foo_svc == null:
+##      print_err("Could not do important thing: no Foo service registered")
+##      return
+##    foo_svc.do_the_thing()
+## [/codeblock]
+## [br]
 func get_service(service: Script, name: String = "") -> Object:
 	if name != "":
 		if _named_services.has(service):
@@ -25,7 +53,7 @@ func get_service(service: Script, name: String = "") -> Object:
 		return _services[service]
 	return null
 
-
+## Unregisters a service implementation.
 func unregister_service(service: Script, name: String = "") -> void:
 	if name != "":
 		if _named_services.has(service):
