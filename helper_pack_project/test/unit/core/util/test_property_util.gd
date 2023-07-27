@@ -1,6 +1,7 @@
 extends "res://addons/gut/test.gd"
-
+@warning_ignore("unused_private_class_variable")
 var _property_1 := 1
+@warning_ignore("unused_private_class_variable")
 var _property_2
 
 

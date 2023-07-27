@@ -59,12 +59,12 @@ var nine_patch_patch_bottom := 0 :
 		nine_patch_patch_bottom = mod_value
 		if _shapedraw:
 			_shapedraw.nine_patch_patch_bottom = mod_value
-var nine_patch_axis_stretch_horizontal: int :
+var nine_patch_axis_stretch_horizontal: NinePatchRect.AxisStretchMode :
 	set(mod_value):
 		nine_patch_axis_stretch_horizontal = mod_value
 		if _shapedraw:
 			_shapedraw.nine_patch_axis_stretch_horizontal = mod_value
-var nine_patch_axis_stretch_vertical: int :
+var nine_patch_axis_stretch_vertical: NinePatchRect.AxisStretchMode :
 	set(mod_value):
 		nine_patch_axis_stretch_vertical = mod_value
 		if _shapedraw:
@@ -108,9 +108,9 @@ func _ready():
 	sb.add_child(self)
 
 
-func _make_prop(name: String, type: int, usage: int = PROPERTY_USAGE_DEFAULT, hint: int = -1, hint_string_data = []) -> Dictionary:
+func _make_prop(prop_name: String, type: int, usage: int = PROPERTY_USAGE_DEFAULT, hint: int = -1, hint_string_data = []) -> Dictionary:
 	var prop = {
-		name = name,
+		name = prop_name,
 		type = type,
 		usage = usage
 	}

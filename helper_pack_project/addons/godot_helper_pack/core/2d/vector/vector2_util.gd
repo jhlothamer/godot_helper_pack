@@ -50,7 +50,7 @@ static func v3_to_v2(v3: Vector3, discard_axis: int = Vector3.AXIS_Z) -> Vector2
 
 
 # clamps a vector between two other vectors that are top left and bottom right
-static func clamp(v: Vector2, top_left: Vector2, bottom_right: Vector2) -> Vector2:
+static func clampv(v: Vector2, top_left: Vector2, bottom_right: Vector2) -> Vector2:
 	var clamped_v := Vector2.ZERO
 	clamped_v.x = clamp(v.x, top_left.x, bottom_right.x)
 	clamped_v.y = clamp(v.y, top_left.y, bottom_right.y)
@@ -58,7 +58,7 @@ static func clamp(v: Vector2, top_left: Vector2, bottom_right: Vector2) -> Vecto
 
 
 # clamps a vector in given Rect2
-static func clamp_r(v: Vector2, r: Rect2) -> Vector2:
+static func clampv_r(v: Vector2, r: Rect2) -> Vector2:
 	var clamped_v := Vector2.ZERO
 	clamped_v.x = clamp(v.x, r.position.x, r.end.x)
 	clamped_v.y = clamp(v.y, r.position.y, r.end.y)

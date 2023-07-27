@@ -21,12 +21,10 @@ class PoissonDiscSampling:
 		var grid := {}
 		var spawn_points = []
 		var radius_squared = radius*radius
-		var loop_counter = 0
 
 		spawn_points.append(sample_region_size/2.0)
 
 		while spawn_points.size() > 0:
-			loop_counter += 1
 			var spawn_index = _rand.randi() % spawn_points.size()
 			var spawn_center = spawn_points[spawn_index]
 			var candidate_accepted = false

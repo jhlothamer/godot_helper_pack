@@ -18,15 +18,15 @@ var _named_services := {}
 ##  func _enter_tree():
 ##    ServiceMgr.register_service(Foo, self)
 ## [/codeblock]
-func register_service(service: Script, implementation: Object, name: String = "") -> void:
-	if name != "":
+func register_service(service: Script, implementation: Object, service_name: String = "") -> void:
+	if service_name != "":
 		if !_named_services.has(service):
 			_named_services[service] = {}
-		_named_services[service][name] = implementation
+		_named_services[service][service_name] = implementation
 	else:
 		_services[service] = implementation
 	if implementation is Node:
-		_watch_service_implementation_tree_exit(service, implementation, name)
+		_watch_service_implementation_tree_exit(service, implementation, service_name)
 
 
 ## Gets a service implementation.  Optionally a name can be given as an extra key to find a specific implementation.
@@ -43,25 +43,25 @@ func register_service(service: Script, implementation: Object, name: String = ""
 ##    foo_svc.do_the_thing()
 ## [/codeblock]
 ## [br]
-func get_service(service: Script, name: String = "") -> Object:
-	if name != "":
+func get_service(service: Script, service_name: String = "") -> Object:
+	if service_name != "":
 		if _named_services.has(service):
-			if _named_services[service].has(name):
-				return _named_services[service][name]
+			if _named_services[service].has(service_name):
+				return _named_services[service][service_name]
 
 	if _services.has(service):
 		return _services[service]
 	return null
 
 ## Unregisters a service implementation.
-func unregister_service(service: Script, name: String = "") -> void:
-	if name != "":
+func unregister_service(service: Script, service_name: String = "") -> void:
+	if service_name != "":
 		if _named_services.has(service):
-			if _named_services[service].has(name):
-				var implementation:Object = _named_services[service][name]
+			if _named_services[service].has(service_name):
+				var implementation:Object = _named_services[service][service_name]
 				if implementation is Node:
 					implementation.disconnect("tree_exited",Callable(self,"_on_implementation_tree_exited"))
-			_named_services[service].erase(name)
+			_named_services[service].erase(service_name)
 		return
 	if _services.has(service):
 		var implementation: Object = _services[service]
@@ -70,9 +70,9 @@ func unregister_service(service: Script, name: String = "") -> void:
 	_services.erase(service)
 
 
-func _watch_service_implementation_tree_exit(service: Script, implementation: Object, name: String = "") -> void:
-	implementation.connect("tree_exited",Callable(self,"_on_implementation_tree_exited").bind(service, name))
+func _watch_service_implementation_tree_exit(service: Script, implementation: Object, service_name: String = "") -> void:
+	implementation.connect("tree_exited",Callable(self,"_on_implementation_tree_exited").bind(service, service_name))
 
 
-func _on_implementation_tree_exited(service: Script, name: String) -> void:
-	unregister_service(service, name)
+func _on_implementation_tree_exited(service: Script, service_name: String) -> void:
+	unregister_service(service, service_name)

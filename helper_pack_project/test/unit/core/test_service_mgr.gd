@@ -11,8 +11,8 @@ func after_each():
 		printerr("TestServiceMgr: non-named services left registered.")
 	for service in ServiceMgr._named_services.keys():
 		var named_services:Dictionary = ServiceMgr._named_services[service]
-		for name in named_services.keys():
-			ServiceMgr.unregister_service(service, name)
+		for service_name in named_services.keys():
+			ServiceMgr.unregister_service(service, service_name)
 	if ServiceMgr._named_services.size() > 0:
 		for services in ServiceMgr._named_services.values():
 			if services.size() > 0:

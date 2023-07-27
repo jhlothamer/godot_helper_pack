@@ -212,8 +212,8 @@ func _generate_shapes_exact():
 	var multi_mesh := _mmi.multimesh
 	
 	status = "MultiMeshInstanceDistribution: number of polygons to process: %d" % multi_mesh.instance_count
-	emit_signal("operation_completed")
-	return
+#	emit_signal("operation_completed")
+#	return
 	
 	for i in multi_mesh.instance_count:
 		var t := multi_mesh.get_instance_transform_2d(i)

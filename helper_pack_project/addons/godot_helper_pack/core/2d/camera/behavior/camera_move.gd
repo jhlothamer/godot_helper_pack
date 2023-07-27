@@ -18,8 +18,6 @@ signal camera_pan_stopped()
 
 
 var _is_dragging := false
-var _drag_location_start := Vector2(INF, INF)
-var _drag_last_location := Vector2(INF, INF)
 
 
 func _ready():
@@ -64,7 +62,7 @@ func _process(_delta):
 	limit_check_bottom_right = Vector2(_camera.limit_right - limit_check_offset.x, _camera.limit_bottom
 		- limit_check_offset.y)
 	
-	var new_camera_global_position = Vector2Util.clamp(_camera.global_position + move_direction, 
+	var new_camera_global_position = Vector2Util.clampv(_camera.global_position + move_direction, 
 		limit_check_top_left, limit_check_bottom_right)
 	
 	_camera.global_position = new_camera_global_position

@@ -1,6 +1,5 @@
 [gd_scene load_steps=8 format=3 uid="uid://dlqllwmc5fkd5"]
 
-[ext_resource type="Script" path="res://addons/godot_helper_pack/core/3d/shape/collision_shape_ex.gd" id="1"]
 [ext_resource type="Script" path="res://addons/godot_helper_pack/core/3d/shape/shape_draw_3d.gd" id="3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2str8"]
@@ -16,10 +15,13 @@ sky = SubResource("Sky_ra8cq")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="BoxShape3D" id="2"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_1e2xk"]
 
 [sub_resource type="BoxShape3D" id="3"]
 size = Vector3(8, 2, 8)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1h86e"]
+radius = 0.75
 
 [node name="ShapeDemo" type="Node3D"]
 
@@ -37,11 +39,10 @@ fov = 70.0
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 
-[node name="CollisionShapeEx" type="CollisionShape3D" parent="RigidBody3D"]
-shape = SubResource("2")
-script = ExtResource("1")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("BoxShape3D_1e2xk")
 
-[node name="ShapeDraw3D" type="Node3D" parent="RigidBody3D/CollisionShapeEx"]
+[node name="ShapeDraw3D" type="Node3D" parent="RigidBody3D/CollisionShape3D"]
 script = ExtResource("3")
 color = Color(1, 0, 0, 1)
 
@@ -69,10 +70,19 @@ autowrap_mode = 3
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
-[node name="CollisionShapeEx" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("3")
-script = ExtResource("1")
 
-[node name="ShapeDraw3D" type="Node3D" parent="StaticBody3D/CollisionShapeEx"]
+[node name="ShapeDraw3D" type="Node3D" parent="StaticBody3D/CollisionShape3D"]
 script = ExtResource("3")
 color = Color(0.215686, 0.984314, 0, 1)
+
+[node name="RigidBody3D2" type="RigidBody3D" parent="."]
+transform = Transform3D(0.860742, 0.509041, 0, -0.509041, 0.860742, 0, 0, 0, 1, 1.85798, 3.57769, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D2"]
+shape = SubResource("CapsuleShape3D_1h86e")
+
+[node name="ShapeDraw3D" type="Node3D" parent="RigidBody3D2/CollisionShape3D"]
+script = ExtResource("3")
+color = Color(1, 0.964706, 0, 1)

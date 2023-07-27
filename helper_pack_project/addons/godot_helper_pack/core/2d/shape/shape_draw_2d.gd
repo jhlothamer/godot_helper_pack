@@ -65,12 +65,12 @@ var nine_patch_patch_bottom := 0 :
 		nine_patch_patch_bottom = mod_value
 		if _nine_patch_rect:
 			_nine_patch_rect.patch_margin_bottom = mod_value
-var nine_patch_axis_stretch_horizontal: int :
+var nine_patch_axis_stretch_horizontal: NinePatchRect.AxisStretchMode :
 	set(mod_value):
 		nine_patch_axis_stretch_horizontal = mod_value
 		if _nine_patch_rect:
 			_nine_patch_rect.axis_stretch_horizontal = mod_value
-var nine_patch_axis_stretch_vertical: int :
+var nine_patch_axis_stretch_vertical: NinePatchRect.AxisStretchMode :
 	set(mod_value):
 		nine_patch_axis_stretch_vertical = mod_value
 		if _nine_patch_rect:
@@ -195,9 +195,9 @@ func _on_draw() -> void:
 	queue_redraw()
 
 
-func _make_prop(name: String, type: int, usage: int = PROPERTY_USAGE_DEFAULT, hint = []) -> Dictionary:
+func _make_prop(prop_name: String, type: int, usage: int = PROPERTY_USAGE_DEFAULT, hint = []) -> Dictionary:
 	var prop = {
-		name = name,
+		name = prop_name,
 		type = type,
 		usage = usage
 	}

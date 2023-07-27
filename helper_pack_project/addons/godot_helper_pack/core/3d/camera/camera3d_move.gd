@@ -38,7 +38,7 @@ func _input(event):
 	#_camera.rotate_z(deg_to_rad(x_deg) - _camera.rotation.z)
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var h_rot = _camera.rotation.y
 	var f_input = Input.get_action_strength(back_action_name) - Input.get_action_strength(forward_action_name)
 	var h_input = Input.get_action_strength(strafe_right_action_name) - Input.get_action_strength(strafe_left_action_name)

@@ -26,7 +26,7 @@ func init(_state_machine, _host):
 func enter() -> void:
 	pass
 
-func reenter(from_state: String) -> void:
+func reenter(_from_state: String) -> void:
 	pass
 
 
@@ -34,11 +34,11 @@ func exit() -> void:
 	pass
 
 
-func physics_process(delta: float) -> void:
+func physics_process(_delta: float) -> void:
 	pass
 
 
-func unhandled_input(event: InputEvent) -> void:
+func unhandled_input(_event: InputEvent) -> void:
 	pass
 
 

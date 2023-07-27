@@ -11,7 +11,7 @@ static func load_text(file_path: String, default_value: String = "") -> String:
 	return contents
 
 
-static func save_text(file_path: String, contents: String, create_file: bool = true) -> bool:
+static func save_text(file_path: String, contents: String) -> bool:
 	var data_file := FileAccess.open(file_path, FileAccess.WRITE)
 	if !data_file:
 		data_file.close()

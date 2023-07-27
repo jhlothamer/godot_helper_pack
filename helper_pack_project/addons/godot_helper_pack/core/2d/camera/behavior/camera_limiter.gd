@@ -25,8 +25,8 @@ func _ready():
 func limit_camera(limit_rect: Rect2) -> void:
 	if _camera == null:
 		return
-	_camera.limit_left = limit_rect.position.x
-	_camera.limit_top = limit_rect.position.y
-	_camera.limit_right = limit_rect.end.x
-	_camera.limit_bottom = limit_rect.end.y
+	_camera.limit_left = int(limit_rect.position.x)
+	_camera.limit_top = int(limit_rect.position.y)
+	_camera.limit_right = int(limit_rect.end.x)
+	_camera.limit_bottom = int(limit_rect.end.y)
 	_camera.align()

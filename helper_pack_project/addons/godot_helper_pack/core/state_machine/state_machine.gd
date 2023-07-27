@@ -34,19 +34,14 @@ func _ready():
 		child.init(self, _host)
 		if child.is_starting_state:
 			_state_stack.push_front(child)
-	
-	if _state_stack.is_empty():
-		push_error("No starting state designated for state machine.")
-		assert(false)
-	elif _state_stack.size() > 1:
-		push_error("Too many starting states for state machine.")
-		assert(false)
-	else:
-		_print_dbg("starting state is %s" % _state_stack[0].name)
-		_state_stack[0].enter()
 
-	if found_problems:
-		assert(false)
+	assert(!found_problems, "Please correct errors in state nodes.")
+	assert(!_state_stack.is_empty(), "No starting state designated for state machine.")
+	assert(_state_stack.size() <= 1, "Too many starting states for state machine.")
+	_print_dbg("starting state is %s" % _state_stack[0].name)
+	_state_stack[0].enter()
+
+		
 
 
 func _check_state_node(state_node: Node) -> bool:

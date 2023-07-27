@@ -10,6 +10,7 @@ func test_empty_string_is_null_or_empty():
 	assert_true(results)
 
 func test_null_string_is_null_or_empty():
+	@warning_ignore("unassigned_variable")
 	var s : String
 	var results = StringUtil.is_null_or_empty(s)
 	assert_true(results)
@@ -25,6 +26,7 @@ func test_get_file_name_with_empty_file_path():
 	assert_eq("", file_name)
 
 func test_get_file_name_with_null_file_path():
+	@warning_ignore("unassigned_variable")
 	var file_path : String
 	var file_name = StringUtil.get_file_name(file_path)
 	assert_eq("", file_name)

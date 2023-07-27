@@ -22,11 +22,11 @@ static func mean(measures: Array, limit: int = -1) -> float:
 	if measures.size() == 0:
 		return -1.0
 	
-	var sum := sum(measures)
+	var summation := sum(measures)
 		
 	limit = limit if limit > 0 else measures.size()
 
-	return sum / float(limit)
+	return summation / float(limit)
 
 
 static func linear_regression_one_array(measures: Array, limit: int = -1) -> Line:

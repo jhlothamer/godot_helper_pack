@@ -10,7 +10,7 @@ extends Node3D
 			_material.albedo_color = color
 
 
-var _mesh_instance: MeshInstance3D # := MeshInstance3D.new()
+var _mesh_instance: MeshInstance3D
 var _material := StandardMaterial3D.new()
 var _parent_collision_shape: CollisionShape3D
 
@@ -19,10 +19,8 @@ func _ready():
 	_parent_collision_shape = get_parent()
 	update_configuration_warnings()
 	if !_parent_collision_shape:
-		#printerr("ShapeDraw3D: Parent must be CollisionShapeEx")
-		push_warning("Warning!")
 		return
-	_parent_collision_shape.connect("shape_changed",Callable(self,"_on_parent_shape_changed").bind())
+	_parent_collision_shape.shape.changed.connect(_on_parent_shape_changed)
 
 	for c in get_children():
 		if c is MeshInstance3D:
@@ -109,6 +107,6 @@ func _update_mesh(shape: Shape3D):
 
 
 func _get_configuration_warnings():
-	if !_parent_collision_shape is CollisionShapeEx:
-		return "Cannot update shape in editor unless parent is CollisionShapeEx"
+	if !_parent_collision_shape is CollisionShape3D:
+		return "Cannot update shape in editor unless parent is CollisionShape3D"
 	return ""

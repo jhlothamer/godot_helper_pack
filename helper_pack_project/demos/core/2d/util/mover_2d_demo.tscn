@@ -28,6 +28,10 @@ texture = ExtResource("1")
 
 [node name="Mover2D" type="Node" parent="Icon"]
 script = ExtResource("2")
+up_action_name = "move_up"
+down_action_name = "move_down"
+left_action_name = "move_left"
+right_action_name = "move_right"
 
 [node name="Hud" type="CanvasLayer" parent="."]
 
