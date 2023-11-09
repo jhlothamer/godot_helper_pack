@@ -1,13 +1,15 @@
 @tool
 extends Node
 
+@onready var _timer:Timer = $ChangeCheckTimer
+
 
 var _prev_color: Color
 
 
 func _ready():
 	if !Engine.is_editor_hint():
-		queue_free()
+		_timer.stop()
 	_prev_color = GodotHelperPackSettings.get_global_blocking_color()
 
 

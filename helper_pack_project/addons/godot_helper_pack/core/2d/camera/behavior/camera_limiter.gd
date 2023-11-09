@@ -4,11 +4,10 @@ extends Node
 @export var limit_reference_rect: NodePath
 
 
-@onready var _camera: Camera2D
-
+var _camera: Camera2D
 
 func _enter_tree():
-	ServiceMgr.register_service(self.get_script(), self)
+	ServiceMgr.register_service(CameraLimiter2D, self)
 
 
 func _ready():

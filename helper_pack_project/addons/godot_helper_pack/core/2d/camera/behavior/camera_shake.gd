@@ -19,7 +19,7 @@ var _rand := RandomNumberGenerator.new()
 
 
 func _enter_tree():
-	ServiceMgr.register_service(self.get_script(), self)
+	ServiceMgr.register_service(CameraShake2D, self)
 
 
 func _ready():

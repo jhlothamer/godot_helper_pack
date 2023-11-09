@@ -341,5 +341,81 @@ func test_clamp_angle_plus_minus_pie_in():
 	test_angle = randi() * PI
 	results = AngleUtil.clamp_angle(test_angle, start_angle, end_angle)
 	assert_eq(results, test_angle)
+
+func test_90_deg_about_right_out_close_to_start():
+	var start_angle := -.25*PI
+	var end_angle := .25*PI
+	var test_angle := -.5*PI
+	var results = AngleUtil.clamp_angle(test_angle, start_angle, end_angle)
+	assert_eq(results, start_angle)
+
+
+func test_90_deg_about_right_out_very_close_to_start():
+	var start_angle := -.25*PI
+	var end_angle := .25*PI
+	var test_angle := -.25*PI - .00001
+	var results = AngleUtil.clamp_angle(test_angle, start_angle, end_angle)
+	assert_eq(results, start_angle)
+	assert_true(results == start_angle)
+
+
+func test_90_deg_about_right_out_close_to_end():
+	var start_angle := -.25*PI
+	var end_angle := .25*PI
+	var test_angle := .5*PI
+	var results = AngleUtil.clamp_angle(test_angle, start_angle, end_angle)
+	assert_eq(results, end_angle)
+
+
+func test_90_deg_about_right_in():
+	var start_angle := -.25*PI
+	var end_angle := .25*PI
+	var test_angle := 0
+	var results = AngleUtil.clamp_angle(test_angle, start_angle, end_angle)
+	assert_eq(results, test_angle)
+
+########################
+
+func test_90_deg_about_down_out_close_to_start():
+	var start_angle := .25*PI
+	var end_angle := .75*PI
+	var test_angle := .15*PI
+	var results = AngleUtil.clamp_angle(test_angle, start_angle, end_angle)
+	assert_eq(results, start_angle)
+
+
+func test_90_deg_about_down_out_very_close_to_start():
+	var start_angle := .25*PI
+	var end_angle := .75*PI
+	var test_angle := .25*PI - .00001
+	var results = AngleUtil.clamp_angle(test_angle, start_angle, end_angle)
+	assert_eq(results, start_angle)
+	assert_true(results == start_angle)
+
+
+func test_90_deg_about_down_out_close_to_end():
+	var start_angle := .25*PI
+	var end_angle := .75*PI
+	var test_angle := .85*PI
+	var results = AngleUtil.clamp_angle(test_angle, start_angle, end_angle)
+	assert_eq(results, end_angle)
+
+
+func test_90_deg_about_down_in():
+	var start_angle := .25*PI
+	var end_angle := .75*PI
+	var test_angle := .5*PI
+	var results = AngleUtil.clamp_angle(test_angle, start_angle, end_angle)
+	assert_eq(results, test_angle)
+
+
+func test_foo_foo():
+	var start_angle := deg_to_rad(44.998936)
+	var end_angle := deg_to_rad(134.998935)
+	var test_angle := deg_to_rad(44.998932)
+	var results = AngleUtil.clamp_angle(test_angle, start_angle, end_angle)
+	assert_eq(results, start_angle)
 	
+
+
 

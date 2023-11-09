@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://lw6t1p3sfneo"]
+[gd_scene load_steps=16 format=3 uid="uid://lw6t1p3sfneo"]
 
 [ext_resource type="Script" path="res://addons/godot_helper_pack/core/2d/util/distribution/random_distribution_area.gd" id="1"]
 [ext_resource type="Script" path="res://addons/godot_helper_pack/core/2d/util/distribution/random_distribution_area_layer.gd" id="2"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://addons/godot_helper_pack/core/2d/util/mover_2d.gd" id="11"]
 [ext_resource type="Texture2D" uid="uid://c2b8uav6fokh6" path="res://icon.png" id="12"]
 [ext_resource type="Script" path="res://demos/core/2d/util/rand_dist_carving_demo.gd" id="13"]
+[ext_resource type="Script" path="res://addons/godot_helper_pack/core/2d/camera/behavior/camera_zoom.gd" id="14_bhx6m"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(64, 64)
@@ -3969,6 +3970,9 @@ texture = ExtResource("12")
 script = ExtResource("11")
 
 [node name="Camera2D" type="Camera2D" parent="Node2D/CharacterBody2D"]
+
+[node name="CameraZoom2D" type="Node" parent="Node2D/CharacterBody2D/Camera2D"]
+script = ExtResource("14_bhx6m")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

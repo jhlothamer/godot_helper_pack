@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://cjylicpu4kmjw"]
+[gd_scene load_steps=8 format=3 uid="uid://cjylicpu4kmjw"]
 
 [ext_resource type="Script" path="res://addons/godot_helper_pack/core/2d/util/distribution/random_distribution_area.gd" id="1"]
 [ext_resource type="Script" path="res://addons/godot_helper_pack/core/2d/util/distribution/random_distribution_area_layer.gd" id="2"]
 [ext_resource type="Texture2D" uid="uid://cqax8x5ouunna" path="res://demos/core/2d/util/assets/trees-and-bushes.png" id="3"]
 [ext_resource type="Script" path="res://addons/godot_helper_pack/core/2d/shape/circle_2d.gd" id="4"]
 [ext_resource type="Script" path="res://demos/core/2d/util/random_distribution_area_demo.gd" id="5"]
+[ext_resource type="Script" path="res://addons/godot_helper_pack/core/2d/camera/behavior/camera_move.gd" id="6_pslh1"]
+[ext_resource type="Script" path="res://addons/godot_helper_pack/core/2d/camera/behavior/camera_zoom.gd" id="7_memfk"]
 
 [node name="RandomDistributionAreaDemo" type="Node2D"]
 script = ExtResource("5")
@@ -109,6 +111,7 @@ radius = 6.0
 color = Color(0, 0, 0, 0.184314)
 
 [node name="Node2D" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D"]
 position = Vector2(678.197, 436.562)
@@ -8233,11 +8236,22 @@ texture = ExtResource("3")
 region_enabled = true
 region_rect = Rect2(253.903, 48.242, 17.8267, 15.9826)
 
-[node name="repopulateBtn" type="Button" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="repopulateBtn" type="Button" parent="CanvasLayer"]
 offset_left = 840.949
 offset_top = 504.569
 offset_right = 989.949
 offset_bottom = 563.569
 text = "Repopulate"
 
-[connection signal="pressed" from="repopulateBtn" to="." method="_on_repopulateBtn_pressed"]
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(512, 300)
+
+[node name="CameraMove2D" type="Node" parent="Camera2D"]
+script = ExtResource("6_pslh1")
+
+[node name="CameraZoom2D" type="Node" parent="Camera2D"]
+script = ExtResource("7_memfk")
+
+[connection signal="pressed" from="CanvasLayer/repopulateBtn" to="." method="_on_repopulateBtn_pressed"]
