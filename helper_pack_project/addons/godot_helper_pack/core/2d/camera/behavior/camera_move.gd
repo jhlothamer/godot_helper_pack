@@ -1,16 +1,27 @@
+## This node moves it's parent Camera2D. It uses actions defined in the input map for up, down, left
+## and right. You can also set it to move the mouse via clicking and dragging the mouse.
+@tool
 extends Node
 class_name CameraMove2D
 
 signal camera_pan_started()
 signal camera_pan_stopped()
 
+## The speed of camera movement in pixels/second.
 @export var move_speed: float = 10
+## The input action name used to detect when to move the camera in the up direction.
 @export var up_action_name := "ui_up"
+## The input action name used to detect when to move the camera in the down direction.
 @export var down_action_name := "ui_down"
+## The input action name used to detect when to move the camera in the left direction.
 @export var left_action_name := "ui_left"
+## The input action name used to detect when to move the camera in the right direction.
 @export var right_action_name := "ui_right"
+## Flag to enable movement by clicking and dragging with the right mouse button.
 @export var right_mouse_button_drag := false
+## Flag to enable movement by clicking and dragging with the left mouse button.
 @export var left_mouse_button_drag := false
+## Flag to enable movement by clicking and dragging with the middle mouse button.
 @export var middle_mouse_button_drag := false
 
 
@@ -21,8 +32,15 @@ var _is_dragging := false
 
 
 func _ready():
-	if _camera == null:
+	if _camera == null or Engine.is_editor_hint():
 		set_process(false)
+
+
+func _get_configuration_warnings() -> PackedStringArray:
+	var warnings = []
+	if !get_parent() is Camera2D:
+		warnings = ['CameraMove2D must be child of Camera2D']
+	return warnings
 
 
 func _get_move_direction() -> Vector2:

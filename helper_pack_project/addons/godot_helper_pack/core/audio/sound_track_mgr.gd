@@ -1,3 +1,9 @@
+## Changes what sound track is played based on what the current scene is.
+## To configure what scenes go with what sound tracks, add SceneSoundTrack nodes
+## as children.
+## Please see wiki page for more instructions:
+## https://github.com/jhlothamer/godot_helper_pack/wiki/SoundTrackMgr,-SceneSoundTrack
+
 class_name SoundTrackMgr
 extends Node
 

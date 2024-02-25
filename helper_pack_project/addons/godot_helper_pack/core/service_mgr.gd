@@ -53,6 +53,7 @@ func get_service(service: Script, service_name: String = "") -> Object:
 		return _services[service]
 	return null
 
+
 ## Unregisters a service implementation.
 func unregister_service(service: Script, service_name: String = "") -> void:
 	if service_name != "":

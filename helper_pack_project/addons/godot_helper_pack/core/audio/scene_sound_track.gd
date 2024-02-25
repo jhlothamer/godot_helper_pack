@@ -1,9 +1,12 @@
+## Used by a SoundTrackMgr node to map scenes to sound tracks.  Add the
+## scene paths to the scenes array and an AudioStreamPlayer as a child to
+## this node.
 class_name SceneSoundTrack
 extends Node
 
 
 #(Array, String, FILE, "*.tscn, *.scn")
-@export var scenes: Array[String]
+var scenes: Array[String]
 @export var startup := false
 
 

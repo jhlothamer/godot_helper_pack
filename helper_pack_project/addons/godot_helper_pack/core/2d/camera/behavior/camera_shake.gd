@@ -1,9 +1,14 @@
+## This node shakes its parent Camera2D.
+@tool
 class_name CameraShake2D
 extends Node
 
-
+## The speed of change for the noise input. Used to advance through noise values.
 @export var noise_speed_factor: float = 4.0
+## Maximum rotation applied to camera during shake. Default is zero, meaning by default no rotation occurs.
 @export var max_rotation: float = 0.0
+## Used for computing locations to move camera to to produce shaking.
+## This smooths out the shaking effect. If not supplied, the locations are generated randomly.
 @export var noise:FastNoiseLite
 
 
@@ -19,6 +24,8 @@ var _rand := RandomNumberGenerator.new()
 
 
 func _enter_tree():
+	if Engine.is_editor_hint():
+		return
 	ServiceMgr.register_service(CameraShake2D, self)
 
 
@@ -26,13 +33,18 @@ func _ready():
 	var parent = get_parent()
 	if parent is Camera2D:
 		_camera = parent
-#	_rand.randomize()
-#	_noise.seed = _rand.randi()
-#	_noise.domain_warp_frequency = 4.0
-#	_noise.domain_warp_fractal_octaves = 2.0
 	set_physics_process(false)
 
 
+func _get_configuration_warnings() -> PackedStringArray:
+	var warnings = []
+	if !get_parent() is Camera2D:
+		warnings = ['CameraShake2D must be child of Camera2D']
+	return warnings
+
+
+## Starts the camera shaking for the given duration and amount
+## if the priority is greater than the currently running camera shake.
 func shake_camera(priority: int, duration: float, amount: float) -> void:
 	if priority < _current_priority || _camera == null:
 		return

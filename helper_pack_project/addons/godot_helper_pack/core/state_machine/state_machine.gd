@@ -1,10 +1,16 @@
+## A state machine implemenation that uses nodes to represent states.  Child
+## nodes of StateMachine must derive their scripts from State.
 @icon("state_machine.svg") 
 extends Node
 class_name StateMachine
 
 
+## Set to true to turn on logging print statements.
 @export var debug : bool
+## Disables state machine.
 @export var disabled : bool
+## A host node that is accessable to the states.  Use to call functions or
+## make changes to a host game object.
 @export var host_node: NodePath
 
 
