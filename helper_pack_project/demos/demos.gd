@@ -2,6 +2,7 @@ extends Control
 
 @onready var _2d_grid: GridContainer = $MarginContainer/VBoxContainer/GridContainer2D
 @onready var _3d_grid: GridContainer = $MarginContainer/VBoxContainer/GridContainer3D
+@onready var _audio_grid: GridContainer = $MarginContainer/VBoxContainer/GridContainerAudio
 @onready var _demo_hud = $DemoHud
 
 const DEMO_SCENES_2D = {
@@ -20,9 +21,14 @@ const DEMO_SCENES_3D = {
 	"Shape Draw": "res://demos/core/3d/shape_demo.tscn",
 }
 
+const AUDIO_SCENES = {
+	"Sound Track Change": "res://demos/core/audio/audio_demo.tscn"
+}
+
 func _ready():
 	_add_buttons(DEMO_SCENES_2D, _2d_grid)
 	_add_buttons(DEMO_SCENES_3D, _3d_grid)
+	_add_buttons(AUDIO_SCENES, _audio_grid)
 
 
 func _add_buttons(demo_scenes: Dictionary, grid: GridContainer):

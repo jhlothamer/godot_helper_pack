@@ -1,0 +1,27 @@
+[gd_scene load_steps=7 format=3 uid="uid://cvg6kb2l63uli"]
+
+[ext_resource type="Script" path="res://addons/godot_helper_pack/core/audio/sound_track_mgr.gd" id="1_qm8hl"]
+[ext_resource type="Script" path="res://addons/godot_helper_pack/core/audio/scene_sound_track.gd" id="2_8cfom"]
+[ext_resource type="PackedScene" uid="uid://triot0nlbp4e" path="res://demos/demos.tscn" id="3_wa1ml"]
+[ext_resource type="AudioStream" uid="uid://cnhvhmdchjq7b" path="res://demos/578066__sirplus__rainbowglazeloop16_mastered.ogg" id="3_yich8"]
+[ext_resource type="PackedScene" uid="uid://bnfkin76nori6" path="res://demos/core/audio/audio_demo.tscn" id="5_guhl7"]
+[ext_resource type="AudioStream" uid="uid://c2rsg37jfdvh0" path="res://demos/402739__sirplus__actionscaryfunloop32.ogg" id="6_xbo3x"]
+
+[node name="sound_track_mgr_demo" type="Node"]
+script = ExtResource("1_qm8hl")
+
+[node name="DemosSceneSoundTrack" type="Node" parent="."]
+script = ExtResource("2_8cfom")
+scenes = Array[PackedScene]([ExtResource("3_wa1ml")])
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="DemosSceneSoundTrack"]
+stream = ExtResource("3_yich8")
+volume_db = -18.0
+
+[node name="AudioDemoSceneSoundTrack" type="Node" parent="."]
+script = ExtResource("2_8cfom")
+scenes = Array[PackedScene]([ExtResource("5_guhl7")])
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AudioDemoSceneSoundTrack"]
+stream = ExtResource("6_xbo3x")
+volume_db = -18.0

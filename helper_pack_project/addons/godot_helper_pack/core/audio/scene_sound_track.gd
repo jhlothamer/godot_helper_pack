@@ -5,8 +5,10 @@ class_name SceneSoundTrack
 extends Node
 
 
-#(Array, String, FILE, "*.tscn, *.scn")
-var scenes: Array[String]
+## list of scenes to play soundtrack for
+@export var scenes: Array[PackedScene]
+## sound track plays automatically on start up.  May interfer with other
+## soundtracks when starting those from the Godot editor.
 @export var startup := false
 
 
@@ -14,25 +16,26 @@ var _scene_names := []
 
 
 func _ready():
-	for scene_file_path in scenes:
-		var scene_name = StringUtil.get_file_name(scene_file_path)
-		_scene_names.append(scene_name.replace("_", "").to_lower())
+	for scene in scenes:
+		_scene_names.append(scene.resource_path)
 	
-	if startup and _scene_names.size() > 0:
-		check_scene_and_play(_scene_names[0])
+	if startup:
+		_play_track()
 
 
-func check_scene_and_play(scene_name: String) -> bool:
-	if !_scene_names.has(scene_name.to_lower()):
-		return false
-	var played_sound := false
+func _play_track() -> bool:
 	for c in get_children():
 		if c is AudioStreamPlayer or c is AudioStreamPlayer2D or c is AudioStreamPlayer3D:
 			if !c.playing:
 				c.play()
-			played_sound = true
-	return played_sound
+			return true
+	return false
 
+
+func check_scene_and_play(scene_file_path: String) -> bool:
+	if !_scene_names.has(scene_file_path):
+		return false
+	return _play_track()
 
 func stop() -> void:
 	for c in get_children():

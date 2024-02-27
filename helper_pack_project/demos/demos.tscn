@@ -56,5 +56,23 @@ theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
 columns = 3
 
+[node name="AudioLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Audio"
+
+[node name="SoundTrackMgrLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "What you are hearing is the SoundTrackMgr in action.  See the github wiki for more info as well as sound_track_demo.tscn.
+Music is from freesounds.org by sirplus.  Please see github page/readme for links/license."
+autowrap_mode = 2
+
+[node name="GridContainerAudio" type="GridContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 3
+
 [node name="DemoHud" parent="." instance=ExtResource("2_w1cpy")]
 visible = false
