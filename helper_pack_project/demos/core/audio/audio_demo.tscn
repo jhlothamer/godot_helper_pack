@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://bnfkin76nori6"]
+
+[node name="audio_demo" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CenterContainer"]
+layout_mode = 2
+text = "This scene is just to demo the SoundTrackMgr switching sound tracks
+based on the scene.  See the sound_track_mgr_demo.tscn scene to see how that works.
+Note that that scene is an Autoload, enabling it to start background music for the demos
+start scene.
+
+Music is from freesounds.org by sirplus.  Please see github page/readme for links/license."

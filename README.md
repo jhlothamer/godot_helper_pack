@@ -14,3 +14,11 @@ Now all of the classes and utilities will be available for use.  Also, after ena
 ## Classes and Utilities
 
 Please see the [repo wiki](https://github.com/jhlothamer/godot_helper_pack/wiki) for a list of classes and utilities.
+
+
+## Credits
+The demo for this addon uses these sounds from freesound:
+"RainbowGlazeLoop16_mastered.wav" by sirplus ( http://freesound.org/s/578066/ ) licensed under CC0
+"ActionScaryFunLoop32.wav" by sirplus ( http://freesound.org/s/402739/ ) licensed under CC0
+Note: wav files have been converted to ogg to save file space.  No other changes have been made.
+

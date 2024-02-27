@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://si3btmdubk5x"]
 
-[ext_resource type="PackedScene" path="res://addons/godot_helper_pack/core/2d/shape/blocking_block_2d.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://bmthijbuop6sj" path="res://addons/godot_helper_pack/core/2d/shape/blocking_block_2d.tscn" id="1"]
 [ext_resource type="Texture2D" uid="uid://ddtupiawd7h0b" path="res://demos/core/2d/shape/godot_helper_pack_scene_tree_blocking_block_warning.png" id="2"]
 [ext_resource type="Texture2D" uid="uid://dl6gni3eg0frn" path="res://demos/core/2d/shape/godot_helper_pack_file_fav_blocking_block.png" id="3"]
 [ext_resource type="Texture2D" uid="uid://ca5lmobg778p8" path="res://demos/core/2d/shape/godot_helper_pack_global_blocking_color_setting.png" id="4"]
@@ -25,27 +25,27 @@ expand_margin_top = 5.0
 expand_margin_right = 5.0
 expand_margin_bottom = 5.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_etbfk"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ogren"]
 resource_local_to_scene = true
 size = Vector2(254, 131)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2j6l7"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_85b5x"]
 resource_local_to_scene = true
 size = Vector2(384, 64)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jrxdf"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7wxpi"]
 resource_local_to_scene = true
 size = Vector2(64, 192)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wstb0"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r2dta"]
 resource_local_to_scene = true
 size = Vector2(64, 192)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tqrsy"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fphd0"]
 resource_local_to_scene = true
 size = Vector2(384, 64)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wny3g"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rkqaf"]
 resource_local_to_scene = true
 size = Vector2(345, 279)
 
@@ -91,7 +91,6 @@ zoom_speed = 0.1
 
 [node name="CameraLimiter" type="Node" parent="Camera2D"]
 script = ExtResource("7")
-limit_reference_rect = NodePath("../../CameraLimitReferenceRect")
 
 [node name="GodotHelperPackFileFavBlockingBlock" type="Sprite2D" parent="."]
 position = Vector2(192, 353)
@@ -134,8 +133,7 @@ autowrap_mode = 3
 
 [node name="BlockingBlock" parent="." instance=ExtResource("1")]
 position = Vector2(176, 552)
-shape = SubResource("RectangleShape2D_etbfk")
-color = Color(0, 0.803922, 0.215686, 1)
+shape = SubResource("RectangleShape2D_ogren")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(32, 856)
@@ -151,28 +149,23 @@ autowrap_mode = 3
 
 [node name="BlockingBlock" parent="StaticBody2D" instance=ExtResource("1")]
 position = Vector2(235, 41)
-shape = SubResource("RectangleShape2D_2j6l7")
-color = Color(0, 0.803922, 0.215686, 1)
+shape = SubResource("RectangleShape2D_85b5x")
 
 [node name="BlockingBlock2" parent="StaticBody2D" instance=ExtResource("1")]
 position = Vector2(395, 169)
-shape = SubResource("RectangleShape2D_jrxdf")
-color = Color(0, 0.803922, 0.215686, 1)
+shape = SubResource("RectangleShape2D_7wxpi")
 
 [node name="BlockingBlock3" parent="StaticBody2D" instance=ExtResource("1")]
 position = Vector2(75, 169)
-shape = SubResource("RectangleShape2D_wstb0")
-color = Color(0, 0.803922, 0.215686, 1)
+shape = SubResource("RectangleShape2D_r2dta")
 
 [node name="BlockingBlock4" parent="StaticBody2D" instance=ExtResource("1")]
 position = Vector2(235, 297)
-shape = SubResource("RectangleShape2D_tqrsy")
-color = Color(0, 0.803922, 0.215686, 1)
+shape = SubResource("RectangleShape2D_fphd0")
 
 [node name="BlockingBlockWithTexture" parent="." instance=ExtResource("1")]
 position = Vector2(240, 1528)
-shape = SubResource("RectangleShape2D_wny3g")
-color = Color(0, 0.803922, 0.215686, 1)
+shape = SubResource("RectangleShape2D_rkqaf")
 texture = ExtResource("8_3wmbs")
 nine_patch_patch_left = 16
 nine_patch_patch_right = 16

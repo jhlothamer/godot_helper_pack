@@ -1,3 +1,9 @@
+## Changes what sound track is played based on what the current scene is.
+## To configure what scenes go with what sound tracks, add SceneSoundTrack nodes
+## as children.
+## Please see wiki page for more instructions:
+## https://github.com/jhlothamer/godot_helper_pack/wiki/SoundTrackMgr,-SceneSoundTrack
+
 class_name SoundTrackMgr
 extends Node
 
@@ -12,19 +18,17 @@ func _ready():
 
 
 func _on_node_added(node : Node):
-	if node.get_parent() != get_tree().root:
+	if node.get_parent() != get_tree().root or node.scene_file_path.is_empty():
 		return
-	var path = str(node.get_path())
-	var scene_name = path.replace("/root/", "")
-	_play_scene(scene_name)
+	_play_scene(node.scene_file_path)
 
 
-func _play_scene(scene_name: String) -> void:
+func _play_scene(scene_file_path: String) -> void:
 	for child in get_children():
 		if !child is SceneSoundTrack:
 			continue
 		var sceneSoundTrack:SceneSoundTrack = child
-		if sceneSoundTrack.check_scene_and_play(scene_name):
+		if sceneSoundTrack.check_scene_and_play(scene_file_path):
 			if _current_scene_sound_track != sceneSoundTrack:
 				if _current_scene_sound_track != null:
 					_current_scene_sound_track.stop()

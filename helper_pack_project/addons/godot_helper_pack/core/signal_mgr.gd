@@ -6,6 +6,9 @@ extends Node
 ## in order to connnect a callback function for a signal.  This is also handy for
 ## dynamically instanced signal emitters, like enemies, which can register themselves,
 ## emit their signals as normal, and then be freed.
+## Note: you do not have to unregister any signal or publisher that is a node in the scene tree.
+##       SignalMgr watches for the node to exit the tree and cleans up it's registrations.
+
 
 class Subscriber:
 	var subscriber: Object
@@ -23,6 +26,7 @@ class Subscriber:
 				publisher.connect(signal_name,Callable(subscriber,method_name).bind(binds))
 			else:
 				publisher.connect(signal_name,Callable(subscriber,method_name))
+
 
 class Publisher:
 	var publisher: Object
@@ -46,6 +50,7 @@ var _subscribers:Dictionary = {}
 # dictionary of publishers
 var _publishers:Dictionary = {}
 
+
 ## register a subscriber for a signal.  The default method name for the callback function
 ## is "_on_<signal>".
 func register_subscriber(subscriber: Object, signal_name: String,
@@ -62,6 +67,7 @@ func register_subscriber(subscriber: Object, signal_name: String,
 		for pub in pubs:
 			if pub.signal_name == sub.signal_name:
 				pub.connect_subscriber(sub)
+
 
 ## register a publisher of a signal.
 func register_publisher(publisher: Object, signal_name: String) -> void:
@@ -95,7 +101,7 @@ func unregister(publisher_or_subscriber: Object) -> void:
 	unregister_subscriber(publisher_or_subscriber)
 
 
-## clears all subscribers and publishers
+## clears all subscribers and publishers.
 func clear() -> void:
 	_subscribers.clear()
 	_publishers.clear()
