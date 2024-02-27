@@ -7,8 +7,8 @@ extends Node
 
 ## list of scenes to play soundtrack for
 @export var scenes: Array[PackedScene]
-## sound track plays automatically on start up.  May interfer with other
-## soundtracks when starting those from the Godot editor.
+## Sound track plays automatically on start up.  Best use case for this is
+## if your game has only one sound track.
 @export var startup := false
 
 
