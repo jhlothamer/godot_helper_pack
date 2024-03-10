@@ -27,7 +27,7 @@ If you would like to support my development work to maintain this and other such
 <br>
 <p align="center">
 <a href="https://www.buymeacoffee.com/jlothamer">
-<img src="https://media.giphy.com/media/hXMGQqJFlIQMOjpsKC/giphy.gif" />
+<img src="readme_images/bmc-button.png" />
 </a>
 </p>
 
