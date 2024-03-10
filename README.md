@@ -23,11 +23,11 @@ The demo for this addon uses these sounds from freesound:
 Note: wav files have been converted to ogg to save file space.  No other changes have been made.
 
 ## Support
-If you would like to support my development work to maintain this and other such projects you can do so at [https://www.buymeacoffee.com/jlothamer](https://www.buymeacoffee.com/jlothamer).
+If you would like to support my development work to maintain this and other such projects you can do so at 
 <br>
 <p align="center">
 <a href="https://www.buymeacoffee.com/jlothamer">
-<img src="readme_images/bmc-button.png" />
+<img src="https://media.giphy.com/media/hXMGQqJFlIQMOjpsKC/giphy.gif" />
 </a>
 </p>
 
