@@ -23,12 +23,12 @@ func _on_node_added(node : Node):
 	_play_scene(node.scene_file_path)
 
 
-func _play_scene(scene_file_path: String) -> void:
+func _play_scene(file_path: String) -> void:
 	for child in get_children():
 		if !child is SceneSoundTrack:
 			continue
 		var sceneSoundTrack:SceneSoundTrack = child
-		if sceneSoundTrack.check_scene_and_play(scene_file_path):
+		if sceneSoundTrack.check_scene_and_play(file_path):
 			if _current_scene_sound_track != sceneSoundTrack:
 				if _current_scene_sound_track != null:
 					_current_scene_sound_track.stop()

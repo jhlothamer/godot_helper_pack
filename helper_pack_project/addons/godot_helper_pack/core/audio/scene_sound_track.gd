@@ -32,8 +32,8 @@ func _play_track() -> bool:
 	return false
 
 
-func check_scene_and_play(scene_file_path: String) -> bool:
-	if !_scene_names.has(scene_file_path):
+func check_scene_and_play(file_path: String) -> bool:
+	if !_scene_names.has(file_path):
 		return false
 	return _play_track()
 
