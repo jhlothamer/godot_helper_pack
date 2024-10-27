@@ -10,6 +10,9 @@ var has_printed_name = false
 # the number of arguments the method has
 var arg_count = 0
 
+# the time it took to execute the test in seconds
+var time_taken : float = 0
+
 # The number of asserts in the test.  Converted to a property for backwards
 # compatibility.  This now reflects the text sizes instead of being a value
 # that can be altered externally.
@@ -28,7 +31,7 @@ var line_number = -1
 
 # Set internally by Gut using whatever reason Gut wants to use to set this.
 # Gut will skip these marked true and the test will be listed as risky.
-var should_skip = false
+var should_skip = false  # -- Currently not used by GUT don't believe ^
 
 var pass_texts = []
 var fail_texts = []
