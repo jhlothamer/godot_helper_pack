@@ -90,7 +90,7 @@ func _do_distribution():
 	_refresh_references()
 	if !_mmi or !_mi:
 		status = "MultiMeshInstanceDistribution: missing or bad nodepaths.  Please check nodepath properties."
-		emit_signal("operation_completed")
+		operation_completed.emit()
 		return
 	
 	_carving_polygons.append_array(_additional_distribution_carving_polygons)
@@ -151,7 +151,7 @@ func _do_distribution():
 	status += "\t\tstarting distributed point count: %d\r\n" % starting_distrib_pt_count
 	status += "\t\tending distributed point count: %d" % pts_kept.size()
 
-	emit_signal("operation_completed")
+	operation_completed.emit()
 
 
 func _get_mesh_polygon() -> Array:
@@ -212,9 +212,7 @@ func _generate_shapes_exact():
 	var multi_mesh := _mmi.multimesh
 	
 	status = "MultiMeshInstanceDistribution: number of polygons to process: %d" % multi_mesh.instance_count
-#	emit_signal("operation_completed")
-#	return
-	
+
 	for i in multi_mesh.instance_count:
 		var t := multi_mesh.get_instance_transform_2d(i)
 		polygons.append(t * PackedVector2Array(mesh_poly))
@@ -255,7 +253,7 @@ func _generate_shapes_exact():
 	status += "\t\tduration: %f ms\r\n" % sw.get_elapsed_msec()
 	status += "\t\tstarting polygon count: %d\r\n" % starting_polygon_count
 	status += "\t\tending polygon count: %d\r\n" % polygons.size()
-	emit_signal("operation_completed")
+	operation_completed.emit()
 
 
 func _generate_shapes_simple():
@@ -318,7 +316,7 @@ func _generate_shapes_simple():
 	status += "\t\tcoll polys end: %d\r\n" % collision_polygons.size()
 	status += "\t\tloop count: %d , loop limit: %d\r\n" % [loop_count, loop_limit]
 	status += "\t\ttotal loop count: %d\r\n" % total_loop_count
-	emit_signal("operation_completed")
+	operation_completed.emit()
 
 
 func _calc_compact_distribution_radius() -> void:

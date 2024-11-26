@@ -71,8 +71,8 @@ func unregister_service(service: Script, service_name: String = "") -> void:
 	_services.erase(service)
 
 
-func _watch_service_implementation_tree_exit(service: Script, implementation: Object, service_name: String = "") -> void:
-	implementation.connect("tree_exited",Callable(self,"_on_implementation_tree_exited").bind(service, service_name))
+func _watch_service_implementation_tree_exit(service: Script, implementation: Node, service_name: String = "") -> void:
+	implementation.tree_exited.connect(_on_implementation_tree_exited.bind(service, service_name))
 
 
 func _on_implementation_tree_exited(service: Script, service_name: String) -> void:

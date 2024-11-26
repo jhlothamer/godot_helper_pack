@@ -111,7 +111,8 @@ var _nine_patch_rect: NinePatchRect
 func _ready():
 	_process_parent_shape()
 	if Engine.is_editor_hint():
-		get_parent().connect("draw",Callable(self,"_on_draw"))
+		get_parent().connect("draw",_on_draw)
+
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings = []

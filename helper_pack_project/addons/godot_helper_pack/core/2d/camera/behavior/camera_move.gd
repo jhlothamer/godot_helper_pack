@@ -103,7 +103,7 @@ func _handle_mouse_button_event(event: InputEventMouseButton) -> void:
 	if _is_dragging && !event.pressed:
 		_is_dragging = false
 		Input.set_default_cursor_shape(Input.CURSOR_ARROW)
-		emit_signal("camera_pan_stopped")
+		camera_pan_stopped.emit()
 		return
 	if event.button_index == MOUSE_BUTTON_LEFT && left_mouse_button_drag:
 		_is_dragging = true
@@ -113,7 +113,8 @@ func _handle_mouse_button_event(event: InputEventMouseButton) -> void:
 		_is_dragging = true
 	if _is_dragging:
 		Input.set_default_cursor_shape(Input.CURSOR_DRAG)
-		emit_signal("camera_pan_started")
+		camera_pan_started.emit()
+		
 
 
 func _handle_mouse_motion_event(event: InputEventMouseMotion) -> void:

@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://bvp0j6pcw8orq"]
 
-[ext_resource path="res://addons/godot_helper_pack/core/2d/util/distribution/multi_mesh_instance_distribution_area.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://addons/godot_helper_pack/core/2d/util/distribution/multi_mesh_instance_distribution_area.gd" id="1"]
 
 [node name="MultiMeshInstanceDistributionArea" type="ReferenceRect"]
 offset_right = 200.0
 offset_bottom = 200.0
-script = ExtResource( 1 )
+script = ExtResource("1")

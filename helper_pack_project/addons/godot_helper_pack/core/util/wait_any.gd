@@ -28,5 +28,5 @@ func _signal_handler(_p0 = null, _p1 = null, _p2 = null, _p3 = null, _p4 = null,
 	if _completed:
 		return
 	_completed = true
-	emit_signal("completed")
+	completed.emit()
 

@@ -243,7 +243,7 @@ func _generate_layer_points(layers: Array) -> int:
 
 	status += "\tpoints distributed in %d msec\r\n" % stop_watch.get_elapsed_msec()
 	status += "\t\ttotal number of points (all layers): %d\r\n" % total_point_count
-	emit_signal("status_updated", status)
+	status_updated.emit(status)
 	return total_point_count
 
 func _discard_excluded_points(layers: Array) -> int:
@@ -257,7 +257,7 @@ func _discard_excluded_points(layers: Array) -> int:
 
 	status += "\tpoints excluded in %d msec\r\n" % stop_watch.get_elapsed_msec()
 	status += "\t\ttotal number of points after exclusion: %d\r\n" % total_point_count
-	emit_signal("status_updated", status)
+	status_updated.emit(status)
 	return total_point_count
 
 
@@ -284,7 +284,8 @@ func _discard_overlapping_object(layers: Array) -> void:
 			
 	stop_watch.stop()
 	status += "\toverlapping points discarded in %d msec\r\n" % stop_watch.get_elapsed_msec()
-	emit_signal("status_updated", status)
+	status_updated.emit(status)
+
 
 func _duplicate_layer_items(layers: Array) -> void:
 	var total_number_of_items := 0
@@ -305,7 +306,7 @@ func _duplicate_layer_items(layers: Array) -> void:
 	stop_watch.stop()
 	status += "\titems duplicated in %d msec\r\n" % stop_watch.get_elapsed_msec()
 	status += "\tnumber of items duplicated: %d\r\n" % total_number_of_items
-	emit_signal("status_updated", status)
+	status_updated.emit(status)
 
 
 func do_distribution() -> void:
@@ -314,13 +315,13 @@ func do_distribution() -> void:
 	if layers.size() < 1:
 		#print(name + " must have 1 or more layers in order to populate area.")
 		status = "RandomDistributionArea: must have > 0 (enabled) RandomDistributionAreaLayer children"
-		emit_signal("operation_completed")
+		operation_completed.emit()
 		return
 	
 	_rand.randomize()
 	
 	status = "RandomDistributionArea: starting distribution process.\r\n"
-	emit_signal("status_updated", status)
+	status_updated.emit(status)
 
 	var total_stop_watch = StopWatch.new()
 	total_stop_watch.start()
@@ -336,7 +337,7 @@ func do_distribution() -> void:
 	if layers[0].object_circles.size() > duplicate_nodes_limit:
 		status += "\tNumber of nodes to duplicate for layer 1 will exceed limit of %d\r\n" % duplicate_nodes_limit
 		status += "\t\tTotal duplicate nodes for layer 1: %d\r\n" % layers[0].object_circles.size()
-		emit_signal("operation_completed")
+		operation_completed.emit()
 		return
 
 	if !allow_layer_objects_to_overlap:
@@ -363,7 +364,7 @@ func do_distribution() -> void:
 		status += "\t\tNo nodes rejected for overlap - overlapping allowed"
 	else:
 		status += "\t\tTotal nodes rejected for overlap: %d\r\n" % total_rejected
-	emit_signal("status_updated", status)
+	status_updated.emit(status)
 
 	await get_tree().process_frame
 
@@ -373,4 +374,4 @@ func do_distribution() -> void:
 	total_stop_watch.stop()
 
 	status += "\ttotal elapsed time in %d msec\r\n" % total_stop_watch.get_elapsed_msec()
-	emit_signal("operation_completed")
+	operation_completed.emit()

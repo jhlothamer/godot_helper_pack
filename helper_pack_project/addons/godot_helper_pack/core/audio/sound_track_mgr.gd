@@ -12,7 +12,7 @@ var _current_scene_sound_track:SceneSoundTrack = null
 
 
 func _ready():
-	var _results = get_tree().connect("node_added",Callable(self,"_on_node_added"))
+	var _results = get_tree().node_added.connect(_on_node_added)
 	var current_scene = get_tree().get_current_scene()
 	_on_node_added(current_scene)
 

@@ -93,7 +93,7 @@ func _on_RandDistArealDistributeMenuBtn_id_pressed(id: int) -> void:
 	match id:
 		0:
 			_status_txt.text = "Starting distribution.  This could take a while."
-			_curr_rand_dist_area.connect("status_updated",Callable(self,"_on_status_updated"))
+			_curr_rand_dist_area.status_updated.connect(_on_status_updated)
 			_curr_rand_dist_area.do_distribution()
 			await _curr_rand_dist_area.operation_completed
 			print("DistributionEditorPlugin: distribution operation completed")

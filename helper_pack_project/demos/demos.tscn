@@ -38,6 +38,7 @@ theme_override_font_sizes/font_size = 30
 text = "2D"
 
 [node name="GridContainer2D" type="GridContainer" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/h_separation = 20
@@ -50,6 +51,20 @@ theme_override_font_sizes/font_size = 30
 text = "3D"
 
 [node name="GridContainer3D" type="GridContainer" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 3
+
+[node name="ControlLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Controls"
+
+[node name="GridContainerControl" type="GridContainer" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/h_separation = 20
@@ -68,6 +83,7 @@ Music is from freesounds.org by sirplus.  Please see github page/readme for link
 autowrap_mode = 2
 
 [node name="GridContainerAudio" type="GridContainer" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/h_separation = 20
